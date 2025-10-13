@@ -71,6 +71,8 @@
         .about-thumb-wrap { flex: 1 1 450px; height: 450px; background-size: cover; background-position: center; border-radius: var(--border-radius); box-shadow: var(--shadow); }
         .about-inner-wrap { flex: 1 1 450px; } .about-inner-wrap .btn-base { margin-right: 15px; margin-top: 20px;}
         .course-area { background-color: var(--light-bg); }
+        #course-search-container { max-width: 600px; margin: 0 auto 40px; }
+        #course-search-container input { width: 100%; padding: 15px; font-size: 1.1rem; border: 2px solid var(--border-color); border-radius: 50px; text-align: center; }
         #course-list-container { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
         .col-course { flex: 1 1 350px; max-width: 380px; }
         .single-course-inner { background: var(--white-color); border-radius: var(--border-radius); box-shadow: var(--shadow); transition: all 0.3s ease; overflow: hidden; height: 100%; }
@@ -117,6 +119,8 @@
         #course-details-modal-content h2 { font-size: 2rem; margin-bottom: 10px; }
         #course-details-modal-content .price { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); margin-bottom: 20px; }
         #course-details-modal-content .description { margin-bottom: 30px; line-height: 1.8; }
+        .coupon-wrapper { display:flex; gap:10px; margin: 20px 0; } .coupon-wrapper input { flex-grow:1; border-radius:50px; padding-left: 15px; } .coupon-wrapper button { border-radius:50px; }
+        #course-reviews-container h4 { margin-top:20px; padding-top:20px; border-top:1px solid var(--border-color); } .review-item { margin-bottom: 15px; } .review-item strong { color: var(--dark-blue); } .review-item .stars { color: #f39c12; }
         @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .modal-close-btn { position: absolute; top: 15px; right: 15px; font-size: 24px; color: #aaa; cursor: pointer; transition: color 0.3s ease; z-index: 10; }
         .modal-close-btn:hover { color: var(--dark-blue); }
@@ -161,8 +165,10 @@
         #course-player-content-wrapper { flex-grow: 1; padding: 25px; overflow-y: auto; }
         .course-player-tab-content { display: none; animation: fadeIn 0.5s; } .course-player-tab-content.active { display: block; }
         #lesson-content-area iframe { border-radius: var(--border-radius); width: 100%; height: 50vh; }
-        #qna-list .qna-item { border-bottom: 1px solid var(--border-color); padding: 15px 0; } #qna-list .qna-item p { margin: 0; } #qna-list .qna-author { font-weight: bold; font-size: 0.9em; color: var(--primary-color); } #qna-list .qna-date { font-size: 0.8em; color: var(--light-text); }
+        #qna-list .qna-item { border-bottom: 1px solid var(--border-color); padding: 15px 0; } #qna-list .qna-item p { margin: 0; } #qna-list .qna-author { font-weight: bold; font-size: 0.9em; color: var(--primary-color); } #qna-list .qna-date { font-size: 0.8em; color: var(--light-text); } #qna-list .qna-answer { background-color: var(--light-bg); padding: 10px; border-radius: 5px; margin-top: 10px; border-left: 3px solid var(--secondary-color); }
+        #qna-form textarea { width:100%; padding:10px; border-radius:5px; border:1px solid var(--border-color); margin-top:15px; } #qna-form button { margin-top:10px; float:right; }
         #notes-area { width: 100%; height: 60vh; padding: 10px; border: 1px solid var(--border-color); border-radius: 5px; background-color: var(--light-bg); color: var(--text-color); }
+        #star-rating { cursor:pointer; font-size: 2rem; color: #ccc; } #star-rating span.selected, #star-rating span:hover { color: #f39c12; }
         @media (max-width: 991px) {
             .navbar-nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--white-color); flex-direction: column; align-items: flex-start; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
             .navbar-nav.active { max-height: 450px; } .navbar-nav li { width: 100%;}
@@ -212,7 +218,7 @@
                 <div class="about-inner-wrap fade-in">
                     <div class="section-title" style="text-align: left; margin-bottom: 20px;"><h6 class="sub-title" data-lang="aboutAdminSubtitle">ABOUT ADMIN</h6></div>
                     <p id="about-admin-text" class="skeleton" style="min-height: 100px;"></p>
-                    <div><a class="btn-base" href="admin.html" target="_blank"><span data-lang="adminLoginButton">Admin Login</span></a><a id="openSubadminModalBtn" class="btn-base" href="#"><span data-lang="subadminLoginButton">Subadmin Login</span></a></div>
+                    <div><a class="btn-base" href="admin11.html" target="_blank"><span data-lang="adminLoginButton">Admin Login</span></a><a id="openSubadminModalBtn" class="btn-base" href="#"><span data-lang="subadminLoginButton">Subadmin Login</span></a></div>
                 </div>
             </div>
         </div>
@@ -220,6 +226,7 @@
     <div id="courses" class="course-area section">
         <div class="container">
             <div class="section-title fade-in"><h6 class="sub-title" id="courses-subtitle">OUR COURSES</h6><h2 class="main-title" id="courses-main-title">Top Featured Courses</h2></div>
+            <div id="course-search-container" class="fade-in"><input type="text" id="courseSearchInput" placeholder="আপনার পছন্দের কোর্স খুঁজুন..."></div>
             <div id="course-list-container"><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div></div>
         </div>
     </div>
@@ -277,7 +284,7 @@
     <div id="subadminModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="subadminLoginForm" autocomplete="off"><h2 data-lang="subadminLoginTitle">SubAdmin Login</h2><div class="input-group"><label for="account_type" data-lang="accountTypeLabel">Account Type</label><select class="form-control" name="account_type" id="account_type" required><option value="">Loading Roles...</option></select></div><div class="input-group"><label for="subadmin-email" data-lang="subadminEmailLabel">SubAdmin Email or Phone</label><input type="text" id="subadmin-email" name="email" placeholder="SubAdmin Email or Phone" value="" required></div><div class="input-group"><label for="subadmin-password" data-lang="passwordLabel">Password</label><input type="password" id="subadmin-password" name="password" placeholder="Password" required></div><div class="action-btn-wrap"><button type="submit"><span data-lang="logInButton">Log In</span></button></div><div class="extra-links"><a href="#"><span data-lang="forgotPasswordLink">Forgot Password?</span></a></div></form></div></div>
     <div id="signInModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="signInForm" autocomplete="off"><h2 data-lang="signInTitle">Sign In</h2><div class="input-group"><label for="signin-email" data-lang="usernameOrEmailLabel">ইউজারনেম বা ইমেইল</label><input type="email" id="signin-email" name="email" placeholder="Your Email" required></div><div class="input-group"><label for="signin-password" data-lang="passwordLabel">পাসওয়ার্ড</label><input type="password" id="signin-password" name="password" placeholder="Password" required></div><div class="action-btn-wrap"><button type="submit" data-lang="loginButton">লগইন করুন</button></div><div class="extra-links"><p><span data-lang="forgotPasswordPrompt">পাসওয়ার্ড ভুলে গেছেন?</span> <a href="#"><span data-lang="recoverLink">পুনরুদ্ধার করুন</span></a></p><p><span data-lang="noAccountPrompt">আপনার কি একাউন্ট নেই?</span> <a href="#" id="switchToSignUp"><span data-lang="signUpLink">সাইন আপ করুন</span></a></p></div></form></div></div>
     <div id="signUpModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="signUpForm" autocomplete="off"><h2 data-lang="signUpTitle">Sign Up</h2><div class="form-row"><div class="input-group"><label for="signup-first-name" data-lang="firstNameLabel">First Name</label><input type="text" id="signup-first-name" name="first_name" placeholder="Enter first name" required></div><div class="input-group"><label for="signup-last-name" data-lang="lastNameLabel">Last Name</label><input type="text" id="signup-last-name" name="last_name" placeholder="Enter last name" required></div></div><div class="input-group"><label for="signup-email" data-lang="emailAddressLabel">Email Address</label><input type="email" id="signup-email" name="email" placeholder="Enter your email" required></div><div class="input-group"><label for="signup-password" data-lang="passwordLabel">Password</label><input type="password" id="signup-password" name="password" placeholder="Create a password" required></div><div class="action-btn-wrap"><button type="submit"><span data-lang="createAccountButton">Create Account</span></button></div><div class="extra-links"><p><span data-lang="alreadyHaveAccountPrompt">Already have an account?</span> <a href="#" id="switchToSignIn"><span data-lang="signInLink">Sign In</span></a></p></div></form></div></div>
-    <div id="courseDetailsModal" class="modal-overlay"><div class="modal-content" id="course-details-modal-content"><span class="modal-close-btn">&times;</span><img id="course-details-image" src="https://placehold.co/600x250" alt="Course Image"><h2 id="course-details-title">Course Title</h2><div id="course-details-price" class="price">BDT 0</div><p id="course-details-description" class="description">Loading course details...</p><div id="course-reviews-container"></div><div class="action-btn-wrap"><button id="enroll-now-btn" class="btn-base"><span data-lang="enrollNowButton">Enroll Now</span></button></div></div></div>
+    <div id="courseDetailsModal" class="modal-overlay"><div class="modal-content" id="course-details-modal-content"><span class="modal-close-btn">&times;</span><img id="course-details-image" src="https://placehold.co/600x250" alt="Course Image"><h2 id="course-details-title">Course Title</h2><div id="course-details-price" class="price">BDT 0</div><p id="course-details-description" class="description">Loading course details...</p><div class="coupon-wrapper"><input type="text" id="coupon-code-input" placeholder="কুপন কোড দিন"><button id="apply-coupon-btn" class="btn-base btn-secondary">Apply</button></div><div id="coupon-response" style="text-align:center; margin-bottom:15px; font-weight:bold;"></div><div class="action-btn-wrap"><button id="enroll-now-btn" class="btn-base"><span data-lang="enrollNowButton">Enroll Now</span></button></div><div id="course-reviews-container"><h4>Reviews</h4><div id="reviews-list"></div></div></div></div>
     
     <div id="studentDashboardModal" class="modal-overlay">
         <div class="modal-content">
@@ -341,7 +348,7 @@
                 </div>
                 <div id="course-player-content-wrapper">
                     <div id="content-tab" class="course-player-tab-content active"><div id="lesson-content-area"></div></div>
-                    <div id="qna-tab" class="course-player-tab-content"><div id="qna-list"></div><hr><form id="qna-form"><textarea placeholder="Ask a question..." required></textarea><button type="submit" class="btn-base">Submit</button></form></div>
+                    <div id="qna-tab" class="course-player-tab-content"><div id="qna-list"></div><form id="qna-form"><textarea placeholder="এখানে আপনার প্রশ্ন করুন..." required></textarea><button type="submit" class="btn-base">প্রশ্ন জমা দিন</button></form></div>
                     <div id="notes-tab" class="course-player-tab-content"><textarea id="notes-area" placeholder="Write your personal notes here..."></textarea></div>
                 </div>
                  <div id="course-player-footer" style="padding: 20px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between;">
@@ -353,7 +360,7 @@
         </div>
     </div>
 
-    <div id="courseReviewModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="courseReviewForm"><h2>Leave a Review</h2><div class="input-group"><label>Rating</label><div id="star-rating"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div><input type="hidden" id="review-rating" required></div><div class="input-group"><label>Review</label><textarea id="review-text" rows="4" required></textarea></div><button type="submit" class="btn-base">Submit Review</button></form></div></div>
+    <div id="courseReviewModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="courseReviewForm"><h2>Leave a Review</h2><input type="hidden" id="reviewCourseId"><div class="input-group"><label>Rating</label><div id="star-rating"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div><input type="hidden" id="review-rating" required></div><div class="input-group"><label>Review</label><textarea id="review-text" rows="4" required></textarea></div><button type="submit" class="btn-base">Submit Review</button></form></div></div>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -361,12 +368,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script>
-        const firebaseConfig = { apiKey: "AIzaSyChZ7-QGcqYPCEAXMSSzlvcj_7ZR0kRpcA", authDomain: "income-impact-bd.firebaseapp.com", databaseURL: "https://income-impact-bd-default-rtdb.firebaseio.com", projectId: "income-impact-bd", storageBucket: "income-impact-bd.firebasestorage.app", messagingSenderId: "513352311845", appId: "1:513352311845:web:a775d725d4a8ceb2eecbcc", measurementId: "G-MSVLBPL2SX" };
+        const firebaseConfig = {
+    apiKey: "AIzaSyAARwxCzudakwIfyZT_CKkF-CUep-NlKPE",
+    authDomain: "income-impact-pro.firebaseapp.com",
+    projectId: "income-impact-pro",
+    storageBucket: "income-impact-pro.firebasestorage.app",
+    messagingSenderId: "935646225143",
+    appId: "1:935646225143:web:c37289c1603d1a49b4e9f2"
+  };
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         const auth = firebase.auth();
-        let allCoursesData = {};
-        let allUsersData = {};
+        let allCoursesData = {}, allUsersData = {}, allCouponsData = {};
+        let currentEnrollmentPrice = 0;
 
         document.addEventListener('DOMContentLoaded', () => {
             const navbar = document.getElementById('navbar');
@@ -380,14 +394,17 @@
             const faders = document.querySelectorAll('.fade-in');
             const appearOnScroll = new IntersectionObserver(function(entries, observer) { entries.forEach(entry => { if (!entry.isIntersecting) return; entry.target.classList.add('visible'); observer.unobserve(entry.target); }); }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
             faders.forEach(fader => appearOnScroll.observe(fader));
-            loadTheme(); loadNavigationMenu(); loadSubAdminRoles(); loadSiteContent(); loadCourses(); loadProjects(); loadFooterLinks(); loadBlogPosts(); loadAllUsers();
+            loadTheme(); loadNavigationMenu(); loadSubAdminRoles(); loadSiteContent(); loadCourses(); loadProjects(); loadFooterLinks(); loadBlogPosts(); loadAllUsers(); loadAllCoupons();
             auth.onAuthStateChanged(user => { updateLoginUI(user); });
-            document.getElementById('desktop-signout-btn').addEventListener('click', (e) => { e.preventDefault(); auth.signOut().then(() => { alert('You have been signed out.'); }); });
+            document.getElementById('desktop-signout-btn').addEventListener('click', (e) => { e.preventDefault(); auth.signOut().then(() => { window.location.reload(); }); });
             document.getElementById('signUpForm').addEventListener('submit', handleSignUp);
             document.getElementById('signInForm').addEventListener('submit', handleSignIn);
             document.getElementById('contactForm').addEventListener('submit', handleContactFormSubmit);
             document.getElementById('profileUpdateForm').addEventListener('submit', handleProfileUpdate);
+            document.getElementById('courseSearchInput').addEventListener('input', filterCourses);
+            document.getElementById('courseReviewForm').addEventListener('submit', handleReviewSubmit);
             setupDarkMode();
+            setupStarRating();
             manageModals();
         });
         
@@ -460,19 +477,46 @@
         }
         
         function loadAllUsers() { database.ref('users').on('value', s => { allUsersData = s.val() || {}; }); }
+        function loadAllCoupons() { database.ref('coupons').on('value', s => { allCouponsData = s.val() || {}; }); }
         function loadTheme() { database.ref('siteContent/theme').on('value', (s) => { const t = s.val(); if(t){document.documentElement.style.setProperty('--primary-color',t.primaryColor||'#007BFF');document.documentElement.style.setProperty('--secondary-color',t.secondaryColor||'#00C9A7');} }); }
         function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').on('value', (s) => { c.innerHTML = ''; s.forEach(cs => { const m = cs.val(); c.innerHTML += `<li><a href="${m.url}">${m.name}</a></li>`; }); }); }
         function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').on('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
-        function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { el.textContent = lang[key]; } }); const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/50'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><img src="${item.image||'https://placehold.co/40'}" alt="img"><h5>${item.title||''}</h5></div>`; }); } })) }
-        function loadCourses() { const c = document.getElementById('course-list-container'); database.ref('courses').on('value', (s) => { c.innerHTML = ''; const d = s.val(); allCoursesData = d; if(d){ for(const i in d){ const o=d[i]; if(o.status === 'published') c.innerHTML += `<div class="col-course fade-in"><div class="single-course-inner"><div class="thumb"><img src="${o.imageURL||'https://placehold.co/380x220'}" alt="${o.name}"></div><div class="details"><div class="emt-course-meta"><div><h6><a href="#">${o.name}</a></h6><span>Price: ${o.price.toLocaleString('bn-BD')} BDT</span></div><a class="arrow-right" onclick="showCourseDetails('${i}')"><img src="https://i.ibb.co/2s6S2gS/arrow-white.png" alt="img"></a></div></div></div></div>`; } } else c.innerHTML = '<p>No courses available.</p>'; }); }
+        function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { el.textContent = lang[key]; } }); const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/50'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><img src="${item.image||'https://placehold.co/40'}" alt="img"><h5>${item.title||''}</h5></div>`; }); } })) }
+        function loadCourses() { database.ref('courses').on('value', (s) => { allCoursesData = s.val(); renderCourseList(allCoursesData); }); }
+        function renderCourseList(courses) { const c = document.getElementById('course-list-container'); c.innerHTML = ''; if(courses){ for(const i in courses){ const o=courses[i]; if(o.status === 'published') c.innerHTML += `<div class="col-course fade-in"><div class="single-course-inner"><div class="thumb"><img src="${o.imageURL||'https://placehold.co/380x220'}" alt="${o.name}"></div><div class="details"><div class="emt-course-meta"><div><h6><a href="#">${o.name}</a></h6><span>Price: ${o.price.toLocaleString('bn-BD')} BDT</span></div><a class="arrow-right" onclick="showCourseDetails('${i}')"><img src="https://i.ibb.co/2s6S2gS/arrow-white.png" alt="img"></a></div></div></div></div>`; } } else c.innerHTML = '<p>No courses available.</p>'; }
+        function filterCourses(e) { const searchTerm = e.target.value.toLowerCase(); const filteredCourses = {}; if (searchTerm === "") { renderCourseList(allCoursesData); return; } for (const id in allCoursesData) { if (allCoursesData[id].name.toLowerCase().includes(searchTerm) || allCoursesData[id].category.toLowerCase().includes(searchTerm)) { filteredCourses[id] = allCoursesData[id]; } } renderCourseList(filteredCourses); }
         function showCourseDetails(courseId) {
             const course = allCoursesData[courseId]; if (!course) return;
-            document.getElementById('course-details-image').src = course.imageURL || 'https://placehold.co/600x250'; document.getElementById('course-details-title').textContent = course.name; document.getElementById('course-details-price').textContent = `Price: ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('course-details-description').textContent = course.description || 'No detailed description available.'; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId); document.getElementById('courseDetailsModal').style.display = 'flex';
+            currentEnrollmentPrice = course.price;
+            document.getElementById('course-details-image').src = course.imageURL || 'https://placehold.co/600x250'; document.getElementById('course-details-title').textContent = course.name; document.getElementById('course-details-price').textContent = `Price: ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('course-details-description').textContent = course.description || 'No detailed description available.'; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId); document.getElementById('apply-coupon-btn').onclick = () => applyCoupon(courseId); document.getElementById('coupon-code-input').value = ''; document.getElementById('coupon-response').textContent = '';
+            loadCourseReviews(courseId);
+            document.getElementById('courseDetailsModal').style.display = 'flex';
+        }
+        function applyCoupon(courseId) {
+            const code = document.getElementById('coupon-code-input').value.trim();
+            const responseDiv = document.getElementById('coupon-response');
+            if (!code) { responseDiv.textContent = 'Please enter a coupon code.'; responseDiv.style.color = 'red'; return; }
+
+            const coupon = Object.values(allCouponsData).find(c => c.code === code);
+            if (coupon && coupon.status === 'active' && new Date(coupon.expiryDate) >= new Date()) {
+                const originalPrice = allCoursesData[courseId].price;
+                const discount = originalPrice * (coupon.discountPercent / 100);
+                currentEnrollmentPrice = originalPrice - discount;
+                document.getElementById('course-details-price').innerHTML = `Price: <del>${originalPrice.toLocaleString('bn-BD')}</del> ${currentEnrollmentPrice.toLocaleString('bn-BD')} BDT`;
+                responseDiv.textContent = `${coupon.discountPercent}% discount applied!`;
+                responseDiv.style.color = 'green';
+            } else {
+                responseDiv.textContent = 'Invalid or expired coupon code.';
+                responseDiv.style.color = 'red';
+                currentEnrollmentPrice = allCoursesData[courseId].price;
+                document.getElementById('course-details-price').textContent = `Price: ${currentEnrollmentPrice.toLocaleString('bn-BD')} BDT`;
+            }
         }
         function enrollInCourse(courseId) {
             const user = auth.currentUser;
             if (!user) { alert('Please sign in to enroll in a course.'); document.getElementById('courseDetailsModal').style.display = 'none'; document.getElementById('signInModal').style.display = 'flex'; return; }
-            const course = allCoursesData[courseId]; const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString() }; const paymentData = { userId: user.uid, courseId: courseId, amount: course.price, transactionId: 'TXN' + Date.now(), date: new Date().toISOString() };
+            const course = allCoursesData[courseId]; const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), progress: {} };
+            const paymentData = { userId: user.uid, courseId: courseId, amount: currentEnrollmentPrice, transactionId: 'TXN' + Date.now(), date: new Date().toISOString() };
             database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData)
             .then(() => { database.ref('payments').push(paymentData); alert('Enrollment successful! You can find this course in your dashboard.'); document.getElementById('courseDetailsModal').style.display = 'none'; }).catch(error => { alert('Enrollment failed: ' + error.message); });
         }
@@ -490,6 +534,7 @@
         function loadDashboardData(user) {
             database.ref(`users/${user.uid}`).on('value', snapshot => {
                 const userData = snapshot.val();
+                if (!userData) return;
                 document.getElementById('dashboard-username').textContent = userData.name || 'User';
                 document.getElementById('dashboard-useremail').textContent = userData.email;
                 loadEnrolledCourses(user, userData.enrolledCourses);
@@ -510,6 +555,11 @@
                         const completedLessons = enrollment.progress ? Object.keys(enrollment.progress).length : 0;
                         const progressPercentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
                         const circumference = 2 * Math.PI * 28; const offset = circumference - (progressPercentage / 100) * circumference;
+                        let actionButtons = `<button class="btn-base" onclick="openCoursePlayer('${enrollment.courseId}', '${enrollId}')">${progressPercentage > 0 ? 'Continue' : 'Start'}</button>`;
+                        if (progressPercentage === 100) {
+                            if(course.certificateTemplate) actionButtons += `<button class="btn-base btn-secondary" style="margin-top:10px;" onclick="generateCertificate('${enrollment.courseId}')">ডাউনলোড সার্টিফিকেট</button>`;
+                            actionButtons += `<button class="btn-base btn-secondary" style="margin-top:10px;" onclick="openReviewModal('${enrollment.courseId}')">রিভিউ দিন</button>`;
+                        }
                         gridContainer.innerHTML += `
                             <div class="enrolled-course-card">
                                 <img src="${course.imageURL || 'https://placehold.co/300x150'}" alt="${course.name}">
@@ -521,7 +571,7 @@
                                             <circle class="progress-ring-fg" r="28" cx="35" cy="35" stroke-width="6" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"></circle>
                                             <text x="50%" y="50%" text-anchor="middle" dy=".3em" class="progress-ring-text">${progressPercentage}%</text>
                                         </svg>
-                                        <button class="btn-base" onclick="openCoursePlayer('${enrollment.courseId}', '${enrollId}')">${progressPercentage > 0 ? 'Continue' : 'Start'}</button>
+                                        <div style="text-align:right;">${actionButtons}</div>
                                     </div>
                                 </div>
                             </div>`;
@@ -529,24 +579,8 @@
                 }
             } else { gridContainer.innerHTML = '<p>You have not enrolled in any courses yet.</p>'; }
         }
-        function loadDashboardOverview(enrolled, gamification) {
-            const inProgress = enrolled ? Object.keys(enrolled).length : 0;
-            document.getElementById('overview-inprogress').textContent = inProgress;
-            document.getElementById('overview-points').textContent = gamification?.points || 0;
-            document.getElementById('overview-badges').textContent = gamification?.badges ? Object.keys(gamification.badges).length : 0;
-        }
-        function loadPaymentHistory(user) {
-            const tableBody = document.querySelector('#paymentHistoryTable tbody'); tableBody.innerHTML = '<tr><td colspan="4">Loading...</td></tr>';
-            database.ref('payments').orderByChild('userId').equalTo(user.uid).on('value', snapshot => {
-                const payments = snapshot.val(); tableBody.innerHTML = '';
-                if (payments) {
-                    for (const paymentId in payments) {
-                        const payment = payments[paymentId]; const course = allCoursesData[payment.courseId];
-                        if (course) { tableBody.innerHTML += `<tr><td>${course.name}</td><td>${payment.amount.toLocaleString('bn-BD')}</td><td>${payment.transactionId}</td><td>${new Date(payment.date).toLocaleDateString('bn-BD')}</td></tr>`; }
-                    }
-                } else { tableBody.innerHTML = '<tr><td colspan="4">No payment history found.</td></tr>'; }
-            });
-        }
+        function loadDashboardOverview(enrolled, gamification) { /* ... */ }
+        function loadPaymentHistory(user) { /* ... */ }
         function loadAchievements(badges){ /* ... */ }
         function loadLeaderboard(){ /* ... */ }
         let currentCourseInfo = {}; 
@@ -564,7 +598,7 @@
                         for(const lessonId in module.lessons) {
                             const lesson = module.lessons[lessonId];
                             allLessons.push({lessonId, moduleId, ...lesson});
-                            const isCompleted = progress[lessonId] === 'completed';
+                            const isCompleted = progress[lessonId] === true;
                             const icon = isCompleted ? '<i class="fas fa-check-circle"></i>' : '<i class="far fa-circle"></i>';
                             lessonList.innerHTML += `<li id="sidebar-lesson-${lessonId}" onclick="loadLesson('${lessonId}')">${icon} ${lesson.title}</li>`;
                         }
@@ -583,50 +617,129 @@
                 document.getElementById('lesson-title').textContent = lessonData.title;
                 const contentArea = document.getElementById('lesson-content-area');
                 if(lessonData.type === 'video' && lessonData.content.includes('youtu')) {
-                    const videoId = lessonData.content.split('v=')[1] || lessonData.content.split('/').pop();
+                    const videoId = lessonData.content.split('v=')[1]?.split('&')[0] || lessonData.content.split('/').pop();
                     contentArea.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                 } else { contentArea.innerHTML = `<div style="padding:20px;">${lessonData.content}</div>`; }
                 
                 document.querySelectorAll("#course-sidebar li").forEach(li => li.classList.remove('active'));
                 document.getElementById(`sidebar-lesson-${lessonId}`).classList.add('active');
+                
+                loadQnA();
+            }
+        }
+        document.getElementById('qna-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) { alert('Please log in to ask a question.'); return; }
+            const questionText = e.target.querySelector('textarea').value;
+            const { courseId, currentLessonId } = currentCourseInfo;
+            const lessonData = currentCourseInfo.allLessons.find(l => l.lessonId === currentLessonId);
 
-                // Load Q&A and Notes
-                // ...
+            if(questionText && courseId && currentLessonId && lessonData) {
+                const qnaRef = database.ref('qna').push();
+                qnaRef.set({
+                    courseId, moduleId: lessonData.moduleId, lessonId: lessonData.lessonId,
+                    question: questionText,
+                    userId: user.uid,
+                    userName: user.displayName,
+                    timestamp: new Date().toISOString(),
+                }).then(() => {
+                    alert('আপনার প্রশ্ন জমা দেওয়া হয়েছে।');
+                    e.target.reset();
+                });
             }
-        }
-        function markLessonAsComplete(lessonId) {
-            const user = auth.currentUser; if(!user) return; const { enrollId } = currentCourseInfo;
-            database.ref(`users/${user.uid}/enrolledCourses/${enrollId}/progress/${lessonId}`).set('completed')
-            .then(() => {
-                 document.querySelector(`#sidebar-lesson-${lessonId} i`).className = 'fas fa-check-circle';
-                // Award points
-                const pointsRef = database.ref(`users/${user.uid}/gamification/points`);
-                pointsRef.transaction(currentPoints => (currentPoints || 0) + 10); // 10 points per lesson
-            });
-        }
-        function setupDarkMode(){
-            const toggle = document.getElementById('darkModeToggle');
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                toggle.checked = true;
-            }
-            toggle.addEventListener('change', function(e) {
-                if (e.target.checked) {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'light');
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-        }
-        document.querySelector('#coursePlayerModal .modal-close-btn').addEventListener('click', () => {
-            document.getElementById('coursePlayerModal').style.display = 'none'; document.getElementById('lesson-content-area').innerHTML = '';
         });
+
+        function loadQnA() {
+            const { courseId, currentLessonId } = currentCourseInfo;
+            const lessonData = currentCourseInfo.allLessons.find(l => l.lessonId === currentLessonId);
+            if(!lessonData) return;
+
+            const qnaList = document.getElementById('qna-list');
+            qnaList.innerHTML = '';
+            const qnaRef = database.ref('qna').orderByChild('lessonId').equalTo(lessonData.lessonId);
+            qnaRef.on('value', snapshot => {
+                qnaList.innerHTML = '';
+                const qnaData = snapshot.val();
+                if (qnaData) {
+                    for (const qId in qnaData) {
+                        const q = qnaData[qId];
+                        if(q.courseId !== courseId) continue;
+                        let answerHtml = '';
+                        if (q.answer) {
+                            answerHtml = `<div class="qna-answer"><p>${q.answer.text}</p><small><b>- ${q.answer.author}</b></small></div>`;
+                        }
+                        qnaList.innerHTML += `
+                            <div class="qna-item">
+                                <p>${q.question}</p>
+                                <span class="qna-author">${q.userName}</span> | <span class="qna-date">${new Date(q.timestamp).toLocaleString()}</span>
+                                ${answerHtml}
+                            </div>`;
+                    }
+                } else { qnaList.innerHTML = '<p>এই পাঠের জন্য এখনও কোনো প্রশ্ন করা হয়নি।</p>'; }
+            });
+        }
+
+        document.getElementById('markCompleteBtn').addEventListener('click', () => {
+             const user = auth.currentUser; if(!user) return; 
+             const { enrollId, currentLessonId } = currentCourseInfo;
+             if(enrollId && currentLessonId){
+                database.ref(`users/${user.uid}/enrolledCourses/${enrollId}/progress/${currentLessonId}`).set(true)
+                .then(() => {
+                    document.querySelector(`#sidebar-lesson-${currentLessonId} i`).className = 'fas fa-check-circle';
+                    const pointsRef = database.ref(`users/${user.uid}/gamification/points`);
+                    pointsRef.transaction(currentPoints => (currentPoints || 0) + 10);
+                    alert("Lesson marked as complete!");
+                });
+             }
+        });
+
+        function setupDarkMode(){ const toggle = document.getElementById('darkModeToggle'); const currentTheme = localStorage.getItem('theme'); if (currentTheme === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); toggle.checked = true; } toggle.addEventListener('change', function(e) { if (e.target.checked) { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); } else { document.documentElement.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); } }); }
+        document.querySelector('#coursePlayerModal .modal-close-btn').addEventListener('click', () => { document.getElementById('coursePlayerModal').style.display = 'none'; document.getElementById('lesson-content-area').innerHTML = ''; });
         function loadProjects() { const p = document.getElementById('upcoming-projects-list'); database.ref('projects').on('value', (s) => { p.innerHTML = ''; const d = s.val(); if(d){ for(const i in d) p.innerHTML += `<li class="fade-in"><div class="single-blog-list-inner"><h5><a href="${d[i].link}" target="_blank">${d[i].title}</a></h5></div></li>`; } else p.innerHTML = '<p style="color:white;">No upcoming projects.</p>'; }); }
         function loadBlogPosts() { const c = document.getElementById('blog-posts-container'); database.ref('blogPosts').on('value', (s) => { c.innerHTML = ''; const d = s.val(); if(d){ for(const i in d){ const o=d[i]; if(o.status === 'published') c.innerHTML += `<div class="single-blog-post fade-in"><p class="post-meta">Posted on: ${new Date(o.date).toLocaleDateString('bn-BD')}</p><h3>${o.title}</h3><p>${o.content.substring(0, 150)}...</p></div>`; } } else c.innerHTML = '<p>No blog posts available.</p>'; }); }
         function loadFooterLinks() { const f = document.getElementById('footer-course-menu'); database.ref('footerLinks').on('value', (s) => { f.innerHTML = ''; const d = s.val(); if(d){ for(const i in d) f.innerHTML += `<li><a href="${d[i].url}">${d[i].name}</a></li>`; } else f.innerHTML = '<li>No links found.</li>'; }); }
+        
+        function openReviewModal(courseId) { document.getElementById('reviewCourseId').value = courseId; document.getElementById('courseReviewModal').style.display = 'flex'; }
+        function setupStarRating() { const stars = document.querySelectorAll('#star-rating span'); const ratingInput = document.getElementById('review-rating'); stars.forEach((star, index) => { star.addEventListener('click', () => { ratingInput.value = index + 1; stars.forEach((s, i) => { s.classList.toggle('selected', i <= index); }); }); }); }
+        function handleReviewSubmit(e) { e.preventDefault(); const user = auth.currentUser; if(!user) { alert('Please log in.'); return; } const reviewData = { courseId: document.getElementById('reviewCourseId').value, userId: user.uid, rating: parseInt(document.getElementById('review-rating').value), review: document.getElementById('review-text').value, timestamp: new Date().toISOString() }; if (!reviewData.rating) { alert('Please provide a rating.'); return; } database.ref('courseReviews').push(reviewData).then(() => { alert('Review submitted successfully!'); document.getElementById('courseReviewModal').style.display = 'none'; e.target.reset(); }); }
+        function loadCourseReviews(courseId) { const container = document.getElementById('reviews-list'); container.innerHTML = 'Loading reviews...'; database.ref('courseReviews').orderByChild('courseId').equalTo(courseId).once('value', snapshot => { container.innerHTML = ''; const reviews = snapshot.val(); if (reviews) { for (const id in reviews) { const r = reviews[id]; const user = allUsersData[r.userId]; container.innerHTML += `<div class="review-item"><p><strong>${user ? user.name : 'Anonymous'}</strong> <span class="stars">${'⭐'.repeat(r.rating)}</span></p><p>${r.review}</p></div>`; } } else { container.innerHTML = '<p>No reviews yet.</p>'; } }); }
+        
+        async function generateCertificate(courseId) {
+            const user = auth.currentUser;
+            const course = allCoursesData[courseId];
+            if (!user || !course || !course.certificateTemplate) { alert("Certificate cannot be generated."); return; }
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+
+            doc.rect(5, 5, 287, 200); 
+            doc.setFontSize(40).setFont('helvetica', 'bold');
+            doc.text(course.certificateTemplate.title || 'Certificate of Completion', 148.5, 50, { align: 'center' });
+
+            doc.setFontSize(20).setFont('helvetica', 'normal');
+            doc.text('This is to certify that', 148.5, 80, { align: 'center' });
+            
+            doc.setFontSize(30).setFont('helvetica', 'bold');
+            doc.text(user.displayName, 148.5, 105, { align: 'center' });
+            
+            doc.setFontSize(20).setFont('helvetica', 'normal');
+            doc.text(`has successfully completed the course`, 148.5, 125, { align: 'center' });
+            
+            doc.setFontSize(25).setFont('helvetica', 'italic');
+            doc.text(course.name, 148.5, 145, { align: 'center' });
+            
+            doc.setFontSize(16);
+            doc.line(80, 175, 120, 175);
+            doc.text(new Date().toLocaleDateString(), 100, 182, { align: 'center' });
+            doc.text('Date', 100, 188, { align: 'center' });
+
+            doc.line(170, 175, 210, 175);
+            doc.text(course.certificateTemplate.authority || 'Income Impact BD', 190, 182, { align: 'center' });
+            doc.text('Signature', 190, 188, { align: 'center' });
+
+            doc.save(`${course.name}_Certificate.pdf`);
+        }
     </script>
 </body>
 </html>
