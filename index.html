@@ -88,7 +88,7 @@
         .single-course-inner .details h3 { font-size: 1.1rem; font-weight: 600; color: var(--dark-blue); text-decoration: none; margin: 0; }
         .single-course-inner .arrow-right { background: var(--primary-green); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; flex-shrink: 0; cursor: pointer; }
         .single-course-inner .arrow-right:hover { background-color: #006400; }
-        .single-course-inner .arrow-right img { width: 15px; filter: brightness(0) invert(1); }
+        .single-course-inner .arrow-right svg { color: white; }
         .single-course-inner .course-bottom-info, .single-course-inner .emt-course-meta .course-price { display: none; }
         .events-area { background-color: var(--dark-blue); color: var(--white-color); }
         .events-area .main-title { color: var(--white-color); }
@@ -182,8 +182,9 @@
         .enrolled-course-card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .enrolled-course-card-content h5 { font-size: 1.1rem; margin: 0 0 15px 0; flex-grow: 1; }
         .progress-ring { position: relative; width: 70px; height: 70px; } .progress-ring-circle { stroke-width: 8; fill: transparent; transform: rotate(-90deg); transform-origin: 50% 50%; } .progress-ring-bg { stroke: #e6e6e6; } [data-theme="dark"] .progress-ring-bg { stroke: #444; } .progress-ring-fg { stroke: var(--primary-green); transition: stroke-dashoffset 0.5s; } .progress-ring-text { font-size: 1.2rem; font-weight: bold; fill: var(--text-color); }
-        #paymentHistoryTable { width:100%; text-align:left; border-collapse: collapse; }
-        #paymentHistoryTable th, #paymentHistoryTable td { padding: 12px; border-bottom: 1px solid var(--border-color); }
+        #paymentHistoryTable { width:100%; text-align:left; border-collapse: collapse; } #leaderboard-table { width:100%; text-align:left; border-collapse: collapse; }
+        #paymentHistoryTable th, #paymentHistoryTable td, #leaderboard-table th, #leaderboard-table td { padding: 12px; border-bottom: 1px solid var(--border-color); }
+        #leaderboard-table th { background-color: var(--light-bg); }
         .notification-item { padding: 15px; border-bottom: 1px solid var(--border-color); } .notification-item:last-child { border-bottom: none; } .notification-date { font-size: 0.85rem; color: var(--light-text); margin-top: 5px; }
         .dark-mode-toggle { display: flex; align-items: center; cursor: pointer; } .dark-mode-toggle span { margin-left: 8px; } .switch { position: relative; display: inline-block; width: 44px; height: 24px; } .switch input { opacity: 0; width: 0; height: 0; } .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; } .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; } input:checked + .slider { background-color: var(--primary-green); } input:checked + .slider:before { transform: translateX(20px); }
         #coursePlayerModal .modal-content { max-width: 95vw; width: 95%; display: flex; padding: 0; height: 95vh; flex-direction: row; }
@@ -227,6 +228,14 @@
         .badge-item { text-align: center; }
         .badge-icon { font-size: 4rem; color: #f1c40f; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .badge-title { font-weight: 600; margin-top: 10px; }
+        /* NEW FEATURE CSS: Support Tickets */
+        .ticket-item { border: 1px solid var(--border-color); border-radius: var(--border-radius); margin-bottom: 15px; }
+        .ticket-header { background-color: var(--light-bg); padding: 10px 15px; display: flex; justify-content: space-between; font-weight: bold; }
+        .ticket-status { padding: 3px 8px; border-radius: 12px; font-size: 0.8em; color: white; }
+        .ticket-status.pending { background-color: #f39c12; }
+        .ticket-status.resolved { background-color: #2ecc71; }
+        .ticket-body { padding: 15px; }
+        .ticket-reply { background-color: rgba(0,128,0,0.1); border-left: 3px solid var(--primary-green); padding: 10px; margin-top: 10px; border-radius: 5px; }
         /* NEW FEATURE CSS END */
         @media (max-width: 991px) {
             .navbar-nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--white-color); flex-direction: column; align-items: flex-start; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
@@ -478,6 +487,8 @@
                     <button class="tab-link" onclick="openDashboardTab(event, 'Leaderboard')" data-lang="tabLeaderboard"><i class="fas fa-star"></i>Leaderboard</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Profile')" data-lang="tabProfile"><i class="fas fa-user-edit"></i>My Profile</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Payments')" data-lang="tabPayments"><i class="fas fa-history"></i>Payment History</button>
+                    <!-- NEW FEATURE: Support Tab -->
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Support')"><i class="fas fa-life-ring"></i>Support</button>
                 </nav>
                 <div style="margin-top: auto;">
                     <label class="dark-mode-toggle">
@@ -578,7 +589,7 @@
                     <div id="notifications-container"></div>
                 </div>
                 <div id="Achievements" class="dashboard-tab-content"><div class="dashboard-header"><h3>Achievements</h3></div><div id="achievements-container"></div></div>
-                <div id="Leaderboard" class="dashboard-tab-content"><div class="dashboard-header"><h3>Leaderboard</h3></div><table id="leaderboard-table"></table></div>
+                <div id="Leaderboard" class="dashboard-tab-content"><div class="dashboard-header"><h3>Leaderboard</h3></div><div class="table-responsive"><table id="leaderboard-table"></table></div></div>
                 <div id="Profile" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Update Your Profile</h3></div>
                     <form id="profileUpdateForm">
@@ -591,7 +602,26 @@
                         <button type="submit" class="btn-base">Update Profile</button>
                     </form>
                 </div>
-                <div id="Payments" class="dashboard-tab-content"><div class="dashboard-header"><h3>Your Payment History</h3></div><table id="paymentHistoryTable"><thead><tr><th>Course</th><th>Amount (BDT)</th><th>Transaction ID</th><th>Date</th></tr></thead><tbody></tbody></table></div>
+                <div id="Payments" class="dashboard-tab-content"><div class="dashboard-header"><h3>Your Payment History</h3></div><div class="table-responsive"><table id="paymentHistoryTable"><thead><tr><th>Course</th><th>Amount (BDT)</th><th>Transaction ID</th><th>Date</th></tr></thead><tbody></tbody></table></div></div>
+                <!-- NEW FEATURE: Support Tab Content -->
+                <div id="Support" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Support Center</h3></div>
+                    <h4>Create a New Support Ticket</h4>
+                    <form id="supportTicketForm" style="margin-bottom: 30px;">
+                        <div class="input-group">
+                            <label for="ticketSubject">Subject</label>
+                            <input type="text" id="ticketSubject" placeholder="আপনার সমস্যার একটি শিরোনাম দিন" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="ticketMessage">Message</label>
+                            <textarea id="ticketMessage" rows="5" placeholder="আপনার সমস্যাটি বিস্তারিত লিখুন" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-base">Submit Ticket</button>
+                    </form>
+                    <hr>
+                    <h4>Your Past Tickets</h4>
+                    <div id="past-tickets-container"></div>
+                </div>
             </main>
         </div>
     </div>
@@ -733,6 +763,7 @@
             document.getElementById('nextLessonBtn').addEventListener('click', goToNextLesson);
             document.getElementById('prevLessonBtn').addEventListener('click', goToPrevLesson);
             document.getElementById('saveNoteBtn').addEventListener('click', saveNote);
+            document.getElementById('supportTicketForm').addEventListener('submit', handleSupportTicketSubmit);
             
             document.getElementById('withdrawalForm').addEventListener('submit', handleWithdrawalRequest);
             // NEW FEATURE: Event listener for new forum post
@@ -870,7 +901,7 @@
         function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').on('value', (s) => { c.innerHTML = ''; s.forEach(cs => { const m = cs.val(); c.innerHTML += `<li><a href="${m.url}">${m.name}</a></li>`; }); c.innerHTML += `<li><a href="#community">কমিউনিটি</a></li>`; }); } // Added community link
         function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').on('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
         function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; siteContentData = content; gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) }
-        function loadCourses() { const container = document.getElementById('course-list-container'); const footerMenu = document.getElementById('footer-course-menu'); const coursesRef = database.ref('courses'); coursesRef.on('value', (snapshot) => { const coursesData = snapshot.val(); container.innerHTML = ''; footerMenu.innerHTML = ''; if (coursesData) { allCoursesData = coursesData; let courseCount = 0; for (const courseId in coursesData) { const course = coursesData[courseId]; if (course.status === 'published') { const courseHTML = ` <div class="col-course fade-in"> <div class="single-course-inner"> <div class="thumb"> <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"> </div> <div class="details"> <h3>${course.name}</h3> <a class="arrow-right" onclick="showCourseDetails('${courseId}')"> <img src="https://i.ibb.co/CsKrjwwN/arrow-white.png" alt="details">" alt="details"> </a> </div> </div> </div>`; container.innerHTML += courseHTML; if (courseCount < 5) { footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${courseId}');">${course.name}</a></li>`; courseCount++; } } } } else { container.innerHTML = '<p>No courses available at the moment.</p>'; footerMenu.innerHTML = '<li>No courses found.</li>'; } observeFadeInElements(); }); }
+        function loadCourses() { const container = document.getElementById('course-list-container'); const footerMenu = document.getElementById('footer-course-menu'); const coursesRef = database.ref('courses'); coursesRef.on('value', (snapshot) => { const coursesData = snapshot.val(); container.innerHTML = ''; footerMenu.innerHTML = ''; if (coursesData) { allCoursesData = coursesData; let courseCount = 0; for (const courseId in coursesData) { const course = coursesData[courseId]; if (course.status === 'published') { const courseHTML = ` <div class="col-course fade-in"> <div class="single-course-inner"> <div class="thumb"> <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"> </div> <div class="details"> <h3>${course.name}</h3> <a class="arrow-right" onclick="showCourseDetails('${courseId}')"> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> </a> </div> </div> </div>`; container.innerHTML += courseHTML; if (courseCount < 5) { footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${courseId}');">${course.name}</a></li>`; courseCount++; } } } } else { container.innerHTML = '<p>No courses available at the moment.</p>'; footerMenu.innerHTML = '<li>No courses found.</li>'; } observeFadeInElements(); }); }
         function loadCourseReviews(courseId) { const reviewsContainer = document.getElementById('course-reviews-container'); reviewsContainer.innerHTML = '<h4>Student Reviews</h4>'; const reviewsRef = database.ref('courseReviews').orderByChild('courseId').equalTo(courseId); reviewsRef.once('value', snapshot => { const reviews = snapshot.val(); if (reviews) { let reviewsHtml = ''; for(const reviewId in reviews) { const review = reviews[reviewId]; if (review.status === 'Approved') { const user = allUsersData[review.userId] || { name: 'Unknown User' }; reviewsHtml += ` <div class="review-item"> <div class="review-header"> <span class="review-author">${user.name}</span> <span class="review-rating">${'⭐'.repeat(review.rating)}</span> </div> <p>${review.review}</p> </div> `; } } if(reviewsHtml === '') { reviewsContainer.innerHTML += '<p>No approved reviews for this course yet.</p>'; } else { reviewsContainer.innerHTML += reviewsHtml; } } else { reviewsContainer.innerHTML += '<p>No reviews for this course yet.</p>'; } }); }
         function showCourseDetails(courseId) { const course = allCoursesData[courseId]; if (!course) return; appliedCoupon = null; currentCourseIdForReview = courseId; document.getElementById('course-details-image').src = course.imageURL || 'https://placehold.co/600x250'; document.getElementById('course-details-title').textContent = course.name; document.getElementById('course-details-price').textContent = `Price: ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('course-details-description').textContent = course.description || 'No detailed description available.'; document.getElementById('enroll-now-btn').innerHTML = `<span data-lang="enrollNowButton">Enroll Now</span> for ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, course.price); document.getElementById('apply-coupon-btn').onclick = () => applyCoupon(courseId); document.getElementById('coupon-code-input').value = ''; document.getElementById('coupon-message').textContent = ''; loadCourseReviews(courseId); document.getElementById('courseDetailsModal').style.display = 'flex'; }
         function applyCoupon(courseId) { const code = document.getElementById('coupon-code-input').value.trim().toUpperCase(); const messageEl = document.getElementById('coupon-message'); if(!code) { messageEl.textContent = 'Please enter a coupon code.'; messageEl.style.color = 'red'; return; } database.ref('coupons').orderByChild('code').equalTo(code).once('value', snapshot => { if(snapshot.exists()){ const couponData = Object.values(snapshot.val())[0]; const originalPrice = allCoursesData[courseId].price; let discountedPrice = originalPrice; if(couponData.type === 'percentage') { discountedPrice = originalPrice - (originalPrice * couponData.value / 100); } else if (couponData.type === 'fixed') { discountedPrice = originalPrice - couponData.value; } if (discountedPrice < 0) discountedPrice = 0; appliedCoupon = couponData; messageEl.textContent = `Coupon applied! New price: ${discountedPrice.toLocaleString('bn-BD')} BDT`; messageEl.style.color = 'green'; document.getElementById('enroll-now-btn').innerHTML = `Enroll Now for ${discountedPrice.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, discountedPrice); } else { messageEl.textContent = 'Invalid or expired coupon code.'; messageEl.style.color = 'red'; } }); }
@@ -896,6 +927,7 @@
                 loadDashboardOverview(userData.enrolledCourses, userData.gamification);
                 loadAchievements(userData.gamification?.badges);
                 loadLeaderboard();
+                loadSupportTickets();
                 document.getElementById('profileName').value = userData.name || user.displayName || '';
                 // NEW FEATURE: Load user badges
                 loadUserBadges(userData.gamification?.badges);
@@ -912,7 +944,37 @@
         function loadDashboardOverview(enrolled, gamification){ const inProgress = enrolled ? Object.keys(enrolled).length : 0; document.getElementById('overview-inprogress').textContent = inProgress; document.getElementById('overview-points').textContent = gamification?.points || 0; }
         function loadPaymentHistory(user) { database.ref('payments').orderByChild('userId').equalTo(user.uid).on('value', snapshot => { const tbody = document.querySelector('#paymentHistoryTable tbody'); tbody.innerHTML = ''; const payments = snapshot.val(); if(payments){ for(const id in payments){ const p = payments[id]; const courseName = allCoursesData[p.courseId]?.name || 'Unknown Course'; tbody.innerHTML += ` <tr> <td>${courseName}</td> <td>${p.amount.toLocaleString('bn-BD')}</td> <td>${p.transactionId}</td> <td>${new Date(p.date).toLocaleDateString('bn-BD')}</td> </tr> `; } } else { tbody.innerHTML = '<tr><td colspan="4">No payment history found.</td></tr>'; } }); }
         function loadAchievements(badges){}
-        function loadLeaderboard(){}
+        function loadLeaderboard() {
+            const table = document.getElementById('leaderboard-table');
+            table.innerHTML = `<thead><tr><th>Rank</th><th>Name</th><th>Points</th></tr></thead><tbody></tbody>`;
+            const tbody = table.querySelector('tbody');
+            
+            database.ref('users').orderByChild('gamification/points').limitToLast(20).once('value', snapshot => {
+                const users = [];
+                snapshot.forEach(childSnapshot => {
+                    const user = childSnapshot.val();
+                    if(user.gamification && user.gamification.points > 0) {
+                        users.push(user);
+                    }
+                });
+
+                users.sort((a, b) => b.gamification.points - a.gamification.points);
+
+                if (users.length > 0) {
+                    users.forEach((user, index) => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${user.name}</td>
+                                <td>${user.gamification.points}</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="3">No users on the leaderboard yet.</td></tr>';
+                }
+            });
+        }
         let currentCourseInfo = {};
         function openCoursePlayer(courseId, enrollId) { const course = allCoursesData[courseId]; if (!course) return; currentCourseInfo = { courseId: courseId, enrollId: enrollId, modules: course.modules ? Object.entries(course.modules) : [], }; const sidebar = document.getElementById('course-sidebar'); sidebar.innerHTML = `<h3>${course.name}</h3>`; if (currentCourseInfo.modules.length > 0) { currentCourseInfo.modules.forEach(([moduleId, module], modIndex) => { sidebar.innerHTML += `<h4>${module.title}</h4>`; const lessonList = document.createElement('ul'); if (module.lessons) { Object.entries(module.lessons).forEach(([lessonId, lesson], lessIndex) => { lessonList.innerHTML += `<li onclick="loadLesson('${lessonId}')" data-lesson-id="${lessonId}">${lesson.title}</li>`; }); } sidebar.appendChild(lessonList); }); const firstLessonId = Object.keys(currentCourseInfo.modules[0][1].lessons)[0]; loadLesson(firstLessonId); } else { sidebar.innerHTML += '<p>No content has been added to this course yet.</p>'; } document.getElementById('coursePlayerModal').style.display = 'flex'; }
         
@@ -945,7 +1007,7 @@
             }
         }
         function handleQnaSubmit(e) { e.preventDefault(); const user = auth.currentUser; const questionText = e.target.querySelector('textarea').value; if(!user || !questionText.trim()) return; const { courseId, currentLessonId } = currentCourseInfo; if (!courseId || !currentLessonId) return; let moduleId; for(const [modId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[currentLessonId]) { moduleId = modId; break; } } if(moduleId) { const qnaRef = database.ref(`courses/${courseId}/modules/${moduleId}/lessons/${currentLessonId}/qna`); qnaRef.push({ userId: user.uid, userName: user.displayName, question: questionText, timestamp: new Date().toISOString() }).then(() => { e.target.reset(); loadQnA(); }); } }
-        function loadQnA() { const { courseId, currentLessonId } = currentCourseInfo; const qnaList = document.getElementById('qna-list'); qnaList.innerHTML = ''; let moduleId; for(const [modId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[currentLessonId]) { moduleId = modId; break; } } if(moduleId) { const qnaRef = database.ref(`courses/${courseId}/modules/${moduleId}/lessons/${currentLessonId}/qna`); qnaRef.once('value', snapshot => { const qnas = snapshot.val(); if(qnas){ for(const qnaId in qnas){ const qna = qnas[qnaId]; let replyHtml = ''; if(qna.reply) { replyHtml = ` <div class="qna-reply"> <p class="qna-reply-author">Admin Reply:</p> <p>${qna.reply.text}</p> </div>`; } qnaList.innerHTML += ` <div class="qna-item"> <p class="qna-author">${qna.userName}</p> <p>${qna.question}</p> <p class="qna-date">${new Date(qna.timestamp).toLocaleString()}</p> ${replyHtml} </div> `; } } else { qnaList.innerHTML = '<p>No questions asked for this lesson yet. Be the first!</p>'; } }); } }
+        function loadQnA() { const { courseId, currentLessonId } = currentCourseInfo; const qnaList = document.getElementById('qna-list'); qnaList.innerHTML = ''; let moduleId; for(const [modId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[currentLessonId]) { moduleId = modId; break; } } if(moduleId) { const qnaRef = database.ref(`courses/${courseId}/modules/${moduleId}/lessons/${currentLessonId}/qna`); qnaRef.on('value', snapshot => { const qnas = snapshot.val(); qnaList.innerHTML = ''; if(qnas){ for(const qnaId in qnas){ const qna = qnas[qnaId]; let replyHtml = ''; if(qna.reply) { replyHtml = ` <div class="qna-reply"> <p class="qna-reply-author">Admin Reply:</p> <p>${qna.reply.text}</p> </div>`; } qnaList.innerHTML += ` <div class="qna-item"> <p class="qna-author">${qna.userName}</p> <p>${qna.question}</p> <p class="qna-date">${new Date(qna.timestamp).toLocaleString()}</p> ${replyHtml} </div> `; } } else { qnaList.innerHTML = '<p>No questions asked for this lesson yet. Be the first!</p>'; } }); } }
         function loadNote() { const user = auth.currentUser; const { courseId, currentLessonId } = currentCourseInfo; if (!user || !courseId || !currentLessonId) return; const noteRef = database.ref(`users/${user.uid}/notes/${courseId}/${currentLessonId}`); noteRef.once('value', snapshot => { const note = snapshot.val(); document.getElementById('notes-area').value = note || ''; }); }
         function saveNote() { const user = auth.currentUser; const { courseId, currentLessonId } = currentCourseInfo; if (!user || !courseId || !currentLessonId) return; const noteContent = document.getElementById('notes-area').value; const noteRef = database.ref(`users/${user.uid}/notes/${courseId}/${currentLessonId}`); noteRef.set(noteContent).then(() => { alert('নোট সফলভাবে সেভ হয়েছে!'); }).catch(err => alert('Error saving note: ' + err.message)); }
         function markLessonAsComplete(lessonId) { const user = auth.currentUser; if(!user || !lessonId) return; const { enrollId, courseId } = currentCourseInfo; const progressRef = database.ref(`users/${user.uid}/enrolledCourses/${enrollId}/progress/${lessonId}`); progressRef.set(true).then(() => { alert('Lesson marked as complete!'); if (gamificationSettings.pointsPerLesson > 0) { const pointsRef = database.ref(`users/${user.uid}/gamification/points`); pointsRef.transaction(currentPoints => (currentPoints || 0) + gamificationSettings.pointsPerLesson); } confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); checkCourseCompletion(courseId, enrollId); }); }
@@ -1101,7 +1163,6 @@
             });
         }
 
-        // NEW FEATURE: Updated copyReferralLink function
         function copyReferralLink() {
             const linkInput = document.getElementById('referral-link-input');
             if (navigator.clipboard) {
@@ -1183,6 +1244,67 @@
         }
         
         // --- NEW FEATURE FUNCTIONS ---
+
+        function handleSupportTicketSubmit(event) {
+            event.preventDefault();
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Please log in to submit a ticket.');
+                return;
+            }
+            const subject = document.getElementById('ticketSubject').value;
+            const message = document.getElementById('ticketMessage').value;
+
+            const ticketData = {
+                userId: user.uid,
+                subject: subject,
+                message: message,
+                status: 'pending',
+                timestamp: new Date().toISOString()
+            };
+
+            database.ref('supportTickets').push(ticketData).then(() => {
+                alert('Support ticket submitted successfully!');
+                document.getElementById('supportTicketForm').reset();
+            }).catch(error => {
+                alert('Error submitting ticket: ' + error.message);
+            });
+        }
+
+        function loadSupportTickets() {
+            const user = auth.currentUser;
+            if (!user) return;
+            const container = document.getElementById('past-tickets-container');
+            container.innerHTML = '<p>Loading your tickets...</p>';
+
+            database.ref('supportTickets').orderByChild('userId').equalTo(user.uid).on('value', snapshot => {
+                const tickets = snapshot.val();
+                if (tickets) {
+                    container.innerHTML = '';
+                    const sortedTickets = Object.values(tickets).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    sortedTickets.forEach(ticket => {
+                        let replyHtml = '';
+                        if (ticket.reply) {
+                            replyHtml = `<div class="ticket-reply"><strong>Admin Reply:</strong><p>${ticket.reply}</p></div>`;
+                        }
+                        container.innerHTML += `
+                            <div class="ticket-item">
+                                <div class="ticket-header">
+                                    <span>${ticket.subject}</span>
+                                    <span class="ticket-status ${ticket.status}">${ticket.status}</span>
+                                </div>
+                                <div class="ticket-body">
+                                    <p>${ticket.message}</p>
+                                    ${replyHtml}
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<p>You have not created any support tickets yet.</p>';
+                }
+            });
+        }
 
         // Community Forum
         function handleNewForumPost(event) {
