@@ -18,7 +18,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--white-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--white-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; /* Added to prevent any horizontal scroll */ }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .section { padding: 80px 0; position: relative; }
         #main-content-wrapper { position: relative; z-index: 3; background-color: var(--white-color); margin-top: -100px; }
@@ -48,10 +48,13 @@
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .navbar .logo img { max-height: 50px; }
         .navbar-nav { display: flex; list-style: none; align-items: center; }
-        .navbar-nav li a { color: #ffffff; text-decoration: none; padding: 10px 15px; font-weight: 500; transition: color 0.3s ease; }
+        .navbar-nav li a { color: #ffffff; text-decoration: none; font-weight: 500; position: relative; padding: 10px 15px; border-radius: 5px; transition: all 0.3s ease; }
         .sticky .navbar-nav li a, .sticky #user-email-desktop, .sticky #open-dashboard-btn { color: var(--dark-blue) !important; }
-        .navbar-nav li a:hover, .navbar-nav li a.active { color: var(--primary-green) !important; }
-        .sticky .navbar-nav li a:hover, .sticky .navbar-nav li a.active { color: var(--primary-green) !important; }
+        .sticky .dark-mode-toggle span, .sticky .dark-mode-toggle i { color: var(--dark-blue); }
+        .navbar-nav li a:hover, .navbar-nav li a.active { background-color: rgba(255, 255, 255, 0.1); color: #ffffff !important; }
+        .sticky .navbar-nav li a:hover, .sticky .navbar-nav li a.active { background-color: var(--primary-green); color: #ffffff !important; }
+        .navbar-nav li a::after { content: ''; position: absolute; bottom: 5px; left: 15px; right: 15px; height: 2px; background-color: var(--primary-green); transform: scaleX(0); transition: transform 0.4s ease; }
+        .navbar-nav li a:hover::after, .navbar-nav li a.active::after { transform: scaleX(1); }
         .nav-right-part a.btn-base { margin-left: 10px; }
         .menu-toggle { display: none; background: none; border: none; cursor: pointer; z-index: 1001; }
         .menu-toggle i { color: #ffffff; font-size: 24px; transition: color 0.3s ease; }
@@ -79,6 +82,9 @@
         .about-inner-wrap { flex: 1 1 450px; }
         .about-inner-wrap .btn-base { margin-right: 15px; margin-top: 20px;}
         .course-area { background-color: var(--light-bg); }
+        #course-filter-buttons { text-align: center; margin-bottom: 40px; }
+        #course-filter-buttons button { background: var(--white-color); border: 1px solid var(--border-color); padding: 10px 20px; margin: 5px; border-radius: 20px; cursor: pointer; font-weight: 500; transition: all 0.3s; }
+        #course-filter-buttons button.active { background-color: var(--primary-green); color: white; border-color: var(--primary-green); }
         #course-list-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .col-course { max-width: none; }
         .single-course-inner { background: var(--white-color); border-radius: var(--border-radius); box-shadow: var(--shadow); transition: transform 0.3s ease; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
@@ -92,10 +98,11 @@
         .single-course-inner .course-bottom-info, .single-course-inner .emt-course-meta .course-price { display: none; }
         .events-area { background-color: var(--dark-blue); color: var(--white-color); }
         .events-area .main-title { color: var(--white-color); }
-        .single-blog-list-wrap { list-style: none; background-color: var(--dark-blue); padding: 20px; border-radius: var(--border-radius);}
-        .single-blog-list-inner { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-size: 1.2rem; font-weight: 500; }
-        .single-blog-list-inner:last-child { border-bottom: none; }
-        .single-blog-list-inner h5 a { color: var(--white-color); text-decoration: none; }
+        #projects .single-blog-list-wrap { text-align: center; background-color: transparent; padding: 0; }
+        #projects .single-blog-list-inner { background-color: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); transition: all 0.3s ease; margin-bottom: 15px; padding: 15px; }
+        #projects .single-blog-list-inner:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-5px); border-color: var(--primary-green); }
+        #projects .single-blog-list-inner h5 { margin: 0; }
+        #projects .single-blog-list-inner h5 a { color: var(--white-color); text-decoration: none; font-size: 1.1rem; }
         .event-thumb { display: none; } 
         .events-area .container > div { justify-content: center; }
         .blog-area { background-color: var(--light-bg); }
@@ -104,6 +111,7 @@
         #blog-posts-container .single-course-inner .details p { color: var(--light-text); }
         #blog-posts-container .single-course-inner .details .post-meta { font-size: 0.9rem; color: var(--primary-green); font-weight: 500; margin-bottom: 15px; }
         .contact-form-area { background-color: var(--white-color); }
+        #contact-form-section { display: none; /* Hide by default */ }
         .contact-form-wrap { max-width: 700px; margin: 0 auto; background: var(--white-color); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
         .contact-form-wrap .input-group { margin-bottom: 20px; }
         .contact-form-wrap label { display: block; margin-bottom: 8px; font-weight: 500; }
@@ -182,11 +190,20 @@
         .enrolled-course-card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .enrolled-course-card-content h5 { font-size: 1.1rem; margin: 0 0 15px 0; flex-grow: 1; }
         .progress-ring { position: relative; width: 70px; height: 70px; } .progress-ring-circle { stroke-width: 8; fill: transparent; transform: rotate(-90deg); transform-origin: 50% 50%; } .progress-ring-bg { stroke: #e6e6e6; } [data-theme="dark"] .progress-ring-bg { stroke: #444; } .progress-ring-fg { stroke: var(--primary-green); transition: stroke-dashoffset 0.5s; } .progress-ring-text { font-size: 1.2rem; font-weight: bold; fill: var(--text-color); }
-        #paymentHistoryTable { width:100%; text-align:left; border-collapse: collapse; } #leaderboard-table { width:100%; text-align:left; border-collapse: collapse; }
+        #paymentHistoryTable, #leaderboard-table { width:100%; text-align:left; border-collapse: collapse; }
         #paymentHistoryTable th, #paymentHistoryTable td, #leaderboard-table th, #leaderboard-table td { padding: 12px; border-bottom: 1px solid var(--border-color); }
         #leaderboard-table th { background-color: var(--light-bg); }
         .notification-item { padding: 15px; border-bottom: 1px solid var(--border-color); } .notification-item:last-child { border-bottom: none; } .notification-date { font-size: 0.85rem; color: var(--light-text); margin-top: 5px; }
-        .dark-mode-toggle { display: flex; align-items: center; cursor: pointer; } .dark-mode-toggle span { margin-left: 8px; } .switch { position: relative; display: inline-block; width: 44px; height: 24px; } .switch input { opacity: 0; width: 0; height: 0; } .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; } .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; } input:checked + .slider { background-color: var(--primary-green); } input:checked + .slider:before { transform: translateX(20px); }
+        .dark-mode-toggle { display: flex; align-items: center; cursor: pointer; padding: 10px 15px; }
+        .dark-mode-toggle span { margin-left: 8px; font-weight: 500; color: #ffffff; }
+        .dark-mode-toggle i { color: #ffffff; }
+        [data-theme="dark"] .dark-mode-toggle i { color: #f1c40f; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary-green); }
+        input:checked + .slider:before { transform: translateX(20px); }
         #coursePlayerModal .modal-content { max-width: 95vw; width: 95%; display: flex; padding: 0; height: 95vh; flex-direction: row; }
         #course-sidebar { width: 320px; background: var(--light-bg); padding: 20px; overflow-y: auto; border-right: 1px solid var(--border-color); flex-shrink: 0; }
         #course-sidebar h4 { font-size: 1.2rem; color: var(--dark-blue); margin-top: 15px; } #course-sidebar ul { list-style: none; padding-left: 15px; margin-top: 10px; } #course-sidebar li { padding: 10px; cursor: pointer; border-radius: 5px; display: flex; align-items: center; gap: 10px; transition: background-color 0.2s; } #course-sidebar li:hover { background-color: rgba(0,0,0,0.05); } [data-theme="dark"] #course-sidebar li:hover { background-color: rgba(255,255,255,0.05); } #course-sidebar li.active { background-color: var(--primary-green); color: white; } #course-sidebar li .fa-check-circle { color: var(--primary-green); }
@@ -205,7 +222,6 @@
         .coupon-wrapper { display: flex; gap: 10px; margin-top: 20px; margin-bottom: 10px; } .coupon-wrapper input { flex-grow: 1; } .coupon-wrapper button { flex-shrink: 0; padding: 10px 15px; border-radius: 8px; } #coupon-message { font-size: 0.9rem; font-weight: 500; height: 20px; }
         #star-rating { cursor: pointer; } #star-rating > span { font-size: 2rem; color: #ccc; transition: color 0.2s; } #star-rating > span:hover, #star-rating > span.selected { color: #f39c12; }
         #announcement-modal.modal-overlay { z-index: 3000; } #announcement-modal .modal-content { text-align: center; } #announcement-modal .modal-content h2 { color: var(--primary-green); }
-        /* NEW FEATURE CSS START */
         .referral-link-container { padding: 15px; border: 2px dashed var(--primary-green); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .referral-link-container input { flex-grow: 1; border: none; background: transparent; font-size: 1rem; color: var(--text-color); }
         .referral-link-container button { margin-left: 10px; }
@@ -215,20 +231,20 @@
         .homework-status.rejected { background-color: #e74c3c; }
         .homework-status.submitted { background-color: #f39c12; }
         .homework-status.correction_needed { background-color: #3498db; }
-        /* NEW FEATURE CSS: Community Forum */
         .forum-post { border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 20px; margin-bottom: 20px; }
+        .forum-post.pinned { background-color: var(--light-bg); border-left: 4px solid var(--primary-green); }
         .forum-post-header { display: flex; align-items: center; margin-bottom: 10px; }
         .forum-post-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 15px; }
         .forum-post-author { font-weight: bold; }
+        .admin-badge { background-color: var(--primary-green); color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 10px; margin-left: 8px; font-weight: 500; }
+        .pin-icon { color: var(--primary-green); margin-right: 8px; }
         .forum-post-date { color: var(--light-text); font-size: 0.9rem; margin-left: auto; }
         .forum-post-content { margin-bottom: 15px; }
         .forum-post-actions a { color: var(--primary-green); text-decoration: none; font-weight: 500; }
-        /* NEW FEATURE CSS: Badges */
         .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; }
         .badge-item { text-align: center; }
         .badge-icon { font-size: 4rem; color: #f1c40f; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .badge-title { font-weight: 600; margin-top: 10px; }
-        /* NEW FEATURE CSS: Support Tickets */
         .ticket-item { border: 1px solid var(--border-color); border-radius: var(--border-radius); margin-bottom: 15px; }
         .ticket-header { background-color: var(--light-bg); padding: 10px 15px; display: flex; justify-content: space-between; font-weight: bold; }
         .ticket-status { padding: 3px 8px; border-radius: 12px; font-size: 0.8em; color: white; }
@@ -236,20 +252,43 @@
         .ticket-status.resolved { background-color: #2ecc71; }
         .ticket-body { padding: 15px; }
         .ticket-reply { background-color: rgba(0,128,0,0.1); border-left: 3px solid var(--primary-green); padding: 10px; margin-top: 10px; border-radius: 5px; }
-        /* NEW FEATURE CSS END */
+        
+        /* Neon Card Style for Live Classes in Dashboard */
+        .live-class-card-neon { background: linear-gradient(135deg, rgba(1, 1, 31, 0.9), rgba(2, 2, 56, 0.95)); border: 1px solid #00f2ea; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(0, 242, 234, 0.4), 0 0 5px rgba(0, 242, 234, 0.6) inset; color: #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .live-class-card-neon .info { flex-grow: 1; }
+        .live-class-card-neon h4 { color: #ffffff; font-size: 1.3rem; margin: 0 0 10px 0; }
+        .live-class-card-neon p { margin: 4px 0; color: #a9b3c9; }
+        .live-class-card-neon .teacher-name { font-weight: 500; color: #00f2ea; }
+        .live-class-card-neon .action-btn-container { flex-shrink: 0; }
+
         @media (max-width: 991px) {
             .navbar-nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--white-color); flex-direction: column; align-items: flex-start; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
-            .navbar-nav.active { max-height: 450px; } .navbar-nav li { width: 100%;}
+            .navbar-nav.active { max-height: 500px; }
+            .navbar-nav li { width: 100%;}
             .navbar-nav li a { color: var(--dark-blue); padding: 15px 25px; border-bottom: 1px solid var(--border-color); width: 100%;}
-            .sticky .navbar-nav li a { color: var(--dark-blue); } .nav-right-part-desktop { display: none; } .menu-toggle { display: block; }
+            .navbar-nav .dark-mode-toggle { padding: 15px 25px; border-bottom: 1px solid var(--border-color); width: 100%; justify-content: flex-start; }
+            .navbar-nav .dark-mode-toggle span, .navbar-nav .dark-mode-toggle i { color: var(--dark-blue); }
+            .sticky .navbar-nav li a { color: var(--dark-blue); } 
+            
+            /* --- THIS IS THE FIX --- */
+            .nav-right-part-desktop { display: none; } 
+            .menu-toggle { display: block; }
+            /* --- END OF FIX --- */
+
             #banner-text-container strong { font-size: 2.2rem; }
-            .about-inner-wrap { padding-left: 0; margin-top: 40px; } .footer-grid, .footer-bottom-grid { justify-content: center; text-align: center; } .widget_contact li { justify-content: center; } .widget_about { text-align: center; } .social-media { justify-content: center; }
+            .about-area-inner { flex-direction: column; }
+            .about-inner-wrap { padding-left: 0; margin-top: 40px; text-align: center; }
+            .footer-grid, .footer-bottom-grid { justify-content: center; text-align: center; } 
+            .widget_contact li { justify-content: center; } 
+            .widget_about { text-align: center; } 
+            .social-media { justify-content: center; }
             
             #studentDashboardModal .modal-content { flex-direction: column; height: 95vh; max-height: none; }
             #dashboard-sidebar { border-right: none; border-bottom: 1px solid var(--border-color); width: 100%; height: auto; flex-shrink: 0; }
             #dashboard-main-content { flex-grow: 1; overflow-y: auto; min-height: 0; }
             
-            #coursePlayerModal .modal-content { flex-direction: column; } #course-sidebar { width: 100%; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border-color); }
+            #coursePlayerModal .modal-content { flex-direction: column; } 
+            #course-sidebar { width: 100%; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border-color); }
         }
     </style>
 </head>
@@ -259,7 +298,19 @@
         <nav class="navbar" id="navbar">
             <div class="container nav-container">
                 <div class="logo"><a href="#"><img id="website-logo" src="https://placehold.co/150x50?text=Logo" alt="logo"></a></div>
-                <ul class="navbar-nav" id="edumint_main_menu"><li class="skeleton" style="height: 20px; width: 80px; margin: 5px;"></li></ul>
+                <ul class="navbar-nav" id="edumint_main_menu">
+                    <li class="skeleton" style="height: 20px; width: 80px; margin: 5px;"></li>
+                    <li>
+                         <label class="dark-mode-toggle">
+                             <i class="fas fa-moon"></i>
+                             <span>Dark Mode</span>
+                            <label class="switch" style="margin-left:auto;">
+                                <input type="checkbox" id="darkModeToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                    </li>
+                </ul>
                 <div class="nav-right-part nav-right-part-desktop" id="auth-buttons-desktop">
                     <a class="btn-base" id="desktop-signin-btn" href="#"><span data-lang="signInButton">Sign In</span></a>
                     <a class="btn-base" id="desktop-signup-btn" href="#"><span data-lang="signUpButton">Sign Up</span></a>
@@ -304,39 +355,8 @@
         <div id="courses" class="course-area section">
             <div class="container">
                 <div class="section-title fade-in"><h6 class="sub-title" id="courses-subtitle">OUR COURSES</h6><h2 class="main-title" id="courses-main-title">Top Featured Courses</h2></div>
+                <div id="course-filter-buttons" class="fade-in"></div>
                 <div id="course-list-container" class="courses-grid"><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div></div>
-            </div>
-        </div>
-        <div id="live-classes" class="section" style="background-color: var(--white-color);">
-            <div class="container">
-                <div class="section-title fade-in">
-                    <h6 class="sub-title">লাইভ কার্যক্রম</h6>
-                    <h2 class="main-title">আমাদের আসন্ন লাইভ ক্লাস</h2>
-                </div>
-                <div id="live-class-container" class="courses-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
-                    <p>Loading live classes...</p>
-                </div>
-            </div>
-        </div>
-        <!-- NEW FEATURE: Community Forum Section -->
-        <div id="community" class="section">
-            <div class="container">
-                <div class="section-title fade-in">
-                    <h6 class="sub-title">আলোচনা</h6>
-                    <h2 class="main-title">কমিউনিটি ফোরাম</h2>
-                </div>
-                <div id="forum-new-post-container" style="margin-bottom: 40px;">
-                    <h4>নতুন পোস্ট করুন</h4>
-                    <form id="new-forum-post-form">
-                        <div class="input-group">
-                            <textarea id="forum-post-content" rows="4" placeholder="আপনার প্রশ্ন বা আলোচনার বিষয় লিখুন..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-base">পোস্ট করুন</button>
-                    </form>
-                </div>
-                <div id="forum-posts-container">
-                    <!-- Forum posts will be loaded here -->
-                </div>
             </div>
         </div>
         <div id="projects" class="events-area section">
@@ -353,8 +373,8 @@
         <div id="workshop" class="section" style="background-color: var(--light-bg);">
             <div class="container">
                 <div class="section-title fade-in">
-                    <h6 class="sub-title">আমাদের কার্যক্রম</h6>
-                    <h2 class="main-title">আসন্ন ওয়ার্কশপ</h2>
+                    <h6 class="sub-title" id="workshop-subtitle">আমাদের কার্যক্রম</h6>
+                    <h2 class="main-title" id="workshop-main-title">আসন্ন ওয়ার্কশপ</h2>
                 </div>
                 <div id="workshop-container" class="fade-in" style="max-width: 800px; margin: 0 auto; background: var(--white-color); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center;">
                     <p>শীঘ্রই আসছে আমাদের নতুন ওয়ার্কশপ...</p>
@@ -382,13 +402,15 @@
                         <div id="contact-form-response"></div>
                     </form>
                 </div>
-            </main>
+            </div>
+        </div>
+    </main>
     
     <footer id="contact" class="footer-area">
         <div class="container">
             <div class="footer-grid">
                 <div class="widget widget_about"><a href="#"><img id="website-logo-footer" src="https://placehold.co/150x50?text=Logo" alt="logo" style="max-height: 60px;"></a><div class="details"><p id="footer-description" class="skeleton" style="min-height: 80px;"></p><ul class="social-media" id="social-links-footer"><li><a href="#" target="_blank" id="footer-facebook"><i class="fab fa-facebook-f"></i></a></li><li><a href="#" target="_blank" id="footer-telegram"><i class="fab fa-telegram-plane"></i></a></li><li><a href="#" target="_blank" id="footer-twitter"><i class="fab fa-twitter"></i></a></li><li><a href="#" target="_blank" id="footer-youtube"><i class="fab fa-youtube"></i></a></li></ul></div></div>
-                <div class="widget widget_contact"><h4 class="widget-title" data-lang="footerContactTitle">Contact Us</h4><ul><li><i class="fas fa-map-marker-alt"></i> <span id="footer-address">Loading...</span></li><li><i class="fas fa-phone-alt"></i> <span id="footer-phone">Loading...</span></li><li><i class="fas fa-envelope"></i> <span id="footer-email">Loading...</span></li></ul></div>
+                <div class="widget widget_contact"><h4 class="widget-title" data-lang="footerContactTitle">Contact Us</h4><ul><li><i class="fas fa-map-marker-alt"></i> <span id="footer-address">Loading...</span></li><li><i class="fas fa-phone-alt"></i> <span id="footer-phone">Loading...</span></li><li><i class="fas fa-envelope"></i> <span id="footer-email">Loading...</span></li><li><i class="fas fa-paper-plane"></i><a href="#" id="show-contact-btn" style="color: #a9b3c9; text-decoration: none; margin-left: -5px;">আমাদের মেসেজ পাঠান</a></li></ul></div>
                 <div class="widget widget_nav_menu"><h4 class="widget-title" data-lang="footerQuickLinksTitle">Courses</h4><ul id="footer-course-menu"><li class="skeleton" style="height: 20px; width: 100px; margin: 5px 0;"></li><li class="skeleton" style="height: 20px; width: 100px; margin: 5px 0;"></li></ul></div>
             </div>
         </div>
@@ -473,6 +495,8 @@
                 <nav>
                     <button class="tab-link active" onclick="openDashboardTab(event, 'Overview')" data-lang="tabOverview"><i class="fas fa-home"></i>Overview</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'MyCourses')" data-lang="tabMyCourses"><i class="fas fa-book-open"></i>My Courses</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'LiveClassesDashboard')"><i class="fas fa-video"></i>লাইভ ক্লাস</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'CommunityDashboard')"><i class="fas fa-users"></i>কমিউনিটি ফোরাম</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Homework')"><i class="fas fa-tasks"></i>My Homework</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Referrals')"><i class="fas fa-users"></i>Refer & Earn</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Withdraw')"><i class="fas fa-wallet"></i>Withdraw</button>
@@ -481,57 +505,59 @@
                         <i class="fas fa-bell"></i>Notifications
                         <span id="notification-badge" class="notification-badge" style="display: none;"></span>
                     </button>
-                    <!-- NEW FEATURE: My Badges Tab -->
                     <button class="tab-link" onclick="openDashboardTab(event, 'MyBadges')"><i class="fas fa-award"></i>My Badges</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Achievements')" data-lang="tabAchievements"><i class="fas fa-trophy"></i>Achievements</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Leaderboard')" data-lang="tabLeaderboard"><i class="fas fa-star"></i>Leaderboard</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Profile')" data-lang="tabProfile"><i class="fas fa-user-edit"></i>My Profile</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Payments')" data-lang="tabPayments"><i class="fas fa-history"></i>Payment History</button>
-                    <!-- NEW FEATURE: Support Tab -->
                     <button class="tab-link" onclick="openDashboardTab(event, 'Support')"><i class="fas fa-life-ring"></i>Support</button>
                 </nav>
-                <div style="margin-top: auto;">
-                    <label class="dark-mode-toggle">
-                         <i class="fas fa-moon"></i>
-                         <span>Dark Mode</span>
-                        <label class="switch" style="margin-left:auto;">
-                            <input type="checkbox" id="darkModeToggle">
-                            <span class="slider"></span>
-                        </label>
-                    </label>
-                </div>
             </aside>
             <main id="dashboard-main-content">
                  <div id="Overview" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Overview</h3></div>
                     <div class="dashboard-widgets">
-                        <div class="widget-card" style="border-color: #1abc9c;"><i class="fas fa-dollar-sign"></i><h4 id="overview-balance">0 BDT</h4><p>Current Balance</p></div>
-                        <div class="widget-card" style="border-color: #f39c12;"><i class="fas fa-layer-group"></i><h4 id="overview-inprogress">0</h4><p>Courses in Progress</p></div>
-                        <div class="widget-card" style="border-color: #2ecc71;"><i class="fas fa-graduation-cap"></i><h4 id="overview-completed">0</h4><p>Courses Completed</p></div>
-                        <div class="widget-card" style="border-color: #e74c3c;"><i class="fas fa-star-half-alt"></i><h4 id="overview-points">0</h4><p>Total Points</p></div>
+                        <div class="widget-card" style="border-color: #1abc9c;"><i class="fas fa-dollar-sign"></i><h4 id="overview-balance">0 BDT</h4><p data-lang="widgetCurrentBalance">Current Balance</p></div>
+                        <div class="widget-card" style="border-color: #f39c12;"><i class="fas fa-layer-group"></i><h4 id="overview-inprogress">0</h4><p data-lang="widgetCoursesInProgress">Courses in Progress</p></div>
+                        <div class="widget-card" style="border-color: #2ecc71;"><i class="fas fa-graduation-cap"></i><h4 id="overview-completed">0</h4><p data-lang="widgetCoursesCompleted">Courses Completed</p></div>
+                        <div class="widget-card" style="border-color: #e74c3c;"><i class="fas fa-star-half-alt"></i><h4 id="overview-points">0</h4><p data-lang="widgetTotalPoints">Total Points</p></div>
                     </div>
                  </div>
                 <div id="MyCourses" class="dashboard-tab-content"><div class="dashboard-header"><h3>My Courses</h3></div><div id="enrolled-courses-grid" class="course-card-grid"></div></div>
-                
+                <div id="LiveClassesDashboard" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>আসন্ন ও বিগত লাইভ ক্লাসসমূহ</h3></div>
+                    <div id="dashboard-live-class-container"><p>লাইভ ক্লাস লোড হচ্ছে...</p></div>
+                </div>
+                <div id="CommunityDashboard" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>কমিউনিটি ফোরাম</h3></div>
+                    <div id="dashboard-forum-new-post-container" style="margin-bottom: 40px;">
+                        <h4>নতুন পোস্ট করুন</h4>
+                        <form id="dashboard-new-forum-post-form">
+                            <div class="input-group">
+                                <textarea id="dashboard-forum-post-content" rows="4" placeholder="আপনার প্রশ্ন বা আলোচনার বিষয় লিখুন..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-base">পোস্ট করুন</button>
+                        </form>
+                    </div>
+                    <div id="dashboard-forum-posts-container"><p>পোস্ট লোড হচ্ছে...</p></div>
+                </div>
                 <div id="Homework" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>My Homework Submissions</h3></div>
                     <div id="homework-submissions-container" class="table-responsive"><p>Loading homework...</p></div>
                 </div>
-
                 <div id="Referrals" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Refer & Earn</h3></div>
-                    <h4>Your Unique Referral Link</h4>
+                    <h4 data-lang="referralLinkTitle">Your Unique Referral Link</h4>
                     <div class="referral-link-container">
                         <input type="text" id="referral-link-input" readonly>
                         <button class="btn-base btn-secondary" onclick="copyReferralLink()">Copy</button>
                     </div>
                     <hr style="margin: 20px 0;">
-                    <h4>Your Leads (Pending Activation)</h4>
+                    <h4 data-lang="referralLeadsTitle">Your Leads (Pending Activation)</h4>
                     <div id="leads-container" class="table-responsive"><p>Loading leads...</p></div>
-                    <h4 style="margin-top: 30px;">Your Converts (Active Referrals)</h4>
+                    <h4 style="margin-top: 30px;" data-lang="referralConvertsTitle">Your Converts (Active Referrals)</h4>
                     <div id="converts-container" class="table-responsive"><p>Loading converts...</p></div>
                 </div>
-
                 <div id="Withdraw" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Withdraw Funds</h3></div>
                     <div class="widget-card" style="border-color: #1abc9c; margin-bottom: 20px;">
@@ -575,15 +601,12 @@
                     <div class="dashboard-header"><h3>Contact Your Mentors</h3></div>
                     <div id="mentors-container"><p>Loading mentor information...</p></div>
                 </div>
-
-                <!-- NEW FEATURE: My Badges Content -->
                 <div id="MyBadges" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>My Badges</h3></div>
                     <div id="my-badges-container" class="badge-grid">
                         <p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>
                     </div>
                 </div>
-
                 <div id="Notifications" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Notifications</h3></div>
                     <div id="notifications-container"></div>
@@ -603,7 +626,6 @@
                     </form>
                 </div>
                 <div id="Payments" class="dashboard-tab-content"><div class="dashboard-header"><h3>Your Payment History</h3></div><div class="table-responsive"><table id="paymentHistoryTable"><thead><tr><th>Course</th><th>Amount (BDT)</th><th>Transaction ID</th><th>Date</th></tr></thead><tbody></tbody></table></div></div>
-                <!-- NEW FEATURE: Support Tab Content -->
                 <div id="Support" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Support Center</h3></div>
                     <h4>Create a New Support Ticket</h4>
@@ -671,7 +693,6 @@
 
     <div id="courseReviewModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="courseReviewForm"><h2>Leave a Review</h2><div class="input-group"><label>Rating</label><div id="star-rating"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div><input type="hidden" id="review-rating" value="0" required></div><div class="input-group"><label>Review</label><textarea id="review-text" rows="4" required></textarea></div><button type="submit" class="btn-base">Submit Review</button></form></div></div>
 
-    <!-- NEW FEATURE: Quiz Modal -->
     <div id="quizModal" class="modal-overlay">
         <div class="modal-content">
             <span class="modal-close-btn">&times;</span>
@@ -680,7 +701,6 @@
         </div>
     </div>
     
-    <!-- NEW FEATURE: Certificate Modal/View -->
     <div id="certificateModal" class="modal-overlay">
         <div class="modal-content" style="max-width: 800px;">
             <span class="modal-close-btn">&times;</span>
@@ -716,7 +736,7 @@
         const auth = firebase.auth();
         const storage = firebase.storage();
         
-        let allCoursesData = {}, allUsersData = {}, siteContentData = {}, gamificationSettings = {};
+        let allCoursesData = {}, siteContentData = {}, gamificationSettings = {};
         let appliedCoupon = null, currentCourseIdForReview = null;
         
         document.addEventListener('DOMContentLoaded', () => {
@@ -725,17 +745,13 @@
             loadNavigationMenu(); 
             loadSubAdminRoles(); 
             loadSiteContent();
-            loadLiveClasses();
             showAnnouncementPopup();
             loadCourses(); 
             loadProjects(); 
             loadWorkshop();
             loadBlogPosts();
-            loadAllUsers(); 
             loadNotifications();
             auth.onAuthStateChanged(user => { updateLoginUI(user); });
-            // NEW FEATURE: Load forum posts
-            loadForumPosts();
         });
         
         function setupEventListeners() {
@@ -755,6 +771,7 @@
             document.getElementById('signUpForm').addEventListener('submit', handleSignUp);
             document.getElementById('signInForm').addEventListener('submit', handleSignIn);
             document.getElementById('contactForm').addEventListener('submit', handleContactFormSubmit);
+            document.getElementById('show-contact-btn').addEventListener('click', (e) => { e.preventDefault(); const contactSection = document.getElementById('contact-form-section'); contactSection.style.display = 'block'; contactSection.scrollIntoView({ behavior: 'smooth' }); });
             document.getElementById('profileUpdateForm').addEventListener('submit', handleProfileUpdate);
             document.getElementById('qna-form').addEventListener('submit', handleQnaSubmit);
             document.getElementById('courseReviewForm').addEventListener('submit', handleReviewSubmit);
@@ -764,10 +781,8 @@
             document.getElementById('prevLessonBtn').addEventListener('click', goToPrevLesson);
             document.getElementById('saveNoteBtn').addEventListener('click', saveNote);
             document.getElementById('supportTicketForm').addEventListener('submit', handleSupportTicketSubmit);
-            
             document.getElementById('withdrawalForm').addEventListener('submit', handleWithdrawalRequest);
-            // NEW FEATURE: Event listener for new forum post
-            document.getElementById('new-forum-post-form').addEventListener('submit', handleNewForumPost);
+            document.getElementById('dashboard-new-forum-post-form').addEventListener('submit', handleNewForumPost);
             
             setupDarkMode();
             manageModals();
@@ -893,19 +908,163 @@
                 );
             }
         }
-        function updateLoginUI(user) { const authButtons = document.getElementById('auth-buttons-desktop'); const userInfo = document.getElementById('user-info-desktop'); if (user) { authButtons.style.display = 'none'; userInfo.style.display = 'flex'; document.getElementById('user-email-desktop').textContent = user.email; document.getElementById('forum-new-post-container').style.display = 'block';} else { authButtons.style.display = 'flex'; userInfo.style.display = 'none'; document.getElementById('forum-new-post-container').style.display = 'none';} }
+        function updateLoginUI(user) { const authButtons = document.getElementById('auth-buttons-desktop'); const userInfo = document.getElementById('user-info-desktop'); if (user) { authButtons.style.display = 'none'; userInfo.style.display = 'flex'; document.getElementById('user-email-desktop').textContent = user.email; } else { authButtons.style.display = 'flex'; userInfo.style.display = 'none'; } }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
         function manageModals() { const manageModal = (modalId, openBtnIds = [], closeOnClickingOutside = true) => { const modal = document.getElementById(modalId); if (!modal) return; const openBtns = openBtnIds.map(id => document.getElementById(id)).filter(Boolean); const closeBtn = modal.querySelector('.modal-close-btn'); const open = (e) => { if(e) e.preventDefault(); modal.style.display = 'flex'; }; const close = () => closeModal(modalId); openBtns.forEach(btn => btn.addEventListener('click', open)); if (closeBtn) closeBtn.addEventListener('click', close); if(closeOnClickingOutside) modal.addEventListener('click', (e) => { if (e.target === modal) close(); }); }; manageModal('subadminModal', ['openSubadminModalBtn']); manageModal('signInModal', ['desktop-signin-btn']); manageModal('signUpModal', ['desktop-signup-btn']); manageModal('courseDetailsModal'); manageModal('studentDashboardModal', ['open-dashboard-btn']); manageModal('coursePlayerModal'); manageModal('courseReviewModal'); manageModal('announcement-modal'); manageModal('fakeAdminLoginModal', ['openFakeAdminLoginBtn']); manageModal('quizModal'); manageModal('certificateModal'); const signInModal = document.getElementById('signInModal'), signUpModal = document.getElementById('signUpModal'); const switchToSignUp = document.getElementById('switchToSignUp'), switchToSignIn = document.getElementById('switchToSignIn'); if(switchToSignUp) switchToSignUp.addEventListener('click', (e) => { e.preventDefault(); closeModal('signInModal'); signUpModal.style.display = 'flex'; }); if(switchToSignIn) switchToSignIn.addEventListener('click', (e) => { e.preventDefault(); closeModal('signUpModal'); signInModal.style.display = 'flex'; }); }
-        function loadAllUsers() { database.ref('users').on('value', s => { allUsersData = s.val() || {}; }); }
+        
         function loadTheme() { database.ref('siteContent/theme').on('value', (s) => { const t = s.val(); }); }
-        function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').on('value', (s) => { c.innerHTML = ''; s.forEach(cs => { const m = cs.val(); c.innerHTML += `<li><a href="${m.url}">${m.name}</a></li>`; }); c.innerHTML += `<li><a href="#community">কমিউনিটি</a></li>`; }); } // Added community link
+        function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').on('value', (s) => { const menuItems = []; s.forEach(cs => { menuItems.push(cs.val()); }); const lastChild = c.querySelector('li:last-child').outerHTML; c.innerHTML = menuItems.map(m => `<li><a href="${m.url}">${m.name}</a></li>`).join('') + lastChild; }); }
         function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').on('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
-        function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; siteContentData = content; gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) }
-        function loadCourses() { const container = document.getElementById('course-list-container'); const footerMenu = document.getElementById('footer-course-menu'); const coursesRef = database.ref('courses'); coursesRef.on('value', (snapshot) => { const coursesData = snapshot.val(); container.innerHTML = ''; footerMenu.innerHTML = ''; if (coursesData) { allCoursesData = coursesData; let courseCount = 0; for (const courseId in coursesData) { const course = coursesData[courseId]; if (course.status === 'published') { const courseHTML = ` <div class="col-course fade-in"> <div class="single-course-inner"> <div class="thumb"> <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"> </div> <div class="details"> <h3>${course.name}</h3> <a class="arrow-right" onclick="showCourseDetails('${courseId}')"> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> </a> </div> </div> </div>`; container.innerHTML += courseHTML; if (courseCount < 5) { footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${courseId}');">${course.name}</a></li>`; courseCount++; } } } } else { container.innerHTML = '<p>No courses available at the moment.</p>'; footerMenu.innerHTML = '<li>No courses found.</li>'; } observeFadeInElements(); }); }
-        function loadCourseReviews(courseId) { const reviewsContainer = document.getElementById('course-reviews-container'); reviewsContainer.innerHTML = '<h4>Student Reviews</h4>'; const reviewsRef = database.ref('courseReviews').orderByChild('courseId').equalTo(courseId); reviewsRef.once('value', snapshot => { const reviews = snapshot.val(); if (reviews) { let reviewsHtml = ''; for(const reviewId in reviews) { const review = reviews[reviewId]; if (review.status === 'Approved') { const user = allUsersData[review.userId] || { name: 'Unknown User' }; reviewsHtml += ` <div class="review-item"> <div class="review-header"> <span class="review-author">${user.name}</span> <span class="review-rating">${'⭐'.repeat(review.rating)}</span> </div> <p>${review.review}</p> </div> `; } } if(reviewsHtml === '') { reviewsContainer.innerHTML += '<p>No approved reviews for this course yet.</p>'; } else { reviewsContainer.innerHTML += reviewsHtml; } } else { reviewsContainer.innerHTML += '<p>No reviews for this course yet.</p>'; } }); }
+        function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; siteContentData = content; gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; document.getElementById('workshop-subtitle').innerText = content.sectionTitles.workshopSubtitle || 'আমাদের কার্যক্রম'; document.getElementById('workshop-main-title').innerText = content.sectionTitles.workshopMainTitle || 'আসন্ন ওয়ার্কশপ'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) }
+        function loadCourses() {
+            const container = document.getElementById('course-list-container');
+            const footerMenu = document.getElementById('footer-course-menu');
+            const filterContainer = document.getElementById('course-filter-buttons');
+            database.ref('courses').on('value', (snapshot) => {
+                const coursesData = snapshot.val();
+                container.innerHTML = '';
+                footerMenu.innerHTML = '';
+                filterContainer.innerHTML = '';
+                if (coursesData) {
+                    allCoursesData = coursesData;
+                    const categories = new Set();
+                    for (const courseId in coursesData) {
+                        const course = coursesData[courseId];
+                        if (course.status === 'published' && course.category) {
+                            categories.add(course.category);
+                        }
+                    }
+
+                    filterContainer.innerHTML = '<button class="active" data-category="all">All</button>';
+                    categories.forEach(cat => {
+                        filterContainer.innerHTML += `<button data-category="${cat}">${cat}</button>`;
+                    });
+                    
+                    document.querySelectorAll('#course-filter-buttons button').forEach(button => {
+                        button.addEventListener('click', () => {
+                            const category = button.getAttribute('data-category');
+                            document.querySelector('#course-filter-buttons button.active').classList.remove('active');
+                            button.classList.add('active');
+                            document.querySelectorAll('.col-course').forEach(courseCard => {
+                                if (category === 'all' || courseCard.dataset.courseCategory === category) {
+                                    courseCard.style.display = 'block';
+                                } else {
+                                    courseCard.style.display = 'none';
+                                }
+                            });
+                        });
+                    });
+
+                    let courseCount = 0;
+                    for (const courseId in coursesData) {
+                        const course = coursesData[courseId];
+                        if (course.status === 'published') {
+                            const courseHTML = `
+                                <div class="col-course fade-in" data-course-category="${course.category || 'uncategorized'}">
+                                    <div class="single-course-inner">
+                                        <div class="thumb">
+                                            <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}">
+                                        </div>
+                                        <div class="details">
+                                            <h3>${course.name}</h3>
+                                            <a class="arrow-right" onclick="showCourseDetails('${courseId}')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            container.innerHTML += courseHTML;
+                            if (courseCount < 5) {
+                                footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${courseId}');">${course.name}</a></li>`;
+                                courseCount++;
+                            }
+                        }
+                    }
+                } else {
+                    container.innerHTML = '<p>No courses available at the moment.</p>';
+                    footerMenu.innerHTML = '<li>No courses found.</li>';
+                }
+                observeFadeInElements();
+            });
+        }
+        
+        function loadCourseReviews(courseId) {
+            const reviewsContainer = document.getElementById('course-reviews-container');
+            reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>Loading reviews...</p>';
+            const reviewsRef = database.ref('courseReviews').orderByChild('courseId').equalTo(courseId);
+            
+            reviewsRef.once('value', snapshot => {
+                const reviews = snapshot.val();
+                if (!reviews) {
+                    reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No reviews for this course yet.</p>';
+                    return;
+                }
+
+                const approvedReviews = Object.values(reviews).filter(r => r.status === 'Approved');
+                if (approvedReviews.length === 0) {
+                     reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No approved reviews for this course yet.</p>';
+                     return;
+                }
+                
+                const userIds = [...new Set(approvedReviews.map(r => r.userId))];
+                const userPromises = userIds.map(id => database.ref(`users/${id}/name`).once('value'));
+
+                Promise.all(userPromises).then(userSnapshots => {
+                    const userIdToNameMap = {};
+                    userSnapshots.forEach((snap, index) => {
+                        userIdToNameMap[userIds[index]] = snap.val() || 'Unknown User';
+                    });
+
+                    let reviewsHtml = '';
+                    approvedReviews.forEach(review => {
+                        const userName = userIdToNameMap[review.userId];
+                        reviewsHtml += `
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <span class="review-author">${userName}</span>
+                                    <span class="review-rating">${'⭐'.repeat(review.rating)}</span>
+                                </div>
+                                <p>${review.review}</p>
+                            </div>`;
+                    });
+
+                    reviewsContainer.innerHTML = '<h4>Student Reviews</h4>' + reviewsHtml;
+                });
+            });
+        }
+
         function showCourseDetails(courseId) { const course = allCoursesData[courseId]; if (!course) return; appliedCoupon = null; currentCourseIdForReview = courseId; document.getElementById('course-details-image').src = course.imageURL || 'https://placehold.co/600x250'; document.getElementById('course-details-title').textContent = course.name; document.getElementById('course-details-price').textContent = `Price: ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('course-details-description').textContent = course.description || 'No detailed description available.'; document.getElementById('enroll-now-btn').innerHTML = `<span data-lang="enrollNowButton">Enroll Now</span> for ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, course.price); document.getElementById('apply-coupon-btn').onclick = () => applyCoupon(courseId); document.getElementById('coupon-code-input').value = ''; document.getElementById('coupon-message').textContent = ''; loadCourseReviews(courseId); document.getElementById('courseDetailsModal').style.display = 'flex'; }
         function applyCoupon(courseId) { const code = document.getElementById('coupon-code-input').value.trim().toUpperCase(); const messageEl = document.getElementById('coupon-message'); if(!code) { messageEl.textContent = 'Please enter a coupon code.'; messageEl.style.color = 'red'; return; } database.ref('coupons').orderByChild('code').equalTo(code).once('value', snapshot => { if(snapshot.exists()){ const couponData = Object.values(snapshot.val())[0]; const originalPrice = allCoursesData[courseId].price; let discountedPrice = originalPrice; if(couponData.type === 'percentage') { discountedPrice = originalPrice - (originalPrice * couponData.value / 100); } else if (couponData.type === 'fixed') { discountedPrice = originalPrice - couponData.value; } if (discountedPrice < 0) discountedPrice = 0; appliedCoupon = couponData; messageEl.textContent = `Coupon applied! New price: ${discountedPrice.toLocaleString('bn-BD')} BDT`; messageEl.style.color = 'green'; document.getElementById('enroll-now-btn').innerHTML = `Enroll Now for ${discountedPrice.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, discountedPrice); } else { messageEl.textContent = 'Invalid or expired coupon code.'; messageEl.style.color = 'red'; } }); }
-        function enrollInCourse(courseId, finalPrice) { const user = auth.currentUser; if (!user) { alert('Please sign in to enroll in a course.'); closeModal('courseDetailsModal'); document.getElementById('signInModal').style.display = 'flex'; return; } alert(`Payment gateway integration is needed.\nProceeding with manual enrollment simulation for course: "${allCoursesData[courseId].name}" at price BDT ${finalPrice}.`); const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), purchasePrice: finalPrice }; database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData) .then(() => { database.ref('payments').push({ userId: user.uid, courseId, amount: finalPrice, transactionId: 'MANUAL_SIMULATION_' + new Date().getTime(), date: new Date().toISOString() }); alert('You have been successfully enrolled!'); closeModal('courseDetailsModal'); }).catch(err => alert('Enrollment failed: ' + err.message)); }
+        
+        function enrollInCourse(courseId, finalPrice) {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('কোর্সে এনরোল করার জন্য অনুগ্রহ করে সাইন ইন করুন।');
+                closeModal('courseDetailsModal');
+                document.getElementById('signInModal').style.display = 'flex';
+                return;
+            }
+
+            const course = allCoursesData[courseId];
+            if (course.enrollmentPassword && course.enrollmentPassword !== "") {
+                const enteredPassword = prompt(`"${course.name}" কোর্সে এনরোল করার জন্য অনুগ্রহ করে পাসওয়ার্ড দিন:`);
+                if (enteredPassword === null) return;
+                if (enteredPassword !== course.enrollmentPassword) {
+                    alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।");
+                    return;
+                }
+            }
+
+            alert(`পেমেন্ট গেটওয়ে ইন্টিগ্রেশন প্রয়োজন।\nআপাতত "${course.name}" কোর্সের জন্য ${finalPrice} BDT মূল্যে ম্যানুয়াল এনরোলমেন্ট প্রক্রিয়া সম্পন্ন করা হচ্ছে।`);
+            const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), purchasePrice: finalPrice };
+            database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData)
+                .then(() => {
+                    database.ref('payments').push({ userId: user.uid, courseId, amount: finalPrice, transactionId: 'MANUAL_SIMULATION_' + new Date().getTime(), date: new Date().toISOString() });
+                    alert('আপনি সফলভাবে কোর্সে এনরোল করেছেন!');
+                    closeModal('courseDetailsModal');
+                }).catch(err => alert('এনরোলমেন্ট ব্যর্থ হয়েছে: ' + err.message));
+        }
+
         function openDashboardTab(evt, tabName) { document.querySelectorAll(".dashboard-tab-content").forEach(c => c.style.display = "none"); document.querySelectorAll("#dashboard-sidebar .tab-link").forEach(l => l.classList.remove("active")); document.getElementById(tabName).style.display = "block"; evt.currentTarget.classList.add("active"); if (tabName === 'Notifications') { document.getElementById('notification-badge').style.display = 'none'; } }
         document.getElementById('open-dashboard-btn').addEventListener('click', (e) => { e.preventDefault(); const user = auth.currentUser; if (!user) { alert('Please sign in to view your dashboard.'); return; } loadDashboardData(user); document.getElementById('studentDashboardModal').style.display = 'flex'; document.querySelector('#dashboard-sidebar .tab-link').click(); });
         
@@ -922,17 +1081,36 @@
                 loadHomeworkSubmissions(user.uid);
                 loadReferralData(user.uid, userData.referralCode);
                 loadMentors();
-
+                loadLiveClassesForDashboard(user.uid);
+                loadForumForDashboard();
                 loadEnrolledCourses(user, userData.enrolledCourses);
                 loadDashboardOverview(userData.enrolledCourses, userData.gamification);
                 loadAchievements(userData.gamification?.badges);
                 loadLeaderboard();
                 loadSupportTickets();
                 document.getElementById('profileName').value = userData.name || user.displayName || '';
-                // NEW FEATURE: Load user badges
                 loadUserBadges(userData.gamification?.badges);
             });
             loadPaymentHistory(user);
+        }
+
+        function loadLiveClassesForDashboard(userId) {
+            const container = document.getElementById('dashboard-live-class-container');
+            database.ref('liveClasses').orderByChild('dateTime').on('value', snapshot => {
+                container.innerHTML = '';
+                const classes = snapshot.val();
+                if (classes && Object.keys(classes).length > 0) {
+                    const sorted = Object.values(classes).sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+                    const now = new Date();
+                    sorted.forEach(cls => {
+                        const classTime = new Date(cls.dateTime);
+                        let actionButton = '';
+                        if (classTime < now) { actionButton = cls.recordingUrl ? `<a href="${cls.recordingUrl}" target="_blank" class="btn-base">রেকর্ডিং দেখুন</a>` : `<button class="btn-base" disabled>শেষ হয়েছে</button>`; } 
+                        else { actionButton = `<a href="${cls.url}" target="_blank" class="btn-base">ক্লাসে যোগ দিন</a>`; }
+                        container.innerHTML += `<div class="live-class-card-neon"><div class="info"><h4>${cls.title}</h4><p><strong>সময়:</strong> ${classTime.toLocaleString('bn-BD')}</p><p class="teacher-name"><strong>টিচার:</strong> ${cls.teacher || 'N/A'}</p></div><div class="action-btn-container">${actionButton}</div></div>`;
+                    });
+                } else { container.innerHTML = '<p>বর্তমানে কোনো লাইভ ক্লাস উপলব্ধ নেই।</p>'; }
+            });
         }
 
         function loadEnrolledCourses(user, enrolledCourses) { const gridContainer = document.getElementById('enrolled-courses-grid'); if(!enrolledCourses) { gridContainer.innerHTML = '<p>You have not enrolled in any courses yet.</p>'; return; } gridContainer.innerHTML = ''; for(const enrollId in enrolledCourses) { const enrollment = enrolledCourses[enrollId]; const course = allCoursesData[enrollment.courseId]; if(course) { gridContainer.innerHTML += ` <div class="enrolled-course-card"> <img src="${course.imageURL}" alt="${course.name}"> <div class="enrolled-course-card-content"> <h5>${course.name}</h5> <button class="btn-base" onclick="openCoursePlayer('${enrollment.courseId}', '${enrollId}')">Start Learning</button> </div> </div> `; } } }
@@ -962,13 +1140,7 @@
 
                 if (users.length > 0) {
                     users.forEach((user, index) => {
-                        tbody.innerHTML += `
-                            <tr>
-                                <td>${index + 1}</td>
-                                <td>${user.name}</td>
-                                <td>${user.gamification.points}</td>
-                            </tr>
-                        `;
+                        tbody.innerHTML += `<tr><td>${index + 1}</td><td>${user.name}</td><td>${user.gamification.points}</td></tr>`;
                     });
                 } else {
                     tbody.innerHTML = '<tr><td colspan="3">No users on the leaderboard yet.</td></tr>';
@@ -1019,7 +1191,7 @@
         document.querySelector('#coursePlayerModal .modal-close-btn').addEventListener('click', () => { closeModal('coursePlayerModal'); document.getElementById('lesson-content-area').innerHTML = ''; if(auth.currentUser) loadDashboardData(auth.currentUser); });
         function loadProjects() { const p = document.getElementById('upcoming-projects-list'); database.ref('projects').on('value', (s) => { p.innerHTML = ''; const d = s.val(); if(d){ for(const i in d) p.innerHTML += `<div class="single-blog-list-inner"><h5><a href="${d[i].link || '#'}" target="_blank">${d[i].title}</a></h5></div>`; } else p.innerHTML = '<p style="color:white;">No upcoming projects.</p>'; }); }
         function loadWorkshop() { const container = document.getElementById('workshop-container'); const workshopRef = database.ref('workshops/main_workshop'); workshopRef.on('value', (snapshot) => { const workshop = snapshot.val(); if (workshop && workshop.status === 'active') { container.innerHTML = ` <h3 style="font-size: 1.8rem; color: var(--dark-blue); margin-bottom: 15px;">${workshop.title}</h3> <p style="font-size: 1.1rem; font-weight: 500; color: var(--primary-green); margin-bottom: 25px;"> <i class="far fa-calendar-alt"></i> ${workshop.date} </p> <p style="color: var(--light-text); margin-bottom: 30px;">${workshop.description}</p> <a href="${workshop.regLink}" target="_blank" class="btn-base">রেজিস্ট্রেশন করুন</a> `; } else { document.getElementById('workshop').style.display = 'none'; } }); }
-        function loadLiveClasses() { const container = document.getElementById('live-class-container'); database.ref('liveClasses').orderByChild('dateTime').on('value', snapshot => { container.innerHTML = ''; const classes = snapshot.val(); if (classes && Object.keys(classes).length > 0) { const sorted = Object.entries(classes).sort((a,b)=> new Date(b[1].dateTime) - new Date(a[1].dateTime)); for (const [id, cls] of sorted) { container.innerHTML += ` <div class="single-course-inner fade-in"> <div class="details" style="flex-direction: column; align-items: flex-start; padding: 25px;"> <h3>${cls.title}</h3> <p class="post-meta">সময়: ${new Date(cls.dateTime).toLocaleString('bn-BD')}</p> <p>${cls.description || ''}</p> <a href="${cls.url}" target="_blank" class="btn-base" style="margin-top: 15px;">ক্লাসে যোগ দিন</a> </div> </div>`; } } else { container.innerHTML = '<p>বর্তমানে কোনো লাইভ ক্লাস উপলব্ধ নেই।</p>'; } }); }
+        
         function showAnnouncementPopup() { database.ref('siteContent/announcement').once('value', snapshot => { const ann = snapshot.val(); if (ann && ann.status === 'active' && !sessionStorage.getItem('announcementShown')) { document.getElementById('announcement-title').innerText = ann.title; document.getElementById('announcement-message').innerText = ann.message; const modal = document.getElementById('announcement-modal'); modal.style.display = 'flex'; modal.querySelector('.modal-close-btn').onclick = () => modal.style.display = 'none'; sessionStorage.setItem('announcementShown', 'true'); } }); }
         function loadBlogPosts() { const c = document.getElementById('blog-posts-container'); database.ref('blogPosts').on('value', (s) => { c.innerHTML = ''; const d = s.val(); if(d){ let postFound = false; const sortedPosts = Object.entries(d).sort((a, b) => new Date(b[1].date) - new Date(a[1].date)); for(const [key, o] of sortedPosts){ if(o.status === 'published') { postFound = true; c.innerHTML += ` <div class="single-course-inner fade-in"> <div class="thumb"> <img src="${o.imageUrl || 'https://placehold.co/380x220?text=Blog+Post'}" alt="${o.title}"> </div> <div class="details" style="flex-direction: column; align-items: flex-start;"> <h3>${o.title}</h3> <p class="post-meta">Posted on: ${new Date(o.date).toLocaleDateString('bn-BD')}</p> <p>${(o.content || "").substring(0, 120)}...</p> </div> </div>`; } } if (!postFound) { c.innerHTML = '<p>No latest news or articles available right now.</p>'; } } else { c.innerHTML = '<p>No blog posts available.</p>'; } observeFadeInElements(); }); }
 
@@ -1044,16 +1216,7 @@
                 if (thisLessonSubmission) {
                     let statusHtml = `<p><strong>Status:</strong> <span class="homework-status ${thisLessonSubmission.status}">${thisLessonSubmission.status.replace('_', ' ')}</span></p>`;
                     if (thisLessonSubmission.status === 'correction_needed') {
-                        container.innerHTML = `
-                            ${statusHtml}
-                            <p><strong>Admin Feedback:</strong> ${thisLessonSubmission.adminNotes}</p>
-                            <form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', '${thisLessonSubmission.id}')">
-                                <div class="input-group">
-                                    <label>Resubmit Your Homework Link</label>
-                                    <input type="url" value="${thisLessonSubmission.homeworkLink}" required>
-                                </div>
-                                <button type="submit" class="btn-base">Resubmit</button>
-                            </form>`;
+                        container.innerHTML = `${statusHtml}<p><strong>Admin Feedback:</strong> ${thisLessonSubmission.adminNotes}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', '${thisLessonSubmission.id}')"><div class="input-group"><label>Resubmit Your Homework Link</label><input type="url" value="${thisLessonSubmission.homeworkLink}" required></div><button type="submit" class="btn-base">Resubmit</button></form>`;
                     } else {
                          container.innerHTML = statusHtml + `<p>You have already submitted homework for this lesson.</p>`;
                     }
@@ -1061,16 +1224,7 @@
                      container.innerHTML = `<p>You have reached the homework submission limit (${course.homeworkLimit}) for this course.</p>`;
                 }
                 else {
-                    container.innerHTML = `
-                        <p>You can earn ${course.homeworkReward} BDT for this homework.</p>
-                        <p>Submissions remaining for this course: ${course.homeworkLimit - approvedOrPendingCount}/${course.homeworkLimit}</p>
-                        <form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', null)">
-                            <div class="input-group">
-                                <label>Enter Your Homework Link</label>
-                                <input type="url" placeholder="https://..." required>
-                            </div>
-                            <button type="submit" class="btn-base">Submit</button>
-                        </form>`;
+                    container.innerHTML = `<p>You can earn ${course.homeworkReward} BDT for this homework.</p><p>Submissions remaining for this course: ${course.homeworkLimit - approvedOrPendingCount}/${course.homeworkLimit}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', null)"><div class="input-group"><label>Enter Your Homework Link</label><input type="url" placeholder="https://..." required></div><button type="submit" class="btn-base">Submit</button></form>`;
                 }
             });
         }
@@ -1084,8 +1238,6 @@
             const course = allCoursesData[courseId];
             const submissionData = {
                 userId: user.uid,
-                courseId: courseId,
-                lessonId: lessonId,
                 courseName: course.name,
                 homeworkLink: homeworkLink,
                 status: 'submitted',
@@ -1093,16 +1245,8 @@
                 rewardAmount: course.homeworkReward || 0
             };
 
-            const ref = submissionId 
-                ? database.ref('homeworkSubmissions/' + submissionId)
-                : database.ref('homeworkSubmissions').push(); 
-            
-            ref.set(submissionData)
-                .then(() => {
-                    alert('Homework submitted successfully!');
-                    loadHomeworkForLesson(courseId, lessonId);
-                })
-                .catch(err => alert('Error: ' + err.message));
+            const ref = submissionId ? database.ref('homeworkSubmissions/' + submissionId) : database.ref('homeworkSubmissions').push(); 
+            ref.update(submissionData).then(() => { alert('Homework submitted successfully!'); loadHomeworkForLesson(courseId, lessonId); }).catch(err => alert('Error: ' + err.message));
         }
 
         function loadHomeworkSubmissions(userId) {
@@ -1110,50 +1254,32 @@
             database.ref('homeworkSubmissions').orderByChild('userId').equalTo(userId).on('value', snapshot => {
                 const submissions = snapshot.val();
                 if (submissions) {
-                    let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;">
-                        <thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`;
+                    let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;"><thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`;
                     const sorted = Object.values(submissions).sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt));
                     sorted.forEach(sub => {
-                        tableHtml += `<tr>
-                            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td>
-                            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td>
-                            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td>
-                            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td>
-                        </tr>`;
+                        tableHtml += `<tr><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td></tr>`;
                     });
                     tableHtml += '</tbody></table>';
                     container.innerHTML = tableHtml;
-                } else {
-                    container.innerHTML = '<p>You have not submitted any homework yet.</p>';
-                }
+                } else { container.innerHTML = '<p>You have not submitted any homework yet.</p>'; }
             });
         }
 
         function loadReferralData(userId, referralCode) {
             const linkInput = document.getElementById('referral-link-input');
             linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
-
             const leadsContainer = document.getElementById('leads-container');
             const convertsContainer = document.getElementById('converts-container');
-            
             database.ref('users').orderByChild('referredBy').equalTo(userId).on('value', snapshot => {
                 const referredUsers = snapshot.val();
                 let leadsHtml = '', convertsHtml = '';
                 if (referredUsers) {
                     const leads = Object.values(referredUsers).filter(u => u.status === 'pending');
                     const converts = Object.values(referredUsers).filter(u => u.status === 'active');
-
-                    if(leads.length > 0) {
-                        leadsHtml = leads.map(u => `<p>${u.name} (${u.email}) - Joined on ${new Date(u.regDate).toLocaleDateString()}</p>`).join('');
-                    } else {
-                        leadsHtml = '<p>No pending leads found.</p>';
-                    }
-
-                    if(converts.length > 0) {
-                        convertsHtml = converts.map(u => `<p>${u.name} (${u.email}) - Activated!</p>`).join('');
-                    } else {
-                         convertsHtml = '<p>No active referrals yet.</p>';
-                    }
+                    if(leads.length > 0) { leadsHtml = leads.map(u => `<p>${u.name} (${u.email}) - Joined on ${new Date(u.regDate).toLocaleDateString()}</p>`).join(''); } 
+                    else { leadsHtml = '<p>No pending leads found.</p>'; }
+                    if(converts.length > 0) { convertsHtml = converts.map(u => `<p>${u.name} (${u.email}) - Activated!</p>`).join(''); } 
+                    else { convertsHtml = '<p>No active referrals yet.</p>'; }
                 } else {
                     leadsHtml = '<p>No one has signed up using your link yet.</p>';
                     convertsHtml = '<p>No active referrals yet.</p>';
@@ -1166,13 +1292,8 @@
         function copyReferralLink() {
             const linkInput = document.getElementById('referral-link-input');
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(linkInput.value).then(() => {
-                    alert('Referral link copied to clipboard!');
-                }).catch(err => {
-                    alert('Failed to copy link.');
-                });
+                navigator.clipboard.writeText(linkInput.value).then(() => { alert('Referral link copied to clipboard!'); }).catch(err => { alert('Failed to copy link.'); });
             } else {
-                // Fallback for older browsers
                 linkInput.select();
                 document.execCommand('copy');
                 alert('Referral link copied to clipboard!');
@@ -1181,102 +1302,54 @@
 
         function handleWithdrawalRequest(event) {
             event.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return;
-
+            const user = auth.currentUser; if (!user) return;
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
             const method = document.getElementById('withdraw-method').value;
             const details = document.getElementById('withdraw-details').value;
             const errorEl = document.getElementById('withdrawalError');
             errorEl.style.display = 'none';
-
-            if (amount < 500) {
-                errorEl.textContent = 'Minimum withdrawal amount is 500 BDT.';
-                errorEl.style.display = 'block';
-                return;
-            }
-
+            if (amount < 500) { errorEl.textContent = 'Minimum withdrawal amount is 500 BDT.'; errorEl.style.display = 'block'; return; }
             database.ref('users/' + user.uid).once('value', snapshot => {
                 const userData = snapshot.val();
-                if (amount > (userData.balance || 0)) {
-                    errorEl.textContent = 'Insufficient balance.';
-                    errorEl.style.display = 'block';
-                    return;
-                }
-                
-                const requestData = {
-                    userId: user.uid,
-                    userName: userData.name,
-                    amount: amount,
-                    method: method,
-                    accountDetails: details,
-                    status: 'pending',
-                    requestedAt: new Date().toISOString()
-                };
-
-                database.ref('withdrawalRequests').push(requestData).then(() => {
-                    alert('Your withdrawal request has been submitted successfully!');
-                    document.getElementById('withdrawalForm').reset();
-                });
+                if (amount > (userData.balance || 0)) { errorEl.textContent = 'Insufficient balance.'; errorEl.style.display = 'block'; return; }
+                const requestData = { userId: user.uid, userName: userData.name, amount: amount, method: method, accountDetails: details, status: 'pending', requestedAt: new Date().toISOString() };
+                database.ref('withdrawalRequests').push(requestData).then(() => { alert('Your withdrawal request has been submitted successfully!'); document.getElementById('withdrawalForm').reset(); });
             });
         }
         
         function loadMentors() {
             const container = document.getElementById('mentors-container');
-            const mentorRoles = ['Senior Team Leader', 'Team Leader', 'Trainer'];
             container.innerHTML = '';
-            database.ref('users').orderByChild('role').on('value', snapshot => {
-                let mentorsFound = false;
-                snapshot.forEach(childSnapshot => {
-                    const user = childSnapshot.val();
-                    if (mentorRoles.includes(user.role) && user.whatsapp) {
-                        mentorsFound = true;
-                        container.innerHTML += `<div class="widget-card" style="margin-bottom:15px; border-color: #3498db;">
-                            <h4>${user.name} (${user.role})</h4>
-                            <p>WhatsApp: ${user.whatsapp}</p>
-                        </div>`;
-                    }
+            database.ref('siteContent/settings/mentorRoles').once('value', rolesSnapshot => {
+                const mentorRoles = rolesSnapshot.val() || ['Senior Team Leader', 'Team Leader', 'Trainer'];
+                database.ref('users').orderByChild('role').on('value', snapshot => {
+                    let mentorsFound = false;
+                    container.innerHTML = '';
+                    snapshot.forEach(childSnapshot => {
+                        const user = childSnapshot.val();
+                        if (mentorRoles.includes(user.role) && user.whatsapp) {
+                            mentorsFound = true;
+                            container.innerHTML += `<div class="widget-card" style="margin-bottom:15px; border-color: #3498db;"><h4>${user.name} (${user.role})</h4><p>WhatsApp: ${user.whatsapp}</p></div>`;
+                        }
+                    });
+                    if (!mentorsFound) { container.innerHTML = '<p>No mentor information is available at the moment.</p>'; }
                 });
-                if (!mentorsFound) {
-                    container.innerHTML = '<p>No mentor information is available at the moment.</p>';
-                }
             });
         }
         
-        // --- NEW FEATURE FUNCTIONS ---
-
         function handleSupportTicketSubmit(event) {
             event.preventDefault();
-            const user = auth.currentUser;
-            if (!user) {
-                alert('Please log in to submit a ticket.');
-                return;
-            }
+            const user = auth.currentUser; if (!user) { alert('Please log in to submit a ticket.'); return; }
             const subject = document.getElementById('ticketSubject').value;
             const message = document.getElementById('ticketMessage').value;
-
-            const ticketData = {
-                userId: user.uid,
-                subject: subject,
-                message: message,
-                status: 'pending',
-                timestamp: new Date().toISOString()
-            };
-
-            database.ref('supportTickets').push(ticketData).then(() => {
-                alert('Support ticket submitted successfully!');
-                document.getElementById('supportTicketForm').reset();
-            }).catch(error => {
-                alert('Error submitting ticket: ' + error.message);
-            });
+            const ticketData = { userId: user.uid, subject: subject, message: message, status: 'pending', timestamp: new Date().toISOString() };
+            database.ref('supportTickets').push(ticketData).then(() => { alert('Support ticket submitted successfully!'); document.getElementById('supportTicketForm').reset(); }).catch(error => { alert('Error submitting ticket: ' + error.message); });
         }
 
         function loadSupportTickets() {
-            const user = auth.currentUser;
-            if (!user) return;
+            const user = auth.currentUser; if (!user) return;
             const container = document.getElementById('past-tickets-container');
             container.innerHTML = '<p>Loading your tickets...</p>';
-
             database.ref('supportTickets').orderByChild('userId').equalTo(user.uid).on('value', snapshot => {
                 const tickets = snapshot.val();
                 if (tickets) {
@@ -1284,100 +1357,55 @@
                     const sortedTickets = Object.values(tickets).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     sortedTickets.forEach(ticket => {
                         let replyHtml = '';
-                        if (ticket.reply) {
-                            replyHtml = `<div class="ticket-reply"><strong>Admin Reply:</strong><p>${ticket.reply}</p></div>`;
-                        }
-                        container.innerHTML += `
-                            <div class="ticket-item">
-                                <div class="ticket-header">
-                                    <span>${ticket.subject}</span>
-                                    <span class="ticket-status ${ticket.status}">${ticket.status}</span>
-                                </div>
-                                <div class="ticket-body">
-                                    <p>${ticket.message}</p>
-                                    ${replyHtml}
-                                </div>
-                            </div>
-                        `;
+                        if (ticket.reply) { replyHtml = `<div class="ticket-reply"><strong>Admin Reply:</strong><p>${ticket.reply}</p></div>`; }
+                        container.innerHTML += `<div class="ticket-item"><div class="ticket-header"><span>${ticket.subject}</span><span class="ticket-status ${ticket.status}">${ticket.status}</span></div><div class="ticket-body"><p>${ticket.message}</p>${replyHtml}</div></div>`;
                     });
-                } else {
-                    container.innerHTML = '<p>You have not created any support tickets yet.</p>';
-                }
+                } else { container.innerHTML = '<p>You have not created any support tickets yet.</p>'; }
             });
         }
 
-        // Community Forum
         function handleNewForumPost(event) {
             event.preventDefault();
-            const user = auth.currentUser;
-            if (!user) { alert('Please log in to post.'); return; }
-            const content = document.getElementById('forum-post-content').value;
+            const user = auth.currentUser; if (!user) { alert('Please log in to post.'); return; }
+            const content = document.getElementById('dashboard-forum-post-content').value;
             if (!content.trim()) return;
-
-            const postData = {
-                userId: user.uid,
-                authorName: user.displayName,
-                authorAvatar: user.photoURL || 'https://i.pravatar.cc/150',
-                content: content,
-                timestamp: new Date().toISOString()
-            };
-
-            database.ref('forum_posts').push(postData).then(() => {
-                document.getElementById('new-forum-post-form').reset();
-            });
+            const postData = { userId: user.uid, authorName: user.displayName, authorAvatar: user.photoURL || 'https://i.pravatar.cc/150', content: content, timestamp: new Date().toISOString() };
+            database.ref('forum_posts').push(postData).then(() => { document.getElementById('dashboard-new-forum-post-form').reset(); });
         }
 
-        function loadForumPosts() {
-            const container = document.getElementById('forum-posts-container');
+        async function loadForumForDashboard() {
+            const container = document.getElementById('dashboard-forum-posts-container');
+            container.innerHTML = '<p>Loading posts...</p>';
+            const adminUid = (await database.ref('siteContent/settings/adminUid').once('value')).val() || "vcwR2irXaiTNiiOb5o0pBrIqfRV2";
             database.ref('forum_posts').orderByChild('timestamp').on('value', snapshot => {
                 container.innerHTML = '';
                 const posts = [];
-                snapshot.forEach(child => { posts.push({id: child.key, ...child.val()}); });
-                posts.reverse().forEach(post => {
-                    container.innerHTML += `
-                        <div class="forum-post">
-                            <div class="forum-post-header">
-                                <img src="${post.authorAvatar}" alt="Avatar" class="forum-post-avatar">
-                                <div>
-                                    <p class="forum-post-author">${post.authorName}</p>
-                                </div>
-                                <span class="forum-post-date">${new Date(post.timestamp).toLocaleString()}</span>
-                            </div>
-                            <div class="forum-post-content">
-                                <p>${post.content}</p>
-                            </div>
-                        </div>`;
+                snapshot.forEach(child => { posts.push({ id: child.key, ...child.val() }); });
+                const sortedPosts = posts.sort((a,b) => (b.isPinned === true) - (a.isPinned === true) || new Date(b.timestamp) - new Date(a.timestamp));
+                if (sortedPosts.length === 0) { container.innerHTML = '<p>No posts in the forum yet. Be the first to start a discussion!</p>'; return; }
+                sortedPosts.forEach(post => {
+                    const isAdminPost = post.userId === adminUid;
+                    const pinnedClass = post.isPinned ? 'pinned' : '';
+                    const pinIcon = post.isPinned ? '<i class="fas fa-thumbtack pin-icon"></i>' : '';
+                    const adminBadge = isAdminPost ? '<span class="admin-badge">Admin</span>' : '';
+                    container.innerHTML += `<div class="forum-post ${pinnedClass}"><div class="forum-post-header"><img src="${post.authorAvatar}" alt="Avatar" class="forum-post-avatar"><div><p class="forum-post-author">${pinIcon}${post.authorName} ${adminBadge}</p></div><span class="forum-post-date">${new Date(post.timestamp).toLocaleString()}</span></div><div class="forum-post-content"><p>${post.content}</p></div></div>`;
                 });
             });
         }
         
-        // Quiz & Certificate
         function openQuizModal(courseId) {
             const course = allCoursesData[courseId];
-            if (!course || !course.quiz) {
-                alert('এই কোর্সের জন্য কোনো কুইজ পাওয়া যায়নি।');
-                showCertificate(courseId); // No quiz, show certificate directly
-                return;
-            }
+            if (!course || !course.quiz) { alert('এই কোর্সের জন্য কোনো কুইজ পাওয়া যায়নি।'); showCertificate(courseId); return; }
             const quizContainer = document.getElementById('quiz-content-area');
             quizContainer.innerHTML = '';
             let questionsHtml = '<form id="quizForm">';
             Object.entries(course.quiz).forEach(([qId, q], index) => {
-                questionsHtml += `
-                    <div class="input-group">
-                        <label>${index + 1}. ${q.text}</label>`;
-                q.options.forEach((opt, optIndex) => {
-                    questionsHtml += `
-                        <div>
-                            <input type="radio" name="question-${qId}" value="${optIndex + 1}" required>
-                            <label>${opt}</label>
-                        </div>`;
-                });
+                questionsHtml += `<div class="input-group"><label>${index + 1}. ${q.text}</label>`;
+                q.options.forEach((opt, optIndex) => { questionsHtml += `<div><input type="radio" name="question-${qId}" value="${optIndex + 1}" required><label>${opt}</label></div>`; });
                 questionsHtml += `</div>`;
             });
             questionsHtml += `<button type="submit" class="btn-base">কুইজ জমা দিন</button></form>`;
             quizContainer.innerHTML = questionsHtml;
-
             document.getElementById('quizForm').onsubmit = (e) => handleQuizSubmit(e, courseId);
             document.getElementById('quizModal').style.display = 'flex';
         }
@@ -1387,29 +1415,16 @@
             const course = allCoursesData[courseId];
             let score = 0;
             const totalQuestions = Object.keys(course.quiz).length;
-
             const formData = new FormData(event.target);
-            for (const [key, value] of formData.entries()) {
-                const qId = key.split('-')[1];
-                if (course.quiz[qId].correct == value) {
-                    score++;
-                }
-            }
-
+            for (const [key, value] of formData.entries()) { const qId = key.split('-')[1]; if (course.quiz[qId].correct == value) { score++; } }
             const percentage = (score / totalQuestions) * 100;
             alert(`You scored ${score} out of ${totalQuestions} (${percentage.toFixed(2)}%).`);
-            
-            if (percentage >= 50) { // Passing score
+            if (percentage >= 50) {
                 alert('অভিনন্দন! আপনি কুইজে পাশ করেছেন। এখন আপনার সার্টিফিকেট ডাউনলোড করতে পারবেন।');
-                if (gamificationSettings.pointsPerQuiz > 0) {
-                     const pointsRef = database.ref(`users/${auth.currentUser.uid}/gamification/points`);
-                     pointsRef.transaction(currentPoints => (currentPoints || 0) + gamificationSettings.pointsPerQuiz);
-                }
+                if (gamificationSettings.pointsPerQuiz > 0) { const pointsRef = database.ref(`users/${auth.currentUser.uid}/gamification/points`); pointsRef.transaction(currentPoints => (currentPoints || 0) + gamificationSettings.pointsPerQuiz); }
                 closeModal('quizModal');
                 showCertificate(courseId);
-            } else {
-                alert('দুঃখিত, আপনি পাশ করতে পারেননি। আবার চেষ্টা করুন।');
-            }
+            } else { alert('দুঃখিত, আপনি পাশ করতে পারেননি। আবার চেষ্টা করুন।'); }
         }
 
         function showCertificate(courseId) {
@@ -1421,31 +1436,19 @@
             document.getElementById('certificateModal').style.display = 'flex';
         }
 
-        // Gamification - Badges
         function checkAndAwardBadges(userId) {
             database.ref(`users/${userId}`).once('value', userSnapshot => {
                 const userData = userSnapshot.val();
                 database.ref('siteContent/gamificationSettings/badges').once('value', badgeSnapshot => {
-                    const allBadges = badgeSnapshot.val();
-                    if (!allBadges) return;
-
+                    const allBadges = badgeSnapshot.val(); if (!allBadges) return;
                     for (const badgeId in allBadges) {
                         const badge = allBadges[badgeId];
                         let criteriaMet = false;
                         if (badge.type === 'complete_courses') {
                             const completedCount = userData.completedCourses ? Object.keys(userData.completedCourses).length : 0;
-                            if (completedCount >= badge.value) {
-                                criteriaMet = true;
-                            }
+                            if (completedCount >= badge.value) { criteriaMet = true; }
                         }
-                        
-                        if (criteriaMet) {
-                            database.ref(`users/${userId}/gamification/badges/${badgeId}`).set({
-                                name: badge.name,
-                                icon: badge.icon,
-                                awardedAt: new Date().toISOString()
-                            });
-                        }
+                        if (criteriaMet) { database.ref(`users/${userId}/gamification/badges/${badgeId}`).set({ name: badge.name, icon: badge.icon, awardedAt: new Date().toISOString() }); }
                     }
                 });
             });
@@ -1457,15 +1460,9 @@
                 container.innerHTML = '';
                 for(const badgeId in badges) {
                     const badge = badges[badgeId];
-                    container.innerHTML += `
-                        <div class="badge-item">
-                            <div class="badge-icon"><i class="${badge.icon}"></i></div>
-                            <p class="badge-title">${badge.name}</p>
-                        </div>`;
+                    container.innerHTML += `<div class="badge-item"><div class="badge-icon"><i class="${badge.icon}"></i></div><p class="badge-title">${badge.name}</p></div>`;
                 }
-            } else {
-                container.innerHTML = '<p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>';
-            }
+            } else { container.innerHTML = '<p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>'; }
         }
     </script>
 </body>
