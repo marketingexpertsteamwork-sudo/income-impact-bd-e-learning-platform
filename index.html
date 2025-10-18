@@ -18,9 +18,10 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--white-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; /* Added to prevent any horizontal scroll */ }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--white-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        .section { padding: 80px 0; position: relative; }
+        /* MODIFIED: হোমপেইজের অপ্রয়োজনীয় সাদা অংশ কমাতে সেকশনের প্যাডিং কমানো হয়েছে */
+        .section { padding: 60px 0; position: relative; }
         #main-content-wrapper { position: relative; z-index: 3; background-color: var(--white-color); margin-top: -100px; }
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title .sub-title { color: var(--primary-green); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
@@ -78,6 +79,7 @@
         .single-list-inner .icon img { width: 30px; height: 30px; }
         .single-list-inner h5 { margin: 0; font-size: 1.1rem; }
         .about-area-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 50px; }
+        /* MODIFIED: About Admin এর ছবিটি (লোগো) সঠিকভাবে দেখানোর জন্য ব্যাকগ্রাউন্ড ইমেজ লোড করা হচ্ছে */
         .about-thumb-wrap { flex: 1 1 450px; height: 450px; background-size: cover; background-position: center; border-radius: var(--border-radius); box-shadow: var(--shadow); }
         .about-inner-wrap { flex: 1 1 450px; }
         .about-inner-wrap .btn-base { margin-right: 15px; margin-top: 20px;}
@@ -111,7 +113,7 @@
         #blog-posts-container .single-course-inner .details p { color: var(--light-text); }
         #blog-posts-container .single-course-inner .details .post-meta { font-size: 0.9rem; color: var(--primary-green); font-weight: 500; margin-bottom: 15px; }
         .contact-form-area { background-color: var(--white-color); }
-        #contact-form-section { display: none; /* Hide by default */ }
+        #contact-form-section { display: none; }
         .contact-form-wrap { max-width: 700px; margin: 0 auto; background: var(--white-color); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
         .contact-form-wrap .input-group { margin-bottom: 20px; }
         .contact-form-wrap label { display: block; margin-bottom: 8px; font-weight: 500; }
@@ -165,6 +167,10 @@
         .modal-content .input-group input, .modal-content .input-group select, .modal-content .input-group textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; font-family: 'Poppins', sans-serif; transition: border-color 0.3s, box-shadow 0.3s; background-color: var(--white-color); color: var(--text-color); }
         .modal-content .input-group input:focus, .modal-content .input-group select:focus { outline: none; border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.2); }
         .form-row { display: flex; gap: 20px; }
+        /* NEW: সাইন আপ ফর্মের জন্য কান্ট্রি কোড এবং হোয়াটসঅ্যাপ ফিল্ডের স্টাইল */
+        .whatsapp-input-group { display: flex; }
+        .whatsapp-input-group select { max-width: 120px; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+        .whatsapp-input-group input { border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: 0; }
         .modal-content .action-btn-wrap button { width: 100%; padding: 12px; background-color: var(--primary-green); background-image: none; color: #ffffff; border: none; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3); margin-top: 10px; }
         .modal-content .action-btn-wrap button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 128, 0, 0.4); }
         .modal-content .extra-links { text-align: center; margin-top: 15px; }
@@ -208,7 +214,7 @@
         #course-sidebar { width: 320px; background: var(--light-bg); padding: 20px; overflow-y: auto; border-right: 1px solid var(--border-color); flex-shrink: 0; }
         #course-sidebar h4 { font-size: 1.2rem; color: var(--dark-blue); margin-top: 15px; } #course-sidebar ul { list-style: none; padding-left: 15px; margin-top: 10px; } #course-sidebar li { padding: 10px; cursor: pointer; border-radius: 5px; display: flex; align-items: center; gap: 10px; transition: background-color 0.2s; } #course-sidebar li:hover { background-color: rgba(0,0,0,0.05); } [data-theme="dark"] #course-sidebar li:hover { background-color: rgba(255,255,255,0.05); } #course-sidebar li.active { background-color: var(--primary-green); color: white; } #course-sidebar li .fa-check-circle { color: var(--primary-green); }
         #course-main-content { flex-grow: 1; display: flex; flex-direction: column; }
-        #course-main-header { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        #course-main-header { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
         .course-player-tabs { display: flex; gap: 10px; } .course-player-tabs button { background-color: var(--light-bg); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; } .course-player-tabs button.active { background-color: var(--primary-green); color: white; border-color: var(--primary-green); }
         #course-player-content-wrapper { flex-grow: 1; padding: 25px; overflow-y: auto; }
         .course-player-tab-content { display: none; animation: fadeIn 0.5s; } .course-player-tab-content.active { display: block; }
@@ -252,29 +258,57 @@
         .ticket-status.resolved { background-color: #2ecc71; }
         .ticket-body { padding: 15px; }
         .ticket-reply { background-color: rgba(0,128,0,0.1); border-left: 3px solid var(--primary-green); padding: 10px; margin-top: 10px; border-radius: 5px; }
-        
-        /* Neon Card Style for Live Classes in Dashboard */
         .live-class-card-neon { background: linear-gradient(135deg, rgba(1, 1, 31, 0.9), rgba(2, 2, 56, 0.95)); border: 1px solid #00f2ea; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(0, 242, 234, 0.4), 0 0 5px rgba(0, 242, 234, 0.6) inset; color: #f0f0f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .live-class-card-neon .info { flex-grow: 1; }
         .live-class-card-neon h4 { color: #ffffff; font-size: 1.3rem; margin: 0 0 10px 0; }
         .live-class-card-neon p { margin: 4px 0; color: #a9b3c9; }
         .live-class-card-neon .teacher-name { font-weight: 500; color: #00f2ea; }
         .live-class-card-neon .action-btn-container { flex-shrink: 0; }
-
+        #certificate-share-buttons { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
+        .share-btn { display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: white; font-weight: 500; }
+        .share-btn i { margin-right: 8px; }
+        .share-btn.facebook { background-color: #3b5998; }
+        .share-btn.twitter { background-color: #1da1f2; }
+        .share-btn.whatsapp { background-color: #25d366; }
+        .auto-next-container { display: flex; align-items: center; gap: 10px; }
+        
+        /* MODIFIED: হামবার্গার মেনুকে পপআপ স্টাইল দেওয়া হয়েছে */
         @media (max-width: 991px) {
-            .navbar-nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--white-color); flex-direction: column; align-items: flex-start; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
-            .navbar-nav.active { max-height: 500px; }
-            .navbar-nav li { width: 100%;}
-            .navbar-nav li a { color: var(--dark-blue); padding: 15px 25px; border-bottom: 1px solid var(--border-color); width: 100%;}
-            .navbar-nav .dark-mode-toggle { padding: 15px 25px; border-bottom: 1px solid var(--border-color); width: 100%; justify-content: flex-start; }
+            .navbar-nav {
+                position: absolute;
+                top: calc(100% + 10px); /* Add some space from the navbar */
+                right: 15px; /* Align to the right */
+                left: auto;
+                width: 250px; /* Fixed width for popup style */
+                background: var(--white-color);
+                flex-direction: column;
+                align-items: flex-start;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                border-radius: var(--border-radius);
+                opacity: 0;
+                visibility: hidden;
+            }
+            .navbar-nav.active {
+                max-height: 500px;
+                opacity: 1;
+                visibility: visible;
+            }
+            .sticky .navbar-nav {
+                top: calc(100% + 10px);
+            }
+            .navbar-nav li { width: 100%; }
+            .navbar-nav li a { color: var(--dark-blue); padding: 12px 20px; border-bottom: 1px solid var(--border-color); width: 100%; border-radius: 0;}
+            .navbar-nav li:first-child a { border-top-left-radius: var(--border-radius); border-top-right-radius: var(--border-radius); }
+            .navbar-nav li:last-child a { border-bottom: none; border-bottom-left-radius: var(--border-radius); border-bottom-right-radius: var(--border-radius); }
+
+            .navbar-nav .dark-mode-toggle { padding: 12px 20px; border-top: 1px solid var(--border-color); width: 100%; justify-content: flex-start; }
             .navbar-nav .dark-mode-toggle span, .navbar-nav .dark-mode-toggle i { color: var(--dark-blue); }
             .sticky .navbar-nav li a { color: var(--dark-blue); } 
-            
-            /* --- THIS IS THE FIX --- */
             .nav-right-part-desktop { display: none; } 
             .menu-toggle { display: block; }
-            /* --- END OF FIX --- */
-
             #banner-text-container strong { font-size: 2.2rem; }
             .about-area-inner { flex-direction: column; }
             .about-inner-wrap { padding-left: 0; margin-top: 40px; text-align: center; }
@@ -282,11 +316,9 @@
             .widget_contact li { justify-content: center; } 
             .widget_about { text-align: center; } 
             .social-media { justify-content: center; }
-            
             #studentDashboardModal .modal-content { flex-direction: column; height: 95vh; max-height: none; }
             #dashboard-sidebar { border-right: none; border-bottom: 1px solid var(--border-color); width: 100%; height: auto; flex-shrink: 0; }
             #dashboard-main-content { flex-grow: 1; overflow-y: auto; min-height: 0; }
-            
             #coursePlayerModal .modal-content { flex-direction: column; } 
             #course-sidebar { width: 100%; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border-color); }
         }
@@ -403,8 +435,7 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
     
     <footer id="contact" class="footer-area">
         <div class="container">
@@ -460,11 +491,35 @@
         <div class="action-btn-wrap"><button type="submit" data-lang="loginButton">লগইন করুন</button></div><div class="extra-links"><p><span data-lang="forgotPasswordPrompt">পাসওয়ার্ড ভুলে গেছেন?</span>
         <a href="#" id="forgotPasswordLink"><span data-lang="recoverLink">পুনরুদ্ধার করুন</span></a>
     </p><p><span data-lang="noAccountPrompt">আপনার কি একাউন্ট নেই?</span> <a href="#" id="switchToSignUp"><span data-lang="signUpLink">সাইন আপ করুন</span></a></p></div></form></div></div>
-    <div id="signUpModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="signUpForm" autocomplete="off">
-        <h2 data-lang="signUpTitle">Sign Up</h2>
-        <div class="form-row"><div class="input-group"><label for="signup-first-name" data-lang="firstNameLabel">First Name</label><input type="text" id="signup-first-name" name="first_name" placeholder="Enter first name" required></div><div class="input-group"><label for="signup-last-name" data-lang="lastNameLabel">Last Name</label><input type="text" id="signup-last-name" name="last_name" placeholder="Enter last name" required></div></div><div class="input-group"><label for="signup-email" data-lang="emailAddressLabel">Email Address</label><input type="email" id="signup-email" name="email" placeholder="Enter your email" required></div><div class="input-group"><label for="signup-password" data-lang="passwordLabel">Password</label><input type="password" id="signup-password" name="password" placeholder="Create a password" required></div>
-        <p class="error-message" id="signUpError"></p>
-        <div class="action-btn-wrap"><button type="submit"><span data-lang="createAccountButton">Create Account</span></button></div><div class="extra-links"><p><span data-lang="alreadyHaveAccountPrompt">Already have an account?</span> <a href="#" id="switchToSignIn"><span data-lang="signInLink">Sign In</span></a></p></div></form></div></div>
+    
+    <!-- MODIFIED: Sign Up মডালে কান্ট্রি কোড এবং হোয়াটসঅ্যাপ নাম্বার যুক্ত করা হয়েছে -->
+    <div id="signUpModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <form id="signUpForm" autocomplete="off">
+                <h2 data-lang="signUpTitle">Sign Up</h2>
+                <div class="form-row">
+                    <div class="input-group"><label for="signup-first-name" data-lang="firstNameLabel">First Name</label><input type="text" id="signup-first-name" name="first_name" placeholder="Enter first name" required></div>
+                    <div class="input-group"><label for="signup-last-name" data-lang="lastNameLabel">Last Name</label><input type="text" id="signup-last-name" name="last_name" placeholder="Enter last name" required></div>
+                </div>
+                <div class="input-group"><label for="signup-email" data-lang="emailAddressLabel">Email Address</label><input type="email" id="signup-email" name="email" placeholder="Enter your email" required></div>
+                
+                <!-- NEW: কান্ট্রি কোড এবং হোয়াটসঅ্যাপ নাম্বার ফিল্ড যুক্ত করা হয়েছে -->
+                <div class="input-group">
+                    <label for="signup-whatsapp">WhatsApp Number</label>
+                    <div class="whatsapp-input-group">
+                        <select id="signup-country-code" required></select>
+                        <input type="tel" id="signup-whatsapp" placeholder="WhatsApp Number" required>
+                    </div>
+                </div>
+
+                <div class="input-group"><label for="signup-password" data-lang="passwordLabel">Password</label><input type="password" id="signup-password" name="password" placeholder="Create a password" required></div>
+                <p class="error-message" id="signUpError"></p>
+                <div class="action-btn-wrap"><button type="submit"><span data-lang="createAccountButton">Create Account</span></button></div>
+                <div class="extra-links"><p><span data-lang="alreadyHaveAccountPrompt">Already have an account?</span> <a href="#" id="switchToSignIn"><span data-lang="signInLink">Sign In</span></a></p></div>
+            </form>
+        </div>
+    </div>
     
     <div id="courseDetailsModal" class="modal-overlay"><div class="modal-content" id="course-details-modal-content">
         <span class="modal-close-btn">&times;</span>
@@ -549,7 +604,7 @@
                     <div class="dashboard-header"><h3>Refer & Earn</h3></div>
                     <h4 data-lang="referralLinkTitle">Your Unique Referral Link</h4>
                     <div class="referral-link-container">
-                        <input type="text" id="referral-link-input" readonly>
+                        <input type="text" id="referral-link-input" value="Loading your link..." readonly>
                         <button class="btn-base btn-secondary" onclick="copyReferralLink()">Copy</button>
                     </div>
                     <hr style="margin: 20px 0;">
@@ -616,9 +671,10 @@
                 <div id="Profile" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Update Your Profile</h3></div>
                     <form id="profileUpdateForm">
+                        <!-- MODIFIED: প্রোফাইল ছবির জন্য ফাইল ইনপুটের বদলে URL ইনপুট যুক্ত করা হয়েছে -->
                         <div class="input-group">
-                            <label for="profilePicture">প্রোফাইল ছবি</label>
-                            <input type="file" id="profilePicture" accept="image/*">
+                            <label for="profilePictureUrl">প্রোফাইল ছবির URL</label>
+                            <input type="url" id="profilePictureUrl" placeholder="https://example.com/image.jpg">
                         </div>
                         <div class="input-group"><label for="profileName">Full Name</label><input type="text" id="profileName" required></div>
                         <div class="input-group"><label for="profilePassword">New Password (leave blank to keep current)</label><input type="password" id="profilePassword"></div>
@@ -655,6 +711,13 @@
                 <span class="modal-close-btn">&times;</span>
                 <div id="course-main-header">
                     <h3 id="lesson-title">Lesson Title</h3>
+                     <div class="auto-next-container">
+                        <label for="autoNextToggle">Auto-Next</label>
+                        <label class="switch">
+                            <input type="checkbox" id="autoNextToggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
                     <div class="course-player-tabs">
                         <button class="course-player-tab-btn active" data-tab="content"><i class="fas fa-play-circle"></i> Content</button>
                         <button class="course-player-tab-btn" data-tab="homework"><i class="fas fa-pencil-alt"></i> Homework</button>
@@ -712,7 +775,12 @@
                 <h3 id="certificate-course-name" style="font-size: 1.8rem; margin: 10px 0 30px 0;"></h3>
                 <p>তারিখ: <span id="certificate-date"></span></p>
             </div>
-            <button onclick="window.print();" class="btn-base" style="width: 100%; margin-top: 20px;">প্রিন্ট/ডাউনলোড করুন</button>
+             <div id="certificate-share-buttons">
+                <a href="#" id="share-facebook" class="share-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i> Share</a>
+                <a href="#" id="share-twitter" class="share-btn twitter" target="_blank"><i class="fab fa-twitter"></i> Tweet</a>
+                <a href="#" id="share-whatsapp" class="share-btn whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> Share</a>
+            </div>
+            <button onclick="printCertificate()" class="btn-base" style="width: 100%; margin-top: 20px;">প্রিন্ট/ডাউনলোড করুন</button>
         </div>
     </div>
     
@@ -739,8 +807,20 @@
         let allCoursesData = {}, siteContentData = {}, gamificationSettings = {};
         let appliedCoupon = null, currentCourseIdForReview = null;
         
+        // NEW: কান্ট্রি কোডের তালিকা
+        const countryCodes = [
+            { name: "Bangladesh", code: "+880" },
+            { name: "India", code: "+91" },
+            { name: "Pakistan", code: "+92" },
+            { name: "USA", code: "+1" },
+            { name: "UK", code: "+44" },
+            { name: "Saudi Arabia", code: "+966" },
+            { name: "UAE", code: "+971" },
+        ];
+        
         document.addEventListener('DOMContentLoaded', () => {
             setupEventListeners();
+            populateCountryCodes();
             loadTheme(); 
             loadNavigationMenu(); 
             loadSubAdminRoles(); 
@@ -754,6 +834,24 @@
             auth.onAuthStateChanged(user => { updateLoginUI(user); });
         });
         
+        // NEW: কান্ট্রি কোড ড্রপডাউন পপুলেট করার ফাংশন
+        function populateCountryCodes() {
+            const selectElement = document.getElementById('signup-country-code');
+            if (!selectElement) return;
+            selectElement.innerHTML = '';
+            countryCodes.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.code;
+                option.textContent = `${country.name} (${country.code})`;
+                if (country.name === "Bangladesh") {
+                    option.selected = true; // ডিফল্ট হিসেবে বাংলাদেশ সিলেক্ট করা থাকবে
+                }
+                selectElement.appendChild(option);
+            });
+            // ডিফল্ট ভ্যালু হোয়াটসঅ্যাপ ইনপুটে সেট করা
+            document.getElementById('signup-whatsapp').value = selectElement.value;
+        }
+
         function setupEventListeners() {
             const navbar = document.getElementById('navbar');
             const backToTop = document.getElementById('back-to-top');
@@ -776,7 +874,7 @@
             document.getElementById('qna-form').addEventListener('submit', handleQnaSubmit);
             document.getElementById('courseReviewForm').addEventListener('submit', handleReviewSubmit);
             document.getElementById('forgotPasswordLink').addEventListener('click', handleForgotPassword);
-            document.getElementById('markCompleteBtn').addEventListener('click', () => markLessonAsComplete(currentCourseInfo.currentLessonId));
+            document.getElementById('markCompleteBtn').addEventListener('click', () => markLessonAsComplete());
             document.getElementById('nextLessonBtn').addEventListener('click', goToNextLesson);
             document.getElementById('prevLessonBtn').addEventListener('click', goToPrevLesson);
             document.getElementById('saveNoteBtn').addEventListener('click', saveNote);
@@ -784,6 +882,15 @@
             document.getElementById('withdrawalForm').addEventListener('submit', handleWithdrawalRequest);
             document.getElementById('dashboard-new-forum-post-form').addEventListener('submit', handleNewForumPost);
             
+            // NEW: কান্ট্রি কোড পরিবর্তনের সাথে হোয়াটসঅ্যাপ ফিল্ড আপডেট করা
+            const countryCodeSelect = document.getElementById('signup-country-code');
+            const whatsappInput = document.getElementById('signup-whatsapp');
+            if (countryCodeSelect && whatsappInput) {
+                countryCodeSelect.addEventListener('change', () => {
+                    whatsappInput.value = countryCodeSelect.value;
+                });
+            }
+
             setupDarkMode();
             manageModals();
             setupStarRating();
@@ -797,8 +904,18 @@
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             const fullName = document.getElementById('signup-first-name').value + ' ' + document.getElementById('signup-last-name').value;
+            // NEW: হোয়াটসঅ্যাপ নাম্বার গ্রহণ করা
+            const whatsapp = document.getElementById('signup-whatsapp').value;
             const errorEl = document.getElementById('signUpError');
             errorEl.style.display = 'none';
+
+            // ভ্যালিডেশন: ইউজার যেন শুধু কান্ট্রি কোড দিয়ে সাবমিট না করে
+            const countryCode = document.getElementById('signup-country-code').value;
+            if (whatsapp.length <= countryCode.length) {
+                errorEl.textContent = "Please enter a valid WhatsApp number.";
+                errorEl.style.display = 'block';
+                return;
+            }
 
             const referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase();
             const urlParams = new URLSearchParams(window.location.search);
@@ -809,6 +926,7 @@
                     const userData = {
                         name: fullName,
                         email: email,
+                        whatsapp: whatsapp, // NEW: হোয়াটসঅ্যাপ নাম্বার সেভ করা
                         regDate: new Date().toISOString(),
                         status: 'pending', 
                         balance: 0,
@@ -837,6 +955,7 @@
                     errorEl.style.display = 'block';
                 });
         }
+
 
         function handleSignIn(event) {
             event.preventDefault();
@@ -878,12 +997,14 @@
 
         function handleForgotPassword(e) { e.preventDefault(); const email = prompt("Please enter your email address to reset your password:"); if (email) { auth.sendPasswordResetEmail(email) .then(() => alert('Password reset email sent! Please check your inbox.')) .catch(error => alert('Error: ' + error.message)); } }
         function handleContactFormSubmit(event) { event.preventDefault(); const name = document.getElementById('contact-name').value; const email = document.getElementById('contact-email').value; const message = document.getElementById('contact-message').value; const responseDiv = document.getElementById('contact-form-response'); database.ref('contacts').push({ name, email, message, timestamp: new Date().toISOString() }).then(() => { responseDiv.textContent = 'Your message has been sent successfully!'; responseDiv.style.color = 'green'; document.getElementById('contactForm').reset(); }).catch(error => { responseDiv.textContent = 'Error: ' + error.message; responseDiv.style.color = 'red'; }); }
+        
+        // MODIFIED: প্রোফাইল আপডেট ফাংশন URL গ্রহণ করার জন্য পরিবর্তন করা হয়েছে
         function handleProfileUpdate(event) {
             event.preventDefault();
             const user = auth.currentUser; if (!user) return;
             const newName = document.getElementById('profileName').value;
             const newPassword = document.getElementById('profilePassword').value;
-            const profilePicFile = document.getElementById('profilePicture').files[0];
+            const newProfilePicUrl = document.getElementById('profilePictureUrl').value;
             
             user.updateProfile({ displayName: newName })
                 .then(() => { database.ref('users/' + user.uid).update({ name: newName }); alert('Name updated successfully!'); })
@@ -891,23 +1012,14 @@
             
             if (newPassword) { user.updatePassword(newPassword).then(() => { alert('Password updated successfully!'); document.getElementById('profilePassword').value = ''; }).catch(err => alert('Error updating password: ' + err.message)); }
 
-            if (profilePicFile) {
-                const storageRef = storage.ref(`profile_pictures/${user.uid}`);
-                const uploadTask = storageRef.put(profilePicFile);
-                uploadTask.on('state_changed', 
-                    (snapshot) => { /* progress */ }, 
-                    (error) => { alert('Error uploading picture: ' + error.message); }, 
-                    () => {
-                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                            user.updateProfile({ photoURL: downloadURL });
-                            database.ref(`users/${user.uid}`).update({ profilePictureUrl: downloadURL });
-                            document.getElementById('dashboard-avatar').src = downloadURL;
-                            alert('Profile picture updated!');
-                        });
-                    }
-                );
+            if (newProfilePicUrl && newProfilePicUrl.startsWith('http')) {
+                user.updateProfile({ photoURL: newProfilePicUrl });
+                database.ref(`users/${user.uid}`).update({ profilePictureUrl: newProfilePicUrl });
+                document.getElementById('dashboard-avatar').src = newProfilePicUrl;
+                alert('Profile picture updated!');
             }
         }
+
         function updateLoginUI(user) { const authButtons = document.getElementById('auth-buttons-desktop'); const userInfo = document.getElementById('user-info-desktop'); if (user) { authButtons.style.display = 'none'; userInfo.style.display = 'flex'; document.getElementById('user-email-desktop').textContent = user.email; } else { authButtons.style.display = 'flex'; userInfo.style.display = 'none'; } }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
         function manageModals() { const manageModal = (modalId, openBtnIds = [], closeOnClickingOutside = true) => { const modal = document.getElementById(modalId); if (!modal) return; const openBtns = openBtnIds.map(id => document.getElementById(id)).filter(Boolean); const closeBtn = modal.querySelector('.modal-close-btn'); const open = (e) => { if(e) e.preventDefault(); modal.style.display = 'flex'; }; const close = () => closeModal(modalId); openBtns.forEach(btn => btn.addEventListener('click', open)); if (closeBtn) closeBtn.addEventListener('click', close); if(closeOnClickingOutside) modal.addEventListener('click', (e) => { if (e.target === modal) close(); }); }; manageModal('subadminModal', ['openSubadminModalBtn']); manageModal('signInModal', ['desktop-signin-btn']); manageModal('signUpModal', ['desktop-signup-btn']); manageModal('courseDetailsModal'); manageModal('studentDashboardModal', ['open-dashboard-btn']); manageModal('coursePlayerModal'); manageModal('courseReviewModal'); manageModal('announcement-modal'); manageModal('fakeAdminLoginModal', ['openFakeAdminLoginBtn']); manageModal('quizModal'); manageModal('certificateModal'); const signInModal = document.getElementById('signInModal'), signUpModal = document.getElementById('signUpModal'); const switchToSignUp = document.getElementById('switchToSignUp'), switchToSignIn = document.getElementById('switchToSignIn'); if(switchToSignUp) switchToSignUp.addEventListener('click', (e) => { e.preventDefault(); closeModal('signInModal'); signUpModal.style.display = 'flex'; }); if(switchToSignIn) switchToSignIn.addEventListener('click', (e) => { e.preventDefault(); closeModal('signUpModal'); signInModal.style.display = 'flex'; }); }
@@ -915,156 +1027,20 @@
         function loadTheme() { database.ref('siteContent/theme').on('value', (s) => { const t = s.val(); }); }
         function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').on('value', (s) => { const menuItems = []; s.forEach(cs => { menuItems.push(cs.val()); }); const lastChild = c.querySelector('li:last-child').outerHTML; c.innerHTML = menuItems.map(m => `<li><a href="${m.url}">${m.name}</a></li>`).join('') + lastChild; }); }
         function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').on('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
-        function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; siteContentData = content; gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; document.getElementById('workshop-subtitle').innerText = content.sectionTitles.workshopSubtitle || 'আমাদের কার্যক্রম'; document.getElementById('workshop-main-title').innerText = content.sectionTitles.workshopMainTitle || 'আসন্ন ওয়ার্কশপ'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) }
-        function loadCourses() {
-            const container = document.getElementById('course-list-container');
-            const footerMenu = document.getElementById('footer-course-menu');
-            const filterContainer = document.getElementById('course-filter-buttons');
-            database.ref('courses').on('value', (snapshot) => {
-                const coursesData = snapshot.val();
-                container.innerHTML = '';
-                footerMenu.innerHTML = '';
-                filterContainer.innerHTML = '';
-                if (coursesData) {
-                    allCoursesData = coursesData;
-                    const categories = new Set();
-                    for (const courseId in coursesData) {
-                        const course = coursesData[courseId];
-                        if (course.status === 'published' && course.category) {
-                            categories.add(course.category);
-                        }
-                    }
-
-                    filterContainer.innerHTML = '<button class="active" data-category="all">All</button>';
-                    categories.forEach(cat => {
-                        filterContainer.innerHTML += `<button data-category="${cat}">${cat}</button>`;
-                    });
-                    
-                    document.querySelectorAll('#course-filter-buttons button').forEach(button => {
-                        button.addEventListener('click', () => {
-                            const category = button.getAttribute('data-category');
-                            document.querySelector('#course-filter-buttons button.active').classList.remove('active');
-                            button.classList.add('active');
-                            document.querySelectorAll('.col-course').forEach(courseCard => {
-                                if (category === 'all' || courseCard.dataset.courseCategory === category) {
-                                    courseCard.style.display = 'block';
-                                } else {
-                                    courseCard.style.display = 'none';
-                                }
-                            });
-                        });
-                    });
-
-                    let courseCount = 0;
-                    for (const courseId in coursesData) {
-                        const course = coursesData[courseId];
-                        if (course.status === 'published') {
-                            const courseHTML = `
-                                <div class="col-course fade-in" data-course-category="${course.category || 'uncategorized'}">
-                                    <div class="single-course-inner">
-                                        <div class="thumb">
-                                            <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}">
-                                        </div>
-                                        <div class="details">
-                                            <h3>${course.name}</h3>
-                                            <a class="arrow-right" onclick="showCourseDetails('${courseId}')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>`;
-                            container.innerHTML += courseHTML;
-                            if (courseCount < 5) {
-                                footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${courseId}');">${course.name}</a></li>`;
-                                courseCount++;
-                            }
-                        }
-                    }
-                } else {
-                    container.innerHTML = '<p>No courses available at the moment.</p>';
-                    footerMenu.innerHTML = '<li>No courses found.</li>';
-                }
-                observeFadeInElements();
-            });
-        }
+        function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; siteContentData = content; gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; 
         
-        function loadCourseReviews(courseId) {
-            const reviewsContainer = document.getElementById('course-reviews-container');
-            reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>Loading reviews...</p>';
-            const reviewsRef = database.ref('courseReviews').orderByChild('courseId').equalTo(courseId);
-            
-            reviewsRef.once('value', snapshot => {
-                const reviews = snapshot.val();
-                if (!reviews) {
-                    reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No reviews for this course yet.</p>';
-                    return;
-                }
-
-                const approvedReviews = Object.values(reviews).filter(r => r.status === 'Approved');
-                if (approvedReviews.length === 0) {
-                     reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No approved reviews for this course yet.</p>';
-                     return;
-                }
-                
-                const userIds = [...new Set(approvedReviews.map(r => r.userId))];
-                const userPromises = userIds.map(id => database.ref(`users/${id}/name`).once('value'));
-
-                Promise.all(userPromises).then(userSnapshots => {
-                    const userIdToNameMap = {};
-                    userSnapshots.forEach((snap, index) => {
-                        userIdToNameMap[userIds[index]] = snap.val() || 'Unknown User';
-                    });
-
-                    let reviewsHtml = '';
-                    approvedReviews.forEach(review => {
-                        const userName = userIdToNameMap[review.userId];
-                        reviewsHtml += `
-                            <div class="review-item">
-                                <div class="review-header">
-                                    <span class="review-author">${userName}</span>
-                                    <span class="review-rating">${'⭐'.repeat(review.rating)}</span>
-                                </div>
-                                <p>${review.review}</p>
-                            </div>`;
-                    });
-
-                    reviewsContainer.innerHTML = '<h4>Student Reviews</h4>' + reviewsHtml;
-                });
-            });
-        }
-
+        // MODIFIED: aboutImageUrl লোড করার সময় skeleton ক্লাস সরানো হয়েছে
+        if(content.settings?.aboutImageUrl){ 
+            document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; 
+            document.getElementById("about-thumb-wrap").classList.remove("skeleton"); 
+        } 
+        
+        if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; document.getElementById('workshop-subtitle').innerText = content.sectionTitles.workshopSubtitle || 'আমাদের কার্যক্রম'; document.getElementById('workshop-main-title').innerText = content.sectionTitles.workshopMainTitle || 'আসন্ন ওয়ার্কশপ'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) }
+        function loadCourses() { const container = document.getElementById('course-list-container'); const footerMenu = document.getElementById('footer-course-menu'); const filterContainer = document.getElementById('course-filter-buttons'); database.ref('courses').on('value', (snapshot) => { const coursesData = snapshot.val(); container.innerHTML = ''; footerMenu.innerHTML = ''; filterContainer.innerHTML = ''; if (coursesData) { allCoursesData = coursesData; const categories = new Set(); for (const courseId in coursesData) { const course = coursesData[courseId]; if (course.status === 'published' && course.category) { categories.add(course.category); } } filterContainer.innerHTML = '<button class="active" data-category="all">All</button>'; categories.forEach(cat => { filterContainer.innerHTML += `<button data-category="${cat}">${cat}</button>`; }); document.querySelectorAll('#course-filter-buttons button').forEach(button => { button.addEventListener('click', () => { const category = button.getAttribute('data-category'); document.querySelector('#course-filter-buttons button.active').classList.remove('active'); button.classList.add('active'); document.querySelectorAll('.col-course').forEach(courseCard => { if (category === 'all' || courseCard.dataset.courseCategory === category) { courseCard.style.display = 'block'; } else { courseCard.style.display = 'none'; } }); }); }); let courseCount = 0; for (const courseId in coursesData) { const course = coursesData[courseId]; if (course.status === 'published') { const courseHTML = ` <div class="col-course fade-in" data-course-category="${course.category || 'uncategorized'}"> <div class="single-course-inner"> <div class="thumb"> <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"> </div> <div class="details"> <h3>${course.name}</h3> <a class="arrow-right" onclick="showCourseDetails('${courseId}')"> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> </a> </div> </div> </div>`; container.innerHTML += courseHTML; if (courseCount < 5) { footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${courseId}');">${course.name}</a></li>`; courseCount++; } } } } else { container.innerHTML = '<p>No courses available at the moment.</p>'; footerMenu.innerHTML = '<li>No courses found.</li>'; } observeFadeInElements(); }); }
+        function loadCourseReviews(courseId) { const reviewsContainer = document.getElementById('course-reviews-container'); reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>Loading reviews...</p>'; const reviewsRef = database.ref('courseReviews').orderByChild('courseId').equalTo(courseId); reviewsRef.once('value', snapshot => { const reviews = snapshot.val(); if (!reviews) { reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No reviews for this course yet.</p>'; return; } const approvedReviews = Object.values(reviews).filter(r => r.status === 'Approved'); if (approvedReviews.length === 0) { reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No approved reviews for this course yet.</p>'; return; } const userIds = [...new Set(approvedReviews.map(r => r.userId))]; const userPromises = userIds.map(id => database.ref(`users/${id}/name`).once('value')); Promise.all(userPromises).then(userSnapshots => { const userIdToNameMap = {}; userSnapshots.forEach((snap, index) => { userIdToNameMap[userIds[index]] = snap.val() || 'Unknown User'; }); let reviewsHtml = ''; approvedReviews.forEach(review => { const userName = userIdToNameMap[review.userId]; reviewsHtml += ` <div class="review-item"> <div class="review-header"> <span class="review-author">${userName}</span> <span class="review-rating">${'⭐'.repeat(review.rating)}</span> </div> <p>${review.review}</p> </div>`; }); reviewsContainer.innerHTML = '<h4>Student Reviews</h4>' + reviewsHtml; }); }); }
         function showCourseDetails(courseId) { const course = allCoursesData[courseId]; if (!course) return; appliedCoupon = null; currentCourseIdForReview = courseId; document.getElementById('course-details-image').src = course.imageURL || 'https://placehold.co/600x250'; document.getElementById('course-details-title').textContent = course.name; document.getElementById('course-details-price').textContent = `Price: ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('course-details-description').textContent = course.description || 'No detailed description available.'; document.getElementById('enroll-now-btn').innerHTML = `<span data-lang="enrollNowButton">Enroll Now</span> for ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, course.price); document.getElementById('apply-coupon-btn').onclick = () => applyCoupon(courseId); document.getElementById('coupon-code-input').value = ''; document.getElementById('coupon-message').textContent = ''; loadCourseReviews(courseId); document.getElementById('courseDetailsModal').style.display = 'flex'; }
         function applyCoupon(courseId) { const code = document.getElementById('coupon-code-input').value.trim().toUpperCase(); const messageEl = document.getElementById('coupon-message'); if(!code) { messageEl.textContent = 'Please enter a coupon code.'; messageEl.style.color = 'red'; return; } database.ref('coupons').orderByChild('code').equalTo(code).once('value', snapshot => { if(snapshot.exists()){ const couponData = Object.values(snapshot.val())[0]; const originalPrice = allCoursesData[courseId].price; let discountedPrice = originalPrice; if(couponData.type === 'percentage') { discountedPrice = originalPrice - (originalPrice * couponData.value / 100); } else if (couponData.type === 'fixed') { discountedPrice = originalPrice - couponData.value; } if (discountedPrice < 0) discountedPrice = 0; appliedCoupon = couponData; messageEl.textContent = `Coupon applied! New price: ${discountedPrice.toLocaleString('bn-BD')} BDT`; messageEl.style.color = 'green'; document.getElementById('enroll-now-btn').innerHTML = `Enroll Now for ${discountedPrice.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, discountedPrice); } else { messageEl.textContent = 'Invalid or expired coupon code.'; messageEl.style.color = 'red'; } }); }
-        
-        function enrollInCourse(courseId, finalPrice) {
-            const user = auth.currentUser;
-            if (!user) {
-                alert('কোর্সে এনরোল করার জন্য অনুগ্রহ করে সাইন ইন করুন।');
-                closeModal('courseDetailsModal');
-                document.getElementById('signInModal').style.display = 'flex';
-                return;
-            }
-
-            const course = allCoursesData[courseId];
-            if (course.enrollmentPassword && course.enrollmentPassword !== "") {
-                const enteredPassword = prompt(`"${course.name}" কোর্সে এনরোল করার জন্য অনুগ্রহ করে পাসওয়ার্ড দিন:`);
-                if (enteredPassword === null) return;
-                if (enteredPassword !== course.enrollmentPassword) {
-                    alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।");
-                    return;
-                }
-            }
-
-            alert(`পেমেন্ট গেটওয়ে ইন্টিগ্রেশন প্রয়োজন।\nআপাতত "${course.name}" কোর্সের জন্য ${finalPrice} BDT মূল্যে ম্যানুয়াল এনরোলমেন্ট প্রক্রিয়া সম্পন্ন করা হচ্ছে।`);
-            const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), purchasePrice: finalPrice };
-            database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData)
-                .then(() => {
-                    database.ref('payments').push({ userId: user.uid, courseId, amount: finalPrice, transactionId: 'MANUAL_SIMULATION_' + new Date().getTime(), date: new Date().toISOString() });
-                    alert('আপনি সফলভাবে কোর্সে এনরোল করেছেন!');
-                    closeModal('courseDetailsModal');
-                }).catch(err => alert('এনরোলমেন্ট ব্যর্থ হয়েছে: ' + err.message));
-        }
-
+        function enrollInCourse(courseId, finalPrice) { const user = auth.currentUser; if (!user) { alert('কোর্সে এনরোল করার জন্য অনুগ্রহ করে সাইন ইন করুন।'); closeModal('courseDetailsModal'); document.getElementById('signInModal').style.display = 'flex'; return; } const course = allCoursesData[courseId]; if (course.enrollmentPassword && course.enrollmentPassword !== "") { const enteredPassword = prompt(`"${course.name}" কোর্সে এনরোল করার জন্য অনুগ্রহ করে পাসওয়ার্ড দিন:`); if (enteredPassword === null) return; if (enteredPassword !== course.enrollmentPassword) { alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।"); return; } } alert(`পেমেন্ট গেটওয়ে ইন্টিগ্রেশন প্রয়োজন।\nআপাতত "${course.name}" কোর্সের জন্য ${finalPrice} BDT মূল্যে ম্যানুয়াল এনরোলমেন্ট প্রক্রিয়া সম্পন্ন করা হচ্ছে।`); const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), purchasePrice: finalPrice }; database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData) .then(() => { database.ref('payments').push({ userId: user.uid, courseId, amount: finalPrice, transactionId: 'MANUAL_SIMULATION_' + new Date().getTime(), date: new Date().toISOString() }); alert('আপনি সফলভাবে কোর্সে এনরোল করেছেন!'); closeModal('courseDetailsModal'); }).catch(err => alert('এনরোলমেন্ট ব্যর্থ হয়েছে: ' + err.message)); }
         function openDashboardTab(evt, tabName) { document.querySelectorAll(".dashboard-tab-content").forEach(c => c.style.display = "none"); document.querySelectorAll("#dashboard-sidebar .tab-link").forEach(l => l.classList.remove("active")); document.getElementById(tabName).style.display = "block"; evt.currentTarget.classList.add("active"); if (tabName === 'Notifications') { document.getElementById('notification-badge').style.display = 'none'; } }
         document.getElementById('open-dashboard-btn').addEventListener('click', (e) => { e.preventDefault(); const user = auth.currentUser; if (!user) { alert('Please sign in to view your dashboard.'); return; } loadDashboardData(user); document.getElementById('studentDashboardModal').style.display = 'flex'; document.querySelector('#dashboard-sidebar .tab-link').click(); });
         
@@ -1079,7 +1055,7 @@
                 document.getElementById('overview-balance').textContent = `${(userData.balance || 0).toLocaleString('bn-BD')} BDT`;
                 document.getElementById('withdraw-balance-display').textContent = `${(userData.balance || 0).toLocaleString('bn-BD')} BDT`;
                 loadHomeworkSubmissions(user.uid);
-                loadReferralData(user.uid, userData.referralCode);
+                loadReferralData(user.uid, userData);
                 loadMentors();
                 loadLiveClassesForDashboard(user.uid);
                 loadForumForDashboard();
@@ -1089,185 +1065,79 @@
                 loadLeaderboard();
                 loadSupportTickets();
                 document.getElementById('profileName').value = userData.name || user.displayName || '';
+                // NEW: প্রোফাইল পিকচার URL ইনপুটে বর্তমান URL দেখানো
+                document.getElementById('profilePictureUrl').value = userData.profilePictureUrl || '';
                 loadUserBadges(userData.gamification?.badges);
             });
             loadPaymentHistory(user);
         }
 
-        function loadLiveClassesForDashboard(userId) {
-            const container = document.getElementById('dashboard-live-class-container');
-            database.ref('liveClasses').orderByChild('dateTime').on('value', snapshot => {
-                container.innerHTML = '';
-                const classes = snapshot.val();
-                if (classes && Object.keys(classes).length > 0) {
-                    const sorted = Object.values(classes).sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
-                    const now = new Date();
-                    sorted.forEach(cls => {
-                        const classTime = new Date(cls.dateTime);
-                        let actionButton = '';
-                        if (classTime < now) { actionButton = cls.recordingUrl ? `<a href="${cls.recordingUrl}" target="_blank" class="btn-base">রেকর্ডিং দেখুন</a>` : `<button class="btn-base" disabled>শেষ হয়েছে</button>`; } 
-                        else { actionButton = `<a href="${cls.url}" target="_blank" class="btn-base">ক্লাসে যোগ দিন</a>`; }
-                        container.innerHTML += `<div class="live-class-card-neon"><div class="info"><h4>${cls.title}</h4><p><strong>সময়:</strong> ${classTime.toLocaleString('bn-BD')}</p><p class="teacher-name"><strong>টিচার:</strong> ${cls.teacher || 'N/A'}</p></div><div class="action-btn-container">${actionButton}</div></div>`;
-                    });
-                } else { container.innerHTML = '<p>বর্তমানে কোনো লাইভ ক্লাস উপলব্ধ নেই।</p>'; }
-            });
-        }
-
+        function loadLiveClassesForDashboard(userId) { const container = document.getElementById('dashboard-live-class-container'); database.ref('liveClasses').orderByChild('dateTime').on('value', snapshot => { container.innerHTML = ''; const classes = snapshot.val(); if (classes && Object.keys(classes).length > 0) { const sorted = Object.values(classes).sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); const now = new Date(); sorted.forEach(cls => { const classTime = new Date(cls.dateTime); let actionButton = ''; if (classTime < now) { actionButton = cls.recordingUrl ? `<a href="${cls.recordingUrl}" target="_blank" class="btn-base">রেকর্ডিং দেখুন</a>` : `<button class="btn-base" disabled>শেষ হয়েছে</button>`; } else { actionButton = `<a href="${cls.url}" target="_blank" class="btn-base">ক্লাসে যোগ দিন</a>`; } container.innerHTML += `<div class="live-class-card-neon"><div class="info"><h4>${cls.title}</h4><p><strong>সময়:</strong> ${classTime.toLocaleString('bn-BD')}</p><p class="teacher-name"><strong>টিচার:</strong> ${cls.teacher || 'N/A'}</p></div><div class="action-btn-container">${actionButton}</div></div>`; }); } else { container.innerHTML = '<p>বর্তমানে কোনো লাইভ ক্লাস উপলব্ধ নেই।</p>'; } }); }
         function loadEnrolledCourses(user, enrolledCourses) { const gridContainer = document.getElementById('enrolled-courses-grid'); if(!enrolledCourses) { gridContainer.innerHTML = '<p>You have not enrolled in any courses yet.</p>'; return; } gridContainer.innerHTML = ''; for(const enrollId in enrolledCourses) { const enrollment = enrolledCourses[enrollId]; const course = allCoursesData[enrollment.courseId]; if(course) { gridContainer.innerHTML += ` <div class="enrolled-course-card"> <img src="${course.imageURL}" alt="${course.name}"> <div class="enrolled-course-card-content"> <h5>${course.name}</h5> <button class="btn-base" onclick="openCoursePlayer('${enrollment.courseId}', '${enrollId}')">Start Learning</button> </div> </div> `; } } }
         function openReviewModal(courseId) { currentCourseIdForReview = courseId; document.getElementById('courseReviewModal').style.display = 'flex'; }
         function handleReviewSubmit(event) { event.preventDefault(); const user = auth.currentUser; if (!user) { alert('Please log in to submit a review.'); return; } const rating = document.getElementById('review-rating').value; const reviewText = document.getElementById('review-text').value; if (rating === '0') { alert('Please select a rating.'); return; } const reviewData = { courseId: currentCourseIdForReview, userId: user.uid, rating: parseInt(rating), review: reviewText, status: 'Pending', timestamp: new Date().toISOString() }; database.ref('courseReviews').push(reviewData) .then(() => { alert('Thank you! Your review has been submitted for approval.'); closeModal('courseReviewModal'); document.getElementById('courseReviewForm').reset(); }) .catch(err => alert('Error submitting review: ' + err.message)); }
         function setupStarRating() { const stars = document.querySelectorAll('#star-rating > span'); const ratingInput = document.getElementById('review-rating'); stars.forEach((star, index) => { star.addEventListener('click', () => { ratingInput.value = index + 1; stars.forEach((s, i) => { i <= index ? s.classList.add('selected') : s.classList.remove('selected'); }); }); }); }
-        
         function loadNotifications() { database.ref('notifications').orderByChild('timestamp').limitToLast(10).on('value', snapshot => { const container = document.getElementById('notifications-container'); container.innerHTML = ''; const notifications = snapshot.val(); if(notifications){ const sorted = Object.values(notifications).sort((a,b) => b.timestamp - a.timestamp); sorted.forEach(notif => { container.innerHTML += ` <div class="notification-item"> <p>${notif.message}</p> <div class="notification-date">${new Date(notif.timestamp).toLocaleString('bn-BD')}</div> </div> `; }); } else { container.innerHTML = '<p>No new notifications.</p>'; } }); }
         function loadDashboardOverview(enrolled, gamification){ const inProgress = enrolled ? Object.keys(enrolled).length : 0; document.getElementById('overview-inprogress').textContent = inProgress; document.getElementById('overview-points').textContent = gamification?.points || 0; }
         function loadPaymentHistory(user) { database.ref('payments').orderByChild('userId').equalTo(user.uid).on('value', snapshot => { const tbody = document.querySelector('#paymentHistoryTable tbody'); tbody.innerHTML = ''; const payments = snapshot.val(); if(payments){ for(const id in payments){ const p = payments[id]; const courseName = allCoursesData[p.courseId]?.name || 'Unknown Course'; tbody.innerHTML += ` <tr> <td>${courseName}</td> <td>${p.amount.toLocaleString('bn-BD')}</td> <td>${p.transactionId}</td> <td>${new Date(p.date).toLocaleDateString('bn-BD')}</td> </tr> `; } } else { tbody.innerHTML = '<tr><td colspan="4">No payment history found.</td></tr>'; } }); }
         function loadAchievements(badges){}
-        function loadLeaderboard() {
-            const table = document.getElementById('leaderboard-table');
-            table.innerHTML = `<thead><tr><th>Rank</th><th>Name</th><th>Points</th></tr></thead><tbody></tbody>`;
-            const tbody = table.querySelector('tbody');
-            
-            database.ref('users').orderByChild('gamification/points').limitToLast(20).once('value', snapshot => {
-                const users = [];
-                snapshot.forEach(childSnapshot => {
-                    const user = childSnapshot.val();
-                    if(user.gamification && user.gamification.points > 0) {
-                        users.push(user);
-                    }
-                });
-
-                users.sort((a, b) => b.gamification.points - a.gamification.points);
-
-                if (users.length > 0) {
-                    users.forEach((user, index) => {
-                        tbody.innerHTML += `<tr><td>${index + 1}</td><td>${user.name}</td><td>${user.gamification.points}</td></tr>`;
-                    });
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="3">No users on the leaderboard yet.</td></tr>';
-                }
-            });
-        }
+        function loadLeaderboard() { const table = document.getElementById('leaderboard-table'); table.innerHTML = `<thead><tr><th>Rank</th><th>Name</th><th>Points</th></tr></thead><tbody></tbody>`; const tbody = table.querySelector('tbody'); database.ref('users').orderByChild('gamification/points').limitToLast(20).once('value', snapshot => { const users = []; snapshot.forEach(childSnapshot => { const user = childSnapshot.val(); if(user.gamification && user.gamification.points > 0) { users.push(user); } }); users.sort((a, b) => b.gamification.points - a.gamification.points); if (users.length > 0) { users.forEach((user, index) => { tbody.innerHTML += `<tr><td>${index + 1}</td><td>${user.name}</td><td>${user.gamification.points}</td></tr>`; }); } else { tbody.innerHTML = '<tr><td colspan="3">No users on the leaderboard yet.</td></tr>'; } }); }
         let currentCourseInfo = {};
-        function openCoursePlayer(courseId, enrollId) { const course = allCoursesData[courseId]; if (!course) return; currentCourseInfo = { courseId: courseId, enrollId: enrollId, modules: course.modules ? Object.entries(course.modules) : [], }; const sidebar = document.getElementById('course-sidebar'); sidebar.innerHTML = `<h3>${course.name}</h3>`; if (currentCourseInfo.modules.length > 0) { currentCourseInfo.modules.forEach(([moduleId, module], modIndex) => { sidebar.innerHTML += `<h4>${module.title}</h4>`; const lessonList = document.createElement('ul'); if (module.lessons) { Object.entries(module.lessons).forEach(([lessonId, lesson], lessIndex) => { lessonList.innerHTML += `<li onclick="loadLesson('${lessonId}')" data-lesson-id="${lessonId}">${lesson.title}</li>`; }); } sidebar.appendChild(lessonList); }); const firstLessonId = Object.keys(currentCourseInfo.modules[0][1].lessons)[0]; loadLesson(firstLessonId); } else { sidebar.innerHTML += '<p>No content has been added to this course yet.</p>'; } document.getElementById('coursePlayerModal').style.display = 'flex'; }
-        
-        function loadLesson(lessonId) {
-            const { courseId } = currentCourseInfo;
-            let found = false;
-            for(const [moduleId, module] of currentCourseInfo.modules) {
-                if(module.lessons && module.lessons[lessonId]) {
-                    const lesson = module.lessons[lessonId];
-                    currentCourseInfo.currentLessonId = lessonId;
-                    currentCourseInfo.currentModuleId = moduleId;
-                    document.getElementById('lesson-title').textContent = lesson.title;
-                    const contentArea = document.getElementById('lesson-content-area');
-                    if (lesson.type === 'video') {
-                        const videoId = lesson.content.includes('youtu.be') ? lesson.content.split('/').pop() : new URL(lesson.content).searchParams.get('v');
-                        contentArea.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
-                    } else if (lesson.type === 'text') {
-                        contentArea.innerHTML = `<div style="padding: 20px; line-height: 1.8;">${lesson.content}</div>`;
-                    }
-                    document.querySelectorAll('#course-sidebar li').forEach(li => {
-                        li.classList.toggle('active', li.dataset.lessonId === lessonId);
-                    });
-                    
-                    loadQnA();
-                    loadNote();
-                    loadHomeworkForLesson(courseId, lessonId);
-                    found = true;
-                    break;
-                }
-            }
-        }
+        function openCoursePlayer(courseId, enrollId) { const course = allCoursesData[courseId]; if (!course) return; currentCourseInfo = { courseId: courseId, enrollId: enrollId, modules: course.modules ? Object.entries(course.modules) : [], flatLessonList: [] }; const sidebar = document.getElementById('course-sidebar'); sidebar.innerHTML = `<h3>${course.name}</h3>`; if (currentCourseInfo.modules.length > 0) { let lessonCounter = 0; currentCourseInfo.modules.forEach(([moduleId, module], modIndex) => { sidebar.innerHTML += `<h4>${module.title}</h4>`; const lessonList = document.createElement('ul'); if (module.lessons) { Object.entries(module.lessons).forEach(([lessonId, lesson]) => { lessonList.innerHTML += `<li onclick="loadLesson('${lessonId}')" data-lesson-id="${lessonId}">${lesson.title}</li>`; currentCourseInfo.flatLessonList.push(lessonId); }); } sidebar.appendChild(lessonList); }); const firstLessonId = currentCourseInfo.flatLessonList[0]; if(firstLessonId) loadLesson(firstLessonId); } else { sidebar.innerHTML += '<p>No content has been added to this course yet.</p>'; } document.getElementById('coursePlayerModal').style.display = 'flex'; }
+        function loadLesson(lessonId) { const { courseId } = currentCourseInfo; let found = false; for(const [moduleId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[lessonId]) { const lesson = module.lessons[lessonId]; currentCourseInfo.currentLessonId = lessonId; currentCourseInfo.currentModuleId = moduleId; document.getElementById('lesson-title').textContent = lesson.title; const contentArea = document.getElementById('lesson-content-area'); if (lesson.type === 'video') { const videoId = lesson.content.includes('youtu.be') ? lesson.content.split('/').pop() : new URL(lesson.content).searchParams.get('v'); contentArea.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`; } else if (lesson.type === 'text') { contentArea.innerHTML = `<div style="padding: 20px; line-height: 1.8;">${lesson.content}</div>`; } document.querySelectorAll('#course-sidebar li').forEach(li => { li.classList.toggle('active', li.dataset.lessonId === lessonId); }); updateNavigationButtons(); loadQnA(); loadNote(); loadHomeworkForLesson(courseId, lessonId); found = true; break; } } }
         function handleQnaSubmit(e) { e.preventDefault(); const user = auth.currentUser; const questionText = e.target.querySelector('textarea').value; if(!user || !questionText.trim()) return; const { courseId, currentLessonId } = currentCourseInfo; if (!courseId || !currentLessonId) return; let moduleId; for(const [modId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[currentLessonId]) { moduleId = modId; break; } } if(moduleId) { const qnaRef = database.ref(`courses/${courseId}/modules/${moduleId}/lessons/${currentLessonId}/qna`); qnaRef.push({ userId: user.uid, userName: user.displayName, question: questionText, timestamp: new Date().toISOString() }).then(() => { e.target.reset(); loadQnA(); }); } }
         function loadQnA() { const { courseId, currentLessonId } = currentCourseInfo; const qnaList = document.getElementById('qna-list'); qnaList.innerHTML = ''; let moduleId; for(const [modId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[currentLessonId]) { moduleId = modId; break; } } if(moduleId) { const qnaRef = database.ref(`courses/${courseId}/modules/${moduleId}/lessons/${currentLessonId}/qna`); qnaRef.on('value', snapshot => { const qnas = snapshot.val(); qnaList.innerHTML = ''; if(qnas){ for(const qnaId in qnas){ const qna = qnas[qnaId]; let replyHtml = ''; if(qna.reply) { replyHtml = ` <div class="qna-reply"> <p class="qna-reply-author">Admin Reply:</p> <p>${qna.reply.text}</p> </div>`; } qnaList.innerHTML += ` <div class="qna-item"> <p class="qna-author">${qna.userName}</p> <p>${qna.question}</p> <p class="qna-date">${new Date(qna.timestamp).toLocaleString()}</p> ${replyHtml} </div> `; } } else { qnaList.innerHTML = '<p>No questions asked for this lesson yet. Be the first!</p>'; } }); } }
         function loadNote() { const user = auth.currentUser; const { courseId, currentLessonId } = currentCourseInfo; if (!user || !courseId || !currentLessonId) return; const noteRef = database.ref(`users/${user.uid}/notes/${courseId}/${currentLessonId}`); noteRef.once('value', snapshot => { const note = snapshot.val(); document.getElementById('notes-area').value = note || ''; }); }
         function saveNote() { const user = auth.currentUser; const { courseId, currentLessonId } = currentCourseInfo; if (!user || !courseId || !currentLessonId) return; const noteContent = document.getElementById('notes-area').value; const noteRef = database.ref(`users/${user.uid}/notes/${courseId}/${currentLessonId}`); noteRef.set(noteContent).then(() => { alert('নোট সফলভাবে সেভ হয়েছে!'); }).catch(err => alert('Error saving note: ' + err.message)); }
-        function markLessonAsComplete(lessonId) { const user = auth.currentUser; if(!user || !lessonId) return; const { enrollId, courseId } = currentCourseInfo; const progressRef = database.ref(`users/${user.uid}/enrolledCourses/${enrollId}/progress/${lessonId}`); progressRef.set(true).then(() => { alert('Lesson marked as complete!'); if (gamificationSettings.pointsPerLesson > 0) { const pointsRef = database.ref(`users/${user.uid}/gamification/points`); pointsRef.transaction(currentPoints => (currentPoints || 0) + gamificationSettings.pointsPerLesson); } confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); checkCourseCompletion(courseId, enrollId); }); }
+        function markLessonAsComplete() { const user = auth.currentUser; const { enrollId, courseId, currentLessonId } = currentCourseInfo; if(!user || !currentLessonId) return; const progressRef = database.ref(`users/${user.uid}/enrolledCourses/${enrollId}/progress/${currentLessonId}`); progressRef.set(true).then(() => { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); checkCourseCompletion(courseId, enrollId); if (document.getElementById('autoNextToggle').checked) { const markCompleteBtn = document.getElementById('markCompleteBtn'); markCompleteBtn.disabled = true; markCompleteBtn.textContent = 'Completed!'; setTimeout(() => { markCompleteBtn.disabled = false; markCompleteBtn.textContent = 'Mark as Complete'; goToNextLesson(); }, 1500); } else { alert('Lesson marked as complete!'); } }); }
         function checkCourseCompletion(courseId, enrollId) { const user = auth.currentUser; const course = allCoursesData[courseId]; if (!user || !course) return; const totalLessons = course.modules ? Object.values(course.modules).reduce((sum, mod) => sum + (mod.lessons ? Object.keys(mod.lessons).length : 0), 0) : 0; if (totalLessons === 0) return; database.ref(`users/${user.uid}/enrolledCourses/${enrollId}/progress`).once('value', snapshot => { const completedLessons = snapshot.numChildren(); if (completedLessons >= totalLessons) { database.ref(`users/${user.uid}/completedCourses/${courseId}`).set({ courseName: course.name, completionDate: new Date().toISOString() }); checkAndAwardBadges(user.uid); alert(`Congratulations! You have completed the course: ${course.name}`); openQuizModal(courseId); } }); }
-        function updateNavigationButtons() {}
-        function goToNextLesson() {}
-        function goToPrevLesson() {}
-        function setupDarkMode(){ const toggle = document.getElementById('darkModeToggle'); toggle.addEventListener('change', () => { if (toggle.checked) { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); } else { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); } }); const currentTheme = localStorage.getItem('theme'); if (currentTheme === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); toggle.checked = true; } }
+        function updateNavigationButtons() { const { flatLessonList, currentLessonId } = currentCourseInfo; const currentIndex = flatLessonList.indexOf(currentLessonId); document.getElementById('prevLessonBtn').disabled = currentIndex === 0; document.getElementById('nextLessonBtn').disabled = currentIndex === flatLessonList.length - 1; }
+        function goToNextLesson() { const { flatLessonList, currentLessonId } = currentCourseInfo; const currentIndex = flatLessonList.indexOf(currentLessonId); if (currentIndex < flatLessonList.length - 1) { const nextLessonId = flatLessonList[currentIndex + 1]; loadLesson(nextLessonId); } }
+        function goToPrevLesson() { const { flatLessonList, currentLessonId } = currentCourseInfo; const currentIndex = flatLessonList.indexOf(currentLessonId); if (currentIndex > 0) { const prevLessonId = flatLessonList[currentIndex - 1]; loadLesson(prevLessonId); } }
+        
+        // MODIFIED: ডার্ক মোড ফাংশনটি সঠিকভাবে কাজ করার জন্য আপডেট করা হয়েছে
+        function setupDarkMode(){
+            const toggle = document.getElementById('darkModeToggle');
+            const currentTheme = localStorage.getItem('theme');
+            
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggle.checked = true;
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                toggle.checked = false;
+            }
+
+            toggle.addEventListener('change', () => {
+                if (toggle.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
         document.querySelector('#coursePlayerModal .modal-close-btn').addEventListener('click', () => { closeModal('coursePlayerModal'); document.getElementById('lesson-content-area').innerHTML = ''; if(auth.currentUser) loadDashboardData(auth.currentUser); });
         function loadProjects() { const p = document.getElementById('upcoming-projects-list'); database.ref('projects').on('value', (s) => { p.innerHTML = ''; const d = s.val(); if(d){ for(const i in d) p.innerHTML += `<div class="single-blog-list-inner"><h5><a href="${d[i].link || '#'}" target="_blank">${d[i].title}</a></h5></div>`; } else p.innerHTML = '<p style="color:white;">No upcoming projects.</p>'; }); }
         function loadWorkshop() { const container = document.getElementById('workshop-container'); const workshopRef = database.ref('workshops/main_workshop'); workshopRef.on('value', (snapshot) => { const workshop = snapshot.val(); if (workshop && workshop.status === 'active') { container.innerHTML = ` <h3 style="font-size: 1.8rem; color: var(--dark-blue); margin-bottom: 15px;">${workshop.title}</h3> <p style="font-size: 1.1rem; font-weight: 500; color: var(--primary-green); margin-bottom: 25px;"> <i class="far fa-calendar-alt"></i> ${workshop.date} </p> <p style="color: var(--light-text); margin-bottom: 30px;">${workshop.description}</p> <a href="${workshop.regLink}" target="_blank" class="btn-base">রেজিস্ট্রেশন করুন</a> `; } else { document.getElementById('workshop').style.display = 'none'; } }); }
-        
         function showAnnouncementPopup() { database.ref('siteContent/announcement').once('value', snapshot => { const ann = snapshot.val(); if (ann && ann.status === 'active' && !sessionStorage.getItem('announcementShown')) { document.getElementById('announcement-title').innerText = ann.title; document.getElementById('announcement-message').innerText = ann.message; const modal = document.getElementById('announcement-modal'); modal.style.display = 'flex'; modal.querySelector('.modal-close-btn').onclick = () => modal.style.display = 'none'; sessionStorage.setItem('announcementShown', 'true'); } }); }
         function loadBlogPosts() { const c = document.getElementById('blog-posts-container'); database.ref('blogPosts').on('value', (s) => { c.innerHTML = ''; const d = s.val(); if(d){ let postFound = false; const sortedPosts = Object.entries(d).sort((a, b) => new Date(b[1].date) - new Date(a[1].date)); for(const [key, o] of sortedPosts){ if(o.status === 'published') { postFound = true; c.innerHTML += ` <div class="single-course-inner fade-in"> <div class="thumb"> <img src="${o.imageUrl || 'https://placehold.co/380x220?text=Blog+Post'}" alt="${o.title}"> </div> <div class="details" style="flex-direction: column; align-items: flex-start;"> <h3>${o.title}</h3> <p class="post-meta">Posted on: ${new Date(o.date).toLocaleDateString('bn-BD')}</p> <p>${(o.content || "").substring(0, 120)}...</p> </div> </div>`; } } if (!postFound) { c.innerHTML = '<p>No latest news or articles available right now.</p>'; } } else { c.innerHTML = '<p>No blog posts available.</p>'; } observeFadeInElements(); }); }
-
-        function loadHomeworkForLesson(courseId, lessonId) {
-            const user = auth.currentUser;
-            const container = document.getElementById('homework-submission-area');
-            if (!user) { container.innerHTML = '<p>Please log in to submit homework.</p>'; return; }
-
-            const course = allCoursesData[courseId];
-            if (!course.homeworkLimit || !course.homeworkReward) {
-                container.innerHTML = '<p>No homework is enabled for this course.</p>';
-                return;
+        function loadHomeworkForLesson(courseId, lessonId) { const user = auth.currentUser; const container = document.getElementById('homework-submission-area'); if (!user) { container.innerHTML = '<p>Please log in to submit homework.</p>'; return; } const course = allCoursesData[courseId]; if (!course.homeworkLimit || !course.homeworkReward) { container.innerHTML = '<p>No homework is enabled for this course.</p>'; return; } database.ref('homeworkSubmissions').orderByChild('userId').equalTo(user.uid).once('value', snapshot => { const allSubmissions = snapshot.val() || {}; const courseSubmissions = Object.values(allSubmissions).filter(s => s.courseId === courseId); const approvedOrPendingCount = courseSubmissions.filter(s => s.status === 'approved' || s.status === 'submitted').length; const thisLessonSubmission = courseSubmissions.find(s => s.lessonId === lessonId); if (thisLessonSubmission) { let statusHtml = `<p><strong>Status:</strong> <span class="homework-status ${thisLessonSubmission.status}">${thisLessonSubmission.status.replace('_', ' ')}</span></p>`; if (thisLessonSubmission.status === 'correction_needed') { container.innerHTML = `${statusHtml}<p><strong>Admin Feedback:</strong> ${thisLessonSubmission.adminNotes}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', '${thisLessonSubmission.id}')"><div class="input-group"><label>Resubmit Your Homework Link</label><input type="url" value="${thisLessonSubmission.homeworkLink}" required></div><button type="submit" class="btn-base">Resubmit</button></form>`; } else { container.innerHTML = statusHtml + `<p>You have already submitted homework for this lesson.</p>`; } } else if (approvedOrPendingCount >= course.homeworkLimit) { container.innerHTML = `<p>You have reached the homework submission limit (${course.homeworkLimit}) for this course.</p>`; } else { container.innerHTML = `<p>You can earn ${course.homeworkReward} BDT for this homework.</p><p>Submissions remaining for this course: ${course.homeworkLimit - approvedOrPendingCount}/${course.homeworkLimit}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', null)"><div class="input-group"><label>Enter Your Homework Link</label><input type="url" placeholder="https://..." required></div><button type="submit" class="btn-base">Submit</button></form>`; } }); }
+        function handleHomeworkSubmit(event, courseId, lessonId, submissionId) { event.preventDefault(); const user = auth.currentUser; const homeworkLink = event.target.querySelector('input').value; if (!user || !homeworkLink) return; const course = allCoursesData[courseId]; const submissionData = { userId: user.uid, courseName: course.name, homeworkLink: homeworkLink, status: 'submitted', submittedAt: new Date().toISOString(), rewardAmount: course.homeworkReward || 0 }; const ref = submissionId ? database.ref('homeworkSubmissions/' + submissionId) : database.ref('homeworkSubmissions').push(); ref.update(submissionData).then(() => { alert('Homework submitted successfully!'); loadHomeworkForLesson(courseId, lessonId); }).catch(err => alert('Error: ' + err.message)); }
+        function loadHomeworkSubmissions(userId) { const container = document.getElementById('homework-submissions-container'); database.ref('homeworkSubmissions').orderByChild('userId').equalTo(userId).on('value', snapshot => { const submissions = snapshot.val(); if (submissions) { let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;"><thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`; const sorted = Object.values(submissions).sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt)); sorted.forEach(sub => { tableHtml += `<tr><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td></tr>`; }); tableHtml += '</tbody></table>'; container.innerHTML = tableHtml; } else { container.innerHTML = '<p>You have not submitted any homework yet.</p>'; } }); }
+        
+        // MODIFIED: Refer & Earn সেকশনে লিডের হোয়াটসঅ্যাপ নাম্বার ও বাটন যুক্ত করা হয়েছে
+        function loadReferralData(userId, userData) {
+            const linkInput = document.getElementById('referral-link-input');
+            const referralCode = userData.referralCode;
+            if (referralCode) {
+                linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
+            } else {
+                linkInput.value = 'Referral code not available.';
             }
 
-            database.ref('homeworkSubmissions').orderByChild('userId').equalTo(user.uid).once('value', snapshot => {
-                const allSubmissions = snapshot.val() || {};
-                const courseSubmissions = Object.values(allSubmissions).filter(s => s.courseId === courseId);
-                const approvedOrPendingCount = courseSubmissions.filter(s => s.status === 'approved' || s.status === 'submitted').length;
-                
-                const thisLessonSubmission = courseSubmissions.find(s => s.lessonId === lessonId);
-
-                if (thisLessonSubmission) {
-                    let statusHtml = `<p><strong>Status:</strong> <span class="homework-status ${thisLessonSubmission.status}">${thisLessonSubmission.status.replace('_', ' ')}</span></p>`;
-                    if (thisLessonSubmission.status === 'correction_needed') {
-                        container.innerHTML = `${statusHtml}<p><strong>Admin Feedback:</strong> ${thisLessonSubmission.adminNotes}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', '${thisLessonSubmission.id}')"><div class="input-group"><label>Resubmit Your Homework Link</label><input type="url" value="${thisLessonSubmission.homeworkLink}" required></div><button type="submit" class="btn-base">Resubmit</button></form>`;
-                    } else {
-                         container.innerHTML = statusHtml + `<p>You have already submitted homework for this lesson.</p>`;
-                    }
-                } else if (approvedOrPendingCount >= course.homeworkLimit) {
-                     container.innerHTML = `<p>You have reached the homework submission limit (${course.homeworkLimit}) for this course.</p>`;
-                }
-                else {
-                    container.innerHTML = `<p>You can earn ${course.homeworkReward} BDT for this homework.</p><p>Submissions remaining for this course: ${course.homeworkLimit - approvedOrPendingCount}/${course.homeworkLimit}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', null)"><div class="input-group"><label>Enter Your Homework Link</label><input type="url" placeholder="https://..." required></div><button type="submit" class="btn-base">Submit</button></form>`;
-                }
-            });
-        }
-        
-        function handleHomeworkSubmit(event, courseId, lessonId, submissionId) {
-            event.preventDefault();
-            const user = auth.currentUser;
-            const homeworkLink = event.target.querySelector('input').value;
-            if (!user || !homeworkLink) return;
-
-            const course = allCoursesData[courseId];
-            const submissionData = {
-                userId: user.uid,
-                courseName: course.name,
-                homeworkLink: homeworkLink,
-                status: 'submitted',
-                submittedAt: new Date().toISOString(),
-                rewardAmount: course.homeworkReward || 0
-            };
-
-            const ref = submissionId ? database.ref('homeworkSubmissions/' + submissionId) : database.ref('homeworkSubmissions').push(); 
-            ref.update(submissionData).then(() => { alert('Homework submitted successfully!'); loadHomeworkForLesson(courseId, lessonId); }).catch(err => alert('Error: ' + err.message));
-        }
-
-        function loadHomeworkSubmissions(userId) {
-            const container = document.getElementById('homework-submissions-container');
-            database.ref('homeworkSubmissions').orderByChild('userId').equalTo(userId).on('value', snapshot => {
-                const submissions = snapshot.val();
-                if (submissions) {
-                    let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;"><thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`;
-                    const sorted = Object.values(submissions).sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt));
-                    sorted.forEach(sub => {
-                        tableHtml += `<tr><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td></tr>`;
-                    });
-                    tableHtml += '</tbody></table>';
-                    container.innerHTML = tableHtml;
-                } else { container.innerHTML = '<p>You have not submitted any homework yet.</p>'; }
-            });
-        }
-
-        function loadReferralData(userId, referralCode) {
-            const linkInput = document.getElementById('referral-link-input');
-            linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
             const leadsContainer = document.getElementById('leads-container');
             const convertsContainer = document.getElementById('converts-container');
             database.ref('users').orderByChild('referredBy').equalTo(userId).on('value', snapshot => {
@@ -1276,10 +1146,21 @@
                 if (referredUsers) {
                     const leads = Object.values(referredUsers).filter(u => u.status === 'pending');
                     const converts = Object.values(referredUsers).filter(u => u.status === 'active');
-                    if(leads.length > 0) { leadsHtml = leads.map(u => `<p>${u.name} (${u.email}) - Joined on ${new Date(u.regDate).toLocaleDateString()}</p>`).join(''); } 
-                    else { leadsHtml = '<p>No pending leads found.</p>'; }
-                    if(converts.length > 0) { convertsHtml = converts.map(u => `<p>${u.name} (${u.email}) - Activated!</p>`).join(''); } 
-                    else { convertsHtml = '<p>No active referrals yet.</p>'; }
+                    
+                    if (leads.length > 0) {
+                        leadsHtml = leads.map(u => {
+                            const whatsappLink = u.whatsapp ? `https://wa.me/${u.whatsapp.replace(/\D/g, '')}` : '#';
+                            const whatsappButton = u.whatsapp ? `<a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 5px 10px; font-size: 0.8rem; margin-left: 15px;"><i class="fab fa-whatsapp"></i> Message</a>` : '';
+                            return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color);">
+                                        <span>${u.name} (${u.email}) - <b>WhatsApp:</b> ${u.whatsapp || 'N/A'}</span>
+                                        ${whatsappButton}
+                                    </div>`;
+                        }).join('');
+                    } else { leadsHtml = '<p>No pending leads found.</p>'; }
+
+                    if (converts.length > 0) { 
+                        convertsHtml = converts.map(u => `<p>${u.name} (${u.email}) - Activated!</p>`).join('');
+                    } else { convertsHtml = '<p>No active referrals yet.</p>'; }
                 } else {
                     leadsHtml = '<p>No one has signed up using your link yet.</p>';
                     convertsHtml = '<p>No active referrals yet.</p>';
@@ -1289,181 +1170,62 @@
             });
         }
 
-        function copyReferralLink() {
-            const linkInput = document.getElementById('referral-link-input');
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(linkInput.value).then(() => { alert('Referral link copied to clipboard!'); }).catch(err => { alert('Failed to copy link.'); });
-            } else {
-                linkInput.select();
-                document.execCommand('copy');
-                alert('Referral link copied to clipboard!');
-            }
-        }
 
-        function handleWithdrawalRequest(event) {
-            event.preventDefault();
-            const user = auth.currentUser; if (!user) return;
-            const amount = parseFloat(document.getElementById('withdraw-amount').value);
-            const method = document.getElementById('withdraw-method').value;
-            const details = document.getElementById('withdraw-details').value;
-            const errorEl = document.getElementById('withdrawalError');
-            errorEl.style.display = 'none';
-            if (amount < 500) { errorEl.textContent = 'Minimum withdrawal amount is 500 BDT.'; errorEl.style.display = 'block'; return; }
-            database.ref('users/' + user.uid).once('value', snapshot => {
-                const userData = snapshot.val();
-                if (amount > (userData.balance || 0)) { errorEl.textContent = 'Insufficient balance.'; errorEl.style.display = 'block'; return; }
-                const requestData = { userId: user.uid, userName: userData.name, amount: amount, method: method, accountDetails: details, status: 'pending', requestedAt: new Date().toISOString() };
-                database.ref('withdrawalRequests').push(requestData).then(() => { alert('Your withdrawal request has been submitted successfully!'); document.getElementById('withdrawalForm').reset(); });
-            });
-        }
+        function copyReferralLink() { const linkInput = document.getElementById('referral-link-input'); if (navigator.clipboard) { navigator.clipboard.writeText(linkInput.value).then(() => { alert('Referral link copied to clipboard!'); }).catch(err => { alert('Failed to copy link.'); }); } else { linkInput.select(); document.execCommand('copy'); alert('Referral link copied to clipboard!'); } }
+        function handleWithdrawalRequest(event) { event.preventDefault(); const user = auth.currentUser; if (!user) return; const amount = parseFloat(document.getElementById('withdraw-amount').value); const method = document.getElementById('withdraw-method').value; const details = document.getElementById('withdraw-details').value; const errorEl = document.getElementById('withdrawalError'); errorEl.style.display = 'none'; if (amount < 500) { errorEl.textContent = 'Minimum withdrawal amount is 500 BDT.'; errorEl.style.display = 'block'; return; } database.ref('users/' + user.uid).once('value', snapshot => { const userData = snapshot.val(); if (amount > (userData.balance || 0)) { errorEl.textContent = 'Insufficient balance.'; errorEl.style.display = 'block'; return; } const requestData = { userId: user.uid, userName: userData.name, amount: amount, method: method, accountDetails: details, status: 'pending', requestedAt: new Date().toISOString() }; database.ref('withdrawalRequests').push(requestData).then(() => { alert('Your withdrawal request has been submitted successfully!'); document.getElementById('withdrawalForm').reset(); }); }); }
         
+        // MODIFIED: Mentors সেকশনে শুধুমাত্র Team Leader ও Trainer দেখানো হবে
         function loadMentors() {
             const container = document.getElementById('mentors-container');
-            container.innerHTML = '';
-            database.ref('siteContent/settings/mentorRoles').once('value', rolesSnapshot => {
-                const mentorRoles = rolesSnapshot.val() || ['Senior Team Leader', 'Team Leader', 'Trainer'];
-                database.ref('users').orderByChild('role').on('value', snapshot => {
-                    let mentorsFound = false;
-                    container.innerHTML = '';
+            container.innerHTML = '<p>Loading mentor information...</p>';
+            
+            const mentorRolesToQuery = ["Team Leader", "Trainer"];
+            let mentorsFound = false;
+            let mentorsHtml = '';
+            let promises = [];
+
+            mentorRolesToQuery.forEach(role => {
+                const promise = database.ref('users').orderByChild('role').equalTo(role).once('value');
+                promises.push(promise);
+            });
+
+            Promise.all(promises).then(snapshots => {
+                snapshots.forEach(snapshot => {
                     snapshot.forEach(childSnapshot => {
                         const user = childSnapshot.val();
-                        if (mentorRoles.includes(user.role) && user.whatsapp) {
+                        if (user.whatsapp) {
                             mentorsFound = true;
-                            container.innerHTML += `<div class="widget-card" style="margin-bottom:15px; border-color: #3498db;"><h4>${user.name} (${user.role})</h4><p>WhatsApp: ${user.whatsapp}</p></div>`;
+                            const whatsappLink = `https://wa.me/${user.whatsapp.replace(/\D/g, '')}`;
+                            mentorsHtml += `
+                            <div class="widget-card" style="margin-bottom:15px; border-color: #3498db; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4>${user.name} (${user.role})</h4>
+                                    <p>WhatsApp: ${user.whatsapp}</p>
+                                </div>
+                                <a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 8px 15px;"><i class="fab fa-whatsapp"></i> Message</a>
+                            </div>`;
                         }
                     });
-                    if (!mentorsFound) { container.innerHTML = '<p>No mentor information is available at the moment.</p>'; }
                 });
-            });
-        }
-        
-        function handleSupportTicketSubmit(event) {
-            event.preventDefault();
-            const user = auth.currentUser; if (!user) { alert('Please log in to submit a ticket.'); return; }
-            const subject = document.getElementById('ticketSubject').value;
-            const message = document.getElementById('ticketMessage').value;
-            const ticketData = { userId: user.uid, subject: subject, message: message, status: 'pending', timestamp: new Date().toISOString() };
-            database.ref('supportTickets').push(ticketData).then(() => { alert('Support ticket submitted successfully!'); document.getElementById('supportTicketForm').reset(); }).catch(error => { alert('Error submitting ticket: ' + error.message); });
-        }
 
-        function loadSupportTickets() {
-            const user = auth.currentUser; if (!user) return;
-            const container = document.getElementById('past-tickets-container');
-            container.innerHTML = '<p>Loading your tickets...</p>';
-            database.ref('supportTickets').orderByChild('userId').equalTo(user.uid).on('value', snapshot => {
-                const tickets = snapshot.val();
-                if (tickets) {
-                    container.innerHTML = '';
-                    const sortedTickets = Object.values(tickets).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-                    sortedTickets.forEach(ticket => {
-                        let replyHtml = '';
-                        if (ticket.reply) { replyHtml = `<div class="ticket-reply"><strong>Admin Reply:</strong><p>${ticket.reply}</p></div>`; }
-                        container.innerHTML += `<div class="ticket-item"><div class="ticket-header"><span>${ticket.subject}</span><span class="ticket-status ${ticket.status}">${ticket.status}</span></div><div class="ticket-body"><p>${ticket.message}</p>${replyHtml}</div></div>`;
-                    });
-                } else { container.innerHTML = '<p>You have not created any support tickets yet.</p>'; }
-            });
-        }
-
-        function handleNewForumPost(event) {
-            event.preventDefault();
-            const user = auth.currentUser; if (!user) { alert('Please log in to post.'); return; }
-            const content = document.getElementById('dashboard-forum-post-content').value;
-            if (!content.trim()) return;
-            const postData = { userId: user.uid, authorName: user.displayName, authorAvatar: user.photoURL || 'https://i.pravatar.cc/150', content: content, timestamp: new Date().toISOString() };
-            database.ref('forum_posts').push(postData).then(() => { document.getElementById('dashboard-new-forum-post-form').reset(); });
-        }
-
-        async function loadForumForDashboard() {
-            const container = document.getElementById('dashboard-forum-posts-container');
-            container.innerHTML = '<p>Loading posts...</p>';
-            const adminUid = (await database.ref('siteContent/settings/adminUid').once('value')).val() || "vcwR2irXaiTNiiOb5o0pBrIqfRV2";
-            database.ref('forum_posts').orderByChild('timestamp').on('value', snapshot => {
-                container.innerHTML = '';
-                const posts = [];
-                snapshot.forEach(child => { posts.push({ id: child.key, ...child.val() }); });
-                const sortedPosts = posts.sort((a,b) => (b.isPinned === true) - (a.isPinned === true) || new Date(b.timestamp) - new Date(a.timestamp));
-                if (sortedPosts.length === 0) { container.innerHTML = '<p>No posts in the forum yet. Be the first to start a discussion!</p>'; return; }
-                sortedPosts.forEach(post => {
-                    const isAdminPost = post.userId === adminUid;
-                    const pinnedClass = post.isPinned ? 'pinned' : '';
-                    const pinIcon = post.isPinned ? '<i class="fas fa-thumbtack pin-icon"></i>' : '';
-                    const adminBadge = isAdminPost ? '<span class="admin-badge">Admin</span>' : '';
-                    container.innerHTML += `<div class="forum-post ${pinnedClass}"><div class="forum-post-header"><img src="${post.authorAvatar}" alt="Avatar" class="forum-post-avatar"><div><p class="forum-post-author">${pinIcon}${post.authorName} ${adminBadge}</p></div><span class="forum-post-date">${new Date(post.timestamp).toLocaleString()}</span></div><div class="forum-post-content"><p>${post.content}</p></div></div>`;
-                });
-            });
-        }
-        
-        function openQuizModal(courseId) {
-            const course = allCoursesData[courseId];
-            if (!course || !course.quiz) { alert('এই কোর্সের জন্য কোনো কুইজ পাওয়া যায়নি।'); showCertificate(courseId); return; }
-            const quizContainer = document.getElementById('quiz-content-area');
-            quizContainer.innerHTML = '';
-            let questionsHtml = '<form id="quizForm">';
-            Object.entries(course.quiz).forEach(([qId, q], index) => {
-                questionsHtml += `<div class="input-group"><label>${index + 1}. ${q.text}</label>`;
-                q.options.forEach((opt, optIndex) => { questionsHtml += `<div><input type="radio" name="question-${qId}" value="${optIndex + 1}" required><label>${opt}</label></div>`; });
-                questionsHtml += `</div>`;
-            });
-            questionsHtml += `<button type="submit" class="btn-base">কুইজ জমা দিন</button></form>`;
-            quizContainer.innerHTML = questionsHtml;
-            document.getElementById('quizForm').onsubmit = (e) => handleQuizSubmit(e, courseId);
-            document.getElementById('quizModal').style.display = 'flex';
-        }
-
-        function handleQuizSubmit(event, courseId) {
-            event.preventDefault();
-            const course = allCoursesData[courseId];
-            let score = 0;
-            const totalQuestions = Object.keys(course.quiz).length;
-            const formData = new FormData(event.target);
-            for (const [key, value] of formData.entries()) { const qId = key.split('-')[1]; if (course.quiz[qId].correct == value) { score++; } }
-            const percentage = (score / totalQuestions) * 100;
-            alert(`You scored ${score} out of ${totalQuestions} (${percentage.toFixed(2)}%).`);
-            if (percentage >= 50) {
-                alert('অভিনন্দন! আপনি কুইজে পাশ করেছেন। এখন আপনার সার্টিফিকেট ডাউনলোড করতে পারবেন।');
-                if (gamificationSettings.pointsPerQuiz > 0) { const pointsRef = database.ref(`users/${auth.currentUser.uid}/gamification/points`); pointsRef.transaction(currentPoints => (currentPoints || 0) + gamificationSettings.pointsPerQuiz); }
-                closeModal('quizModal');
-                showCertificate(courseId);
-            } else { alert('দুঃখিত, আপনি পাশ করতে পারেননি। আবার চেষ্টা করুন।'); }
-        }
-
-        function showCertificate(courseId) {
-            const user = auth.currentUser;
-            const course = allCoursesData[courseId];
-            document.getElementById('certificate-user-name').innerText = user.displayName;
-            document.getElementById('certificate-course-name').innerText = course.name;
-            document.getElementById('certificate-date').innerText = new Date().toLocaleDateString();
-            document.getElementById('certificateModal').style.display = 'flex';
-        }
-
-        function checkAndAwardBadges(userId) {
-            database.ref(`users/${userId}`).once('value', userSnapshot => {
-                const userData = userSnapshot.val();
-                database.ref('siteContent/gamificationSettings/badges').once('value', badgeSnapshot => {
-                    const allBadges = badgeSnapshot.val(); if (!allBadges) return;
-                    for (const badgeId in allBadges) {
-                        const badge = allBadges[badgeId];
-                        let criteriaMet = false;
-                        if (badge.type === 'complete_courses') {
-                            const completedCount = userData.completedCourses ? Object.keys(userData.completedCourses).length : 0;
-                            if (completedCount >= badge.value) { criteriaMet = true; }
-                        }
-                        if (criteriaMet) { database.ref(`users/${userId}/gamification/badges/${badgeId}`).set({ name: badge.name, icon: badge.icon, awardedAt: new Date().toISOString() }); }
-                    }
-                });
-            });
-        }
-        
-        function loadUserBadges(badges) {
-            const container = document.getElementById('my-badges-container');
-            if (badges && Object.keys(badges).length > 0) {
-                container.innerHTML = '';
-                for(const badgeId in badges) {
-                    const badge = badges[badgeId];
-                    container.innerHTML += `<div class="badge-item"><div class="badge-icon"><i class="${badge.icon}"></i></div><p class="badge-title">${badge.name}</p></div>`;
+                if (!mentorsFound) {
+                    container.innerHTML = '<p>No mentors are available at the moment.</p>';
+                } else {
+                    container.innerHTML = mentorsHtml;
                 }
-            } else { container.innerHTML = '<p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>'; }
+            });
         }
+        
+        function handleSupportTicketSubmit(event) { event.preventDefault(); const user = auth.currentUser; if (!user) { alert('Please log in to submit a ticket.'); return; } const subject = document.getElementById('ticketSubject').value; const message = document.getElementById('ticketMessage').value; const ticketData = { userId: user.uid, subject: subject, message: message, status: 'pending', timestamp: new Date().toISOString() }; database.ref('supportTickets').push(ticketData).then(() => { alert('Support ticket submitted successfully!'); document.getElementById('supportTicketForm').reset(); }).catch(error => { alert('Error submitting ticket: ' + error.message); }); }
+        function loadSupportTickets() { const user = auth.currentUser; if (!user) return; const container = document.getElementById('past-tickets-container'); container.innerHTML = '<p>Loading your tickets...</p>'; database.ref('supportTickets').orderByChild('userId').equalTo(user.uid).on('value', snapshot => { const tickets = snapshot.val(); if (tickets) { container.innerHTML = ''; const sortedTickets = Object.values(tickets).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); sortedTickets.forEach(ticket => { let replyHtml = ''; if (ticket.reply) { replyHtml = `<div class="ticket-reply"><strong>Admin Reply:</strong><p>${ticket.reply}</p></div>`; } container.innerHTML += `<div class="ticket-item"><div class="ticket-header"><span>${ticket.subject}</span><span class="ticket-status ${ticket.status}">${ticket.status}</span></div><div class="ticket-body"><p>${ticket.message}</p>${replyHtml}</div></div>`; }); } else { container.innerHTML = '<p>You have not created any support tickets yet.</p>'; } }); }
+        function handleNewForumPost(event) { event.preventDefault(); const user = auth.currentUser; if (!user) { alert('Please log in to post.'); return; } const content = document.getElementById('dashboard-forum-post-content').value; if (!content.trim()) return; const postData = { userId: user.uid, authorName: user.displayName, authorAvatar: user.photoURL || 'https://i.pravatar.cc/150', content: content, timestamp: new Date().toISOString() }; database.ref('forum_posts').push(postData).then(() => { document.getElementById('dashboard-new-forum-post-form').reset(); }); }
+        async function loadForumForDashboard() { const container = document.getElementById('dashboard-forum-posts-container'); container.innerHTML = '<p>Loading posts...</p>'; const adminUid = (await database.ref('siteContent/settings/adminUid').once('value')).val() || "vcwR2irXaiTNiiOb5o0pBrIqfRV2"; database.ref('forum_posts').orderByChild('timestamp').on('value', snapshot => { container.innerHTML = ''; const posts = []; snapshot.forEach(child => { posts.push({ id: child.key, ...child.val() }); }); const sortedPosts = posts.sort((a,b) => (b.isPinned === true) - (a.isPinned === true) || new Date(b.timestamp) - new Date(a.timestamp)); if (sortedPosts.length === 0) { container.innerHTML = '<p>No posts in the forum yet. Be the first to start a discussion!</p>'; return; } sortedPosts.forEach(post => { const isAdminPost = post.userId === adminUid; const pinnedClass = post.isPinned ? 'pinned' : ''; const pinIcon = post.isPinned ? '<i class="fas fa-thumbtack pin-icon"></i>' : ''; const adminBadge = isAdminPost ? '<span class="admin-badge">Admin</span>' : ''; container.innerHTML += `<div class="forum-post ${pinnedClass}"><div class="forum-post-header"><img src="${post.authorAvatar}" alt="Avatar" class="forum-post-avatar"><div><p class="forum-post-author">${pinIcon}${post.authorName} ${adminBadge}</p></div><span class="forum-post-date">${new Date(post.timestamp).toLocaleString()}</span></div><div class="forum-post-content"><p>${post.content}</p></div></div>`; }); }); }
+        function openQuizModal(courseId) { const course = allCoursesData[courseId]; if (!course || !course.quiz) { alert('এই কোর্সের জন্য কোনো কুইজ পাওয়া যায়নি।'); showCertificate(courseId); return; } const quizContainer = document.getElementById('quiz-content-area'); quizContainer.innerHTML = ''; let questionsHtml = '<form id="quizForm">'; Object.entries(course.quiz).forEach(([qId, q], index) => { questionsHtml += `<div class="input-group"><label>${index + 1}. ${q.text}</label>`; q.options.forEach((opt, optIndex) => { questionsHtml += `<div><input type="radio" name="question-${qId}" value="${optIndex + 1}" required><label>${opt}</label></div>`; }); questionsHtml += `</div>`; }); questionsHtml += `<button type="submit" class="btn-base">কুইজ জমা দিন</button></form>`; quizContainer.innerHTML = questionsHtml; document.getElementById('quizForm').onsubmit = (e) => handleQuizSubmit(e, courseId); document.getElementById('quizModal').style.display = 'flex'; }
+        function handleQuizSubmit(event, courseId) { event.preventDefault(); const course = allCoursesData[courseId]; let score = 0; const totalQuestions = Object.keys(course.quiz).length; const formData = new FormData(event.target); for (const [key, value] of formData.entries()) { const qId = key.split('-')[1]; if (course.quiz[qId].correct == value) { score++; } } const percentage = (score / totalQuestions) * 100; alert(`You scored ${score} out of ${totalQuestions} (${percentage.toFixed(2)}%).`); if (percentage >= 50) { alert('অভিনন্দন! আপনি কুইজে পাশ করেছেন। এখন আপনার সার্টিফিকেট ডাউনলোড করতে পারবেন।'); if (gamificationSettings.pointsPerQuiz > 0) { const pointsRef = database.ref(`users/${auth.currentUser.uid}/gamification/points`); pointsRef.transaction(currentPoints => (currentPoints || 0) + gamificationSettings.pointsPerQuiz); } closeModal('quizModal'); showCertificate(courseId); } else { alert('দুঃখিত, আপনি পাশ করতে পারেননি। আবার চেষ্টা করুন।'); } }
+        function showCertificate(courseId) { const user = auth.currentUser; const course = allCoursesData[courseId]; if (!user || !course) return; document.getElementById('certificate-user-name').innerText = user.displayName; document.getElementById('certificate-course-name').innerText = course.name; document.getElementById('certificate-date').innerText = new Date().toLocaleDateString(); const shareText = encodeURIComponent(`আমি সফলভাবে "${course.name}" কোর্সটি Income Impact BD থেকে সম্পন্ন করেছি!`); const shareUrl = encodeURIComponent(window.location.origin); document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`; document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`; document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${shareText} ${shareUrl}`; document.getElementById('certificateModal').style.display = 'flex'; }
+        function printCertificate() { const printContent = document.getElementById('certificate-content').innerHTML; const originalContent = document.body.innerHTML; document.body.innerHTML = printContent; window.print(); document.body.innerHTML = originalContent; location.reload(); }
+        function checkAndAwardBadges(userId) { database.ref(`users/${userId}`).once('value', userSnapshot => { const userData = userSnapshot.val(); database.ref('siteContent/gamificationSettings/badges').once('value', badgeSnapshot => { const allBadges = badgeSnapshot.val(); if (!allBadges) return; for (const badgeId in allBadges) { const badge = allBadges[badgeId]; let criteriaMet = false; if (badge.type === 'complete_courses') { const completedCount = userData.completedCourses ? Object.keys(userData.completedCourses).length : 0; if (completedCount >= badge.value) { criteriaMet = true; } } if (criteriaMet) { database.ref(`users/${userId}/gamification/badges/${badgeId}`).set({ name: badge.name, icon: badge.icon, awardedAt: new Date().toISOString() }); } } }); }); }
+        function loadUserBadges(badges) { const container = document.getElementById('my-badges-container'); if (badges && Object.keys(badges).length > 0) { container.innerHTML = ''; for(const badgeId in badges) { const badge = badges[badgeId]; container.innerHTML += `<div class="badge-item"><div class="badge-icon"><i class="${badge.icon}"></i></div><p class="badge-title">${badge.name}</p></div>`; } } else { container.innerHTML = '<p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>'; } }
     </script>
 </body>
 </html>
