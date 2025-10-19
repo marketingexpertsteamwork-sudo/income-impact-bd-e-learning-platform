@@ -1129,24 +1129,40 @@
         function loadHomeworkSubmissions(userId) { const container = document.getElementById('homework-submissions-container'); database.ref('homeworkSubmissions').orderByChild('userId').equalTo(userId).on('value', snapshot => { const submissions = snapshot.val(); if (submissions) { let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;"><thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`; const sorted = Object.values(submissions).sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt)); sorted.forEach(sub => { tableHtml += `<tr><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td></tr>`; }); tableHtml += '</tbody></table>'; container.innerHTML = tableHtml; } else { container.innerHTML = '<p>You have not submitted any homework yet.</p>'; } }); }
         
         // MODIFIED: Refer & Earn সেকশনে লিডের হোয়াটসঅ্যাপ নাম্বার ও বাটন যুক্ত করা হয়েছে
+        // NEW: পুরনো ব্যবহারকারীদের জন্য স্বয়ংক্রিয়ভাবে রেফারেল কোড তৈরি করার লজিক যুক্ত করা হয়েছে
         function loadReferralData(userId, userData) {
             const linkInput = document.getElementById('referral-link-input');
-            const referralCode = userData.referralCode;
-            if (referralCode) {
-                linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
+            let referralCode = userData.referralCode;
+
+            // যদি ব্যবহারকারীর রেফারেল কোড না থাকে, তাহলে একটি তৈরি করে সেভ করুন
+            if (!referralCode) {
+                referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                database.ref('users/' + userId).update({ referralCode: referralCode })
+                    .then(() => {
+                        console.log('Referral code generated and saved for existing user.');
+                        linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
+                    })
+                    .catch(err => {
+                        console.error("Error saving new referral code: ", err);
+                        linkInput.value = 'Could not generate referral code.';
+                    });
             } else {
-                linkInput.value = 'Referral code not available.';
+                linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
             }
 
             const leadsContainer = document.getElementById('leads-container');
             const convertsContainer = document.getElementById('converts-container');
+            
+            // ডেটাবেস থেকে লিড ও কনভার্ট লোড করার জন্য কোয়েরি
             database.ref('users').orderByChild('referredBy').equalTo(userId).on('value', snapshot => {
                 const referredUsers = snapshot.val();
                 let leadsHtml = '', convertsHtml = '';
+
                 if (referredUsers) {
-                    const leads = Object.values(referredUsers).filter(u => u.status === 'pending');
-                    const converts = Object.values(referredUsers).filter(u => u.status === 'active');
-                    
+                    const allReferred = Object.values(referredUsers);
+                    const leads = allReferred.filter(u => u.status === 'pending');
+                    const converts = allReferred.filter(u => u.status === 'active');
+
                     if (leads.length > 0) {
                         leadsHtml = leads.map(u => {
                             const whatsappLink = u.whatsapp ? `https://wa.me/${u.whatsapp.replace(/\D/g, '')}` : '#';
@@ -1156,20 +1172,24 @@
                                         ${whatsappButton}
                                     </div>`;
                         }).join('');
-                    } else { leadsHtml = '<p>No pending leads found.</p>'; }
+                    } else {
+                        leadsHtml = '<p>No one has signed up using your link yet.</p>';
+                    }
 
-                    if (converts.length > 0) { 
-                        convertsHtml = converts.map(u => `<p>${u.name} (${u.email}) - Activated!</p>`).join('');
-                    } else { convertsHtml = '<p>No active referrals yet.</p>'; }
+                    if (converts.length > 0) {
+                        convertsHtml = converts.map(u => `<div style="padding: 8px 0;">${u.name} (${u.email}) - Activated!</div>`).join('');
+                    } else {
+                        convertsHtml = '<p>No active referrals yet.</p>';
+                    }
                 } else {
                     leadsHtml = '<p>No one has signed up using your link yet.</p>';
                     convertsHtml = '<p>No active referrals yet.</p>';
                 }
+
                 leadsContainer.innerHTML = leadsHtml;
                 convertsContainer.innerHTML = convertsHtml;
             });
         }
-
 
         function copyReferralLink() { const linkInput = document.getElementById('referral-link-input'); if (navigator.clipboard) { navigator.clipboard.writeText(linkInput.value).then(() => { alert('Referral link copied to clipboard!'); }).catch(err => { alert('Failed to copy link.'); }); } else { linkInput.select(); document.execCommand('copy'); alert('Referral link copied to clipboard!'); } }
         function handleWithdrawalRequest(event) { event.preventDefault(); const user = auth.currentUser; if (!user) return; const amount = parseFloat(document.getElementById('withdraw-amount').value); const method = document.getElementById('withdraw-method').value; const details = document.getElementById('withdraw-details').value; const errorEl = document.getElementById('withdrawalError'); errorEl.style.display = 'none'; if (amount < 500) { errorEl.textContent = 'Minimum withdrawal amount is 500 BDT.'; errorEl.style.display = 'block'; return; } database.ref('users/' + user.uid).once('value', snapshot => { const userData = snapshot.val(); if (amount > (userData.balance || 0)) { errorEl.textContent = 'Insufficient balance.'; errorEl.style.display = 'block'; return; } const requestData = { userId: user.uid, userName: userData.name, amount: amount, method: method, accountDetails: details, status: 'pending', requestedAt: new Date().toISOString() }; database.ref('withdrawalRequests').push(requestData).then(() => { alert('Your withdrawal request has been submitted successfully!'); document.getElementById('withdrawalForm').reset(); }); }); }
