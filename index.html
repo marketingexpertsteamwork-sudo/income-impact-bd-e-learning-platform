@@ -807,7 +807,6 @@
         let allCoursesData = {}, siteContentData = {}, gamificationSettings = {};
         let appliedCoupon = null, currentCourseIdForReview = null;
         
-        // NEW: কান্ট্রি কোডের তালিকা
         const countryCodes = [
             { name: "Bangladesh", code: "+880" },
             { name: "India", code: "+91" },
@@ -834,7 +833,6 @@
             auth.onAuthStateChanged(user => { updateLoginUI(user); });
         });
         
-        // NEW: কান্ট্রি কোড ড্রপডাউন পপুলেট করার ফাংশন
         function populateCountryCodes() {
             const selectElement = document.getElementById('signup-country-code');
             if (!selectElement) return;
@@ -844,11 +842,10 @@
                 option.value = country.code;
                 option.textContent = `${country.name} (${country.code})`;
                 if (country.name === "Bangladesh") {
-                    option.selected = true; // ডিফল্ট হিসেবে বাংলাদেশ সিলেক্ট করা থাকবে
+                    option.selected = true;
                 }
                 selectElement.appendChild(option);
             });
-            // ডিফল্ট ভ্যালু হোয়াটসঅ্যাপ ইনপুটে সেট করা
             document.getElementById('signup-whatsapp').value = selectElement.value;
         }
 
@@ -882,7 +879,6 @@
             document.getElementById('withdrawalForm').addEventListener('submit', handleWithdrawalRequest);
             document.getElementById('dashboard-new-forum-post-form').addEventListener('submit', handleNewForumPost);
             
-            // NEW: কান্ট্রি কোড পরিবর্তনের সাথে হোয়াটসঅ্যাপ ফিল্ড আপডেট করা
             const countryCodeSelect = document.getElementById('signup-country-code');
             const whatsappInput = document.getElementById('signup-whatsapp');
             if (countryCodeSelect && whatsappInput) {
@@ -904,12 +900,10 @@
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             const fullName = document.getElementById('signup-first-name').value + ' ' + document.getElementById('signup-last-name').value;
-            // NEW: হোয়াটসঅ্যাপ নাম্বার গ্রহণ করা
             const whatsapp = document.getElementById('signup-whatsapp').value;
             const errorEl = document.getElementById('signUpError');
             errorEl.style.display = 'none';
 
-            // ভ্যালিডেশন: ইউজার যেন শুধু কান্ট্রি কোড দিয়ে সাবমিট না করে
             const countryCode = document.getElementById('signup-country-code').value;
             if (whatsapp.length <= countryCode.length) {
                 errorEl.textContent = "Please enter a valid WhatsApp number.";
@@ -923,15 +917,29 @@
 
             auth.createUserWithEmailAndPassword(email, password)
                 .then(userCredential => {
+                    const user = userCredential.user;
                     const userData = {
                         name: fullName,
                         email: email,
-                        whatsapp: whatsapp, // NEW: হোয়াটসঅ্যাপ নাম্বার সেভ করা
+                        whatsapp: whatsapp,
                         regDate: new Date().toISOString(),
                         status: 'pending', 
                         balance: 0,
                         referralCode: referralCode,
                         gamification: { points: 0, badges: {} }
+                    };
+
+                    const saveUser = (data) => {
+                        database.ref('users/' + user.uid).set(data)
+                            .then(() => {
+                                user.updateProfile({ displayName: fullName });
+                                alert('Account created successfully! It is now waiting for admin approval.');
+                                closeModal('signUpModal');
+                            })
+                            .catch(dbError => {
+                                errorEl.textContent = "Database error: " + dbError.message;
+                                errorEl.style.display = 'block';
+                            });
                     };
 
                     if (referredByCode) {
@@ -940,22 +948,17 @@
                                 const referrerId = Object.keys(snapshot.val())[0];
                                 userData.referredBy = referrerId;
                             }
-                            database.ref('users/' + userCredential.user.uid).set(userData);
+                            saveUser(userData);
                         });
                     } else {
-                        database.ref('users/' + userCredential.user.uid).set(userData);
+                        saveUser(userData);
                     }
-                    
-                    userCredential.user.updateProfile({ displayName: fullName });
-                    alert('Account created successfully! It is now waiting for admin approval.');
-                    closeModal('signUpModal');
                 })
                 .catch(error => {
                     errorEl.textContent = error.message;
                     errorEl.style.display = 'block';
                 });
         }
-
 
         function handleSignIn(event) {
             event.preventDefault();
@@ -998,7 +1001,6 @@
         function handleForgotPassword(e) { e.preventDefault(); const email = prompt("Please enter your email address to reset your password:"); if (email) { auth.sendPasswordResetEmail(email) .then(() => alert('Password reset email sent! Please check your inbox.')) .catch(error => alert('Error: ' + error.message)); } }
         function handleContactFormSubmit(event) { event.preventDefault(); const name = document.getElementById('contact-name').value; const email = document.getElementById('contact-email').value; const message = document.getElementById('contact-message').value; const responseDiv = document.getElementById('contact-form-response'); database.ref('contacts').push({ name, email, message, timestamp: new Date().toISOString() }).then(() => { responseDiv.textContent = 'Your message has been sent successfully!'; responseDiv.style.color = 'green'; document.getElementById('contactForm').reset(); }).catch(error => { responseDiv.textContent = 'Error: ' + error.message; responseDiv.style.color = 'red'; }); }
         
-        // MODIFIED: প্রোফাইল আপডেট ফাংশন URL গ্রহণ করার জন্য পরিবর্তন করা হয়েছে
         function handleProfileUpdate(event) {
             event.preventDefault();
             const user = auth.currentUser; if (!user) return;
@@ -1029,7 +1031,6 @@
         function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').on('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
         function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; siteContentData = content; gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; 
         
-        // MODIFIED: aboutImageUrl লোড করার সময় skeleton ক্লাস সরানো হয়েছে
         if(content.settings?.aboutImageUrl){ 
             document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; 
             document.getElementById("about-thumb-wrap").classList.remove("skeleton"); 
@@ -1065,7 +1066,6 @@
                 loadLeaderboard();
                 loadSupportTickets();
                 document.getElementById('profileName').value = userData.name || user.displayName || '';
-                // NEW: প্রোফাইল পিকচার URL ইনপুটে বর্তমান URL দেখানো
                 document.getElementById('profilePictureUrl').value = userData.profilePictureUrl || '';
                 loadUserBadges(userData.gamification?.badges);
             });
@@ -1095,7 +1095,6 @@
         function goToNextLesson() { const { flatLessonList, currentLessonId } = currentCourseInfo; const currentIndex = flatLessonList.indexOf(currentLessonId); if (currentIndex < flatLessonList.length - 1) { const nextLessonId = flatLessonList[currentIndex + 1]; loadLesson(nextLessonId); } }
         function goToPrevLesson() { const { flatLessonList, currentLessonId } = currentCourseInfo; const currentIndex = flatLessonList.indexOf(currentLessonId); if (currentIndex > 0) { const prevLessonId = flatLessonList[currentIndex - 1]; loadLesson(prevLessonId); } }
         
-        // MODIFIED: ডার্ক মোড ফাংশনটি সঠিকভাবে কাজ করার জন্য আপডেট করা হয়েছে
         function setupDarkMode(){
             const toggle = document.getElementById('darkModeToggle');
             const currentTheme = localStorage.getItem('theme');
@@ -1128,73 +1127,77 @@
         function handleHomeworkSubmit(event, courseId, lessonId, submissionId) { event.preventDefault(); const user = auth.currentUser; const homeworkLink = event.target.querySelector('input').value; if (!user || !homeworkLink) return; const course = allCoursesData[courseId]; const submissionData = { userId: user.uid, courseName: course.name, homeworkLink: homeworkLink, status: 'submitted', submittedAt: new Date().toISOString(), rewardAmount: course.homeworkReward || 0 }; const ref = submissionId ? database.ref('homeworkSubmissions/' + submissionId) : database.ref('homeworkSubmissions').push(); ref.update(submissionData).then(() => { alert('Homework submitted successfully!'); loadHomeworkForLesson(courseId, lessonId); }).catch(err => alert('Error: ' + err.message)); }
         function loadHomeworkSubmissions(userId) { const container = document.getElementById('homework-submissions-container'); database.ref('homeworkSubmissions').orderByChild('userId').equalTo(userId).on('value', snapshot => { const submissions = snapshot.val(); if (submissions) { let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;"><thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`; const sorted = Object.values(submissions).sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt)); sorted.forEach(sub => { tableHtml += `<tr><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td></tr>`; }); tableHtml += '</tbody></table>'; container.innerHTML = tableHtml; } else { container.innerHTML = '<p>You have not submitted any homework yet.</p>'; } }); }
         
-        // MODIFIED: Refer & Earn সেকশনে লিডের হোয়াটসঅ্যাপ নাম্বার ও বাটন যুক্ত করা হয়েছে
-        // NEW: পুরনো ব্যবহারকারীদের জন্য স্বয়ংক্রিয়ভাবে রেফারেল কোড তৈরি করার লজিক যুক্ত করা হয়েছে
+        // =========================================================================
+        //  সংশোধিত ফাংশন: রেফারেল ডেটা দেখানোর সমস্যার সমাধান
+        // =========================================================================
         function loadReferralData(userId, userData) {
+            // userId একটি সঠিক string কিনা তা নিশ্চিত করা
+            if (!userId || typeof userId !== 'string') {
+                console.error("loadReferralData: Invalid userId provided.");
+                return;
+            }
+
             const linkInput = document.getElementById('referral-link-input');
             let referralCode = userData.referralCode;
 
-            // যদি ব্যবহারকারীর রেফারেল কোড না থাকে, তাহলে একটি তৈরি করে সেভ করুন
+            // যদি পুরনো ব্যবহারকারীর রেফারেল কোড না থাকে, তাহলে একটি তৈরি করা
             if (!referralCode) {
                 referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase();
-                database.ref('users/' + userId).update({ referralCode: referralCode })
-                    .then(() => {
-                        console.log('Referral code generated and saved for existing user.');
-                        linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
-                    })
-                    .catch(err => {
-                        console.error("Error saving new referral code: ", err);
-                        linkInput.value = 'Could not generate referral code.';
-                    });
-            } else {
-                linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
+                database.ref('users/' + userId).update({ referralCode: referralCode });
             }
+            linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
 
             const leadsContainer = document.getElementById('leads-container');
             const convertsContainer = document.getElementById('converts-container');
             
-            // ডেটাবেস থেকে লিড ও কনভার্ট লোড করার জন্য কোয়েরি
-            database.ref('users').orderByChild('referredBy').equalTo(userId).on('value', snapshot => {
-                const referredUsers = snapshot.val();
-                let leadsHtml = '', convertsHtml = '';
+            const query = database.ref('users').orderByChild('referredBy').equalTo(userId);
+            
+            query.on('value', snapshot => {
+                // ডিফল্ট বার্তা সেট করা
+                let leadsHtml = '<p>No one has signed up using your link yet.</p>';
+                let convertsHtml = '<p>No active referrals yet.</p>';
 
-                if (referredUsers) {
+                if (snapshot.exists()) {
+                    const referredUsers = snapshot.val();
                     const allReferred = Object.values(referredUsers);
-                    const leads = allReferred.filter(u => u.status === 'pending');
-                    const converts = allReferred.filter(u => u.status === 'active');
+                    
+                    // null বা undefined অবজেক্ট বাদ দিয়ে ফিল্টার করা
+                    const leads = allReferred.filter(u => u && u.status === 'pending');
+                    const converts = allReferred.filter(u => u && u.status === 'active');
 
                     if (leads.length > 0) {
                         leadsHtml = leads.map(u => {
                             const whatsappLink = u.whatsapp ? `https://wa.me/${u.whatsapp.replace(/\D/g, '')}` : '#';
                             const whatsappButton = u.whatsapp ? `<a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 5px 10px; font-size: 0.8rem; margin-left: 15px;"><i class="fab fa-whatsapp"></i> Message</a>` : '';
                             return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color);">
-                                        <span>${u.name} (${u.email}) - <b>WhatsApp:</b> ${u.whatsapp || 'N/A'}</span>
+                                        <span>${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - <b>WhatsApp:</b> ${u.whatsapp || 'N/A'}</span>
                                         ${whatsappButton}
                                     </div>`;
                         }).join('');
-                    } else {
-                        leadsHtml = '<p>No one has signed up using your link yet.</p>';
                     }
 
                     if (converts.length > 0) {
-                        convertsHtml = converts.map(u => `<div style="padding: 8px 0;">${u.name} (${u.email}) - Activated!</div>`).join('');
-                    } else {
-                        convertsHtml = '<p>No active referrals yet.</p>';
+                        convertsHtml = converts.map(u => `<div style="padding: 8px 0;">${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - Activated!</div>`).join('');
                     }
-                } else {
-                    leadsHtml = '<p>No one has signed up using your link yet.</p>';
-                    convertsHtml = '<p>No active referrals yet.</p>';
                 }
 
                 leadsContainer.innerHTML = leadsHtml;
                 convertsContainer.innerHTML = convertsHtml;
+
+            }, (error) => {
+                // যদি কুয়েরি করতে কোনো error হয় (যেমন: Rules সমস্যা), তাহলে এখানে দেখানো হবে
+                console.error("Firebase referral query failed:", error);
+                leadsContainer.innerHTML = '<p style="color: red;">Error loading referral data. Please contact support.</p>';
+                convertsContainer.innerHTML = '<p style="color: red;">Error loading referral data.</p>';
             });
         }
+        // =========================================================================
+        //  ফাংশন সংশোধন সমাপ্ত
+        // =========================================================================
 
         function copyReferralLink() { const linkInput = document.getElementById('referral-link-input'); if (navigator.clipboard) { navigator.clipboard.writeText(linkInput.value).then(() => { alert('Referral link copied to clipboard!'); }).catch(err => { alert('Failed to copy link.'); }); } else { linkInput.select(); document.execCommand('copy'); alert('Referral link copied to clipboard!'); } }
         function handleWithdrawalRequest(event) { event.preventDefault(); const user = auth.currentUser; if (!user) return; const amount = parseFloat(document.getElementById('withdraw-amount').value); const method = document.getElementById('withdraw-method').value; const details = document.getElementById('withdraw-details').value; const errorEl = document.getElementById('withdrawalError'); errorEl.style.display = 'none'; if (amount < 500) { errorEl.textContent = 'Minimum withdrawal amount is 500 BDT.'; errorEl.style.display = 'block'; return; } database.ref('users/' + user.uid).once('value', snapshot => { const userData = snapshot.val(); if (amount > (userData.balance || 0)) { errorEl.textContent = 'Insufficient balance.'; errorEl.style.display = 'block'; return; } const requestData = { userId: user.uid, userName: userData.name, amount: amount, method: method, accountDetails: details, status: 'pending', requestedAt: new Date().toISOString() }; database.ref('withdrawalRequests').push(requestData).then(() => { alert('Your withdrawal request has been submitted successfully!'); document.getElementById('withdrawalForm').reset(); }); }); }
         
-        // MODIFIED: Mentors সেকশনে শুধুমাত্র Team Leader ও Trainer দেখানো হবে
         function loadMentors() {
             const container = document.getElementById('mentors-container');
             container.innerHTML = '<p>Loading mentor information...</p>';
