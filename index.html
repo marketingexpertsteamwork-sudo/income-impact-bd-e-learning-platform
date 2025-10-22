@@ -20,7 +20,6 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--white-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        /* MODIFIED: হোমপেইজের অপ্রয়োজনীয় সাদা অংশ কমাতে সেকশনের প্যাডিং কমানো হয়েছে */
         .section { padding: 60px 0; position: relative; }
         #main-content-wrapper { position: relative; z-index: 3; background-color: var(--white-color); margin-top: -100px; }
         .section-title { text-align: center; margin-bottom: 50px; }
@@ -79,18 +78,21 @@
         .single-list-inner .icon img { width: 30px; height: 30px; }
         .single-list-inner h5 { margin: 0; font-size: 1.1rem; }
         .about-area-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 50px; }
-        /* MODIFIED: About Admin এর ছবিটি (লোগো) সঠিকভাবে দেখানোর জন্য ব্যাকগ্রাউন্ড ইমেজ লোড করা হচ্ছে */
         .about-thumb-wrap { flex: 1 1 450px; height: 450px; background-size: cover; background-position: center; border-radius: var(--border-radius); box-shadow: var(--shadow); }
         .about-inner-wrap { flex: 1 1 450px; }
         .about-inner-wrap .btn-base { margin-right: 15px; margin-top: 20px;}
         .course-area { background-color: var(--light-bg); }
-        #course-filter-buttons { text-align: center; margin-bottom: 40px; }
+        .course-controls { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; margin-bottom: 40px; }
+        #course-search-input { padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 20px; width: 280px; font-size: 1rem; }
+        #course-filter-buttons { text-align: center; }
         #course-filter-buttons button { background: var(--white-color); border: 1px solid var(--border-color); padding: 10px 20px; margin: 5px; border-radius: 20px; cursor: pointer; font-weight: 500; transition: all 0.3s; }
         #course-filter-buttons button.active { background-color: var(--primary-green); color: white; border-color: var(--primary-green); }
         #course-list-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .col-course { max-width: none; }
-        .single-course-inner { background: var(--white-color); border-radius: var(--border-radius); box-shadow: var(--shadow); transition: transform 0.3s ease; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+        .single-course-inner { background: var(--white-color); border-radius: var(--border-radius); box-shadow: var(--shadow); transition: transform 0.3s ease; overflow: hidden; height: 100%; display: flex; flex-direction: column; position: relative; }
         .single-course-inner:hover { transform: translateY(-8px); }
+        .wishlist-btn { position: absolute; top: 15px; right: 15px; background-color: rgba(255, 255, 255, 0.8); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; z-index: 5; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; color: var(--light-text); transition: color 0.3s; }
+        .wishlist-btn:hover, .wishlist-btn.active { color: #e74c3c; }
         .single-course-inner .thumb img { width: 100%; height: 200px; object-fit: cover; }
         .single-course-inner .details { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
         .single-course-inner .details h3 { font-size: 1.1rem; font-weight: 600; color: var(--dark-blue); text-decoration: none; margin: 0; }
@@ -112,6 +114,9 @@
         #blog-posts-container .single-course-inner .details h3 { font-size: 1.4rem; color: var(--dark-blue); margin-bottom: 15px; }
         #blog-posts-container .single-course-inner .details p { color: var(--light-text); }
         #blog-posts-container .single-course-inner .details .post-meta { font-size: 0.9rem; color: var(--primary-green); font-weight: 500; margin-bottom: 15px; }
+        .community-cta { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border-color); }
+        .community-cta a { font-weight: 600; color: var(--primary-green); text-decoration: none; }
+        .community-cta a:hover { text-decoration: underline; }
         .contact-form-area { background-color: var(--white-color); }
         #contact-form-section { display: none; }
         .contact-form-wrap { max-width: 700px; margin: 0 auto; background: var(--white-color); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
@@ -152,6 +157,7 @@
         #course-details-modal-content h2 { font-size: 2rem; margin-bottom: 10px; }
         #course-details-modal-content .price { font-size: 1.5rem; font-weight: bold; color: var(--primary-green); margin-bottom: 20px; }
         #course-details-modal-content .description { margin-bottom: 30px; line-height: 1.8; }
+        .community-note { background-color: var(--light-bg); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid var(--primary-green); margin-top: 10px; font-size: 0.95rem; }
         #course-reviews-container { margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px; max-height: 200px; overflow-y: auto; }
         .review-item { border-bottom: 1px solid var(--border-color); padding: 15px 0; }
         .review-item:last-child { border-bottom: none; }
@@ -167,7 +173,6 @@
         .modal-content .input-group input, .modal-content .input-group select, .modal-content .input-group textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; font-family: 'Poppins', sans-serif; transition: border-color 0.3s, box-shadow 0.3s; background-color: var(--white-color); color: var(--text-color); }
         .modal-content .input-group input:focus, .modal-content .input-group select:focus { outline: none; border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.2); }
         .form-row { display: flex; gap: 20px; }
-        /* NEW: সাইন আপ ফর্মের জন্য কান্ট্রি কোড এবং হোয়াটসঅ্যাপ ফিল্ডের স্টাইল */
         .whatsapp-input-group { display: flex; }
         .whatsapp-input-group select { max-width: 120px; border-top-right-radius: 0; border-bottom-right-radius: 0; }
         .whatsapp-input-group input { border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: 0; }
@@ -177,6 +182,13 @@
         .modal-content a { color: var(--primary-green); text-decoration: none; transition: color 0.3s; }
         .modal-content a:hover { color: #006400; }
         .modal-content .error-message { color: #e74c3c; text-align: center; font-weight: 500; margin-top: 10px; display: none; }
+        .social-login-divider { text-align: center; margin: 20px 0; color: var(--light-text); text-transform: uppercase; font-size: 0.9rem; position: relative; }
+        .social-login-divider::before, .social-login-divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--border-color); }
+        .social-login-divider::before { left: 0; } .social-login-divider::after { right: 0; }
+        .social-login-buttons { display: flex; gap: 15px; }
+        .social-login-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: none; cursor: pointer; font-weight: 500; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background-color 0.3s; }
+        .social-login-btn:hover { background-color: var(--light-bg); }
+        .social-login-btn i { font-size: 1.2rem; } .fa-google { color: #DB4437; } .fa-facebook-f { color: #4267B2; }
         #studentDashboardModal .modal-content { max-width: 1100px; width: 95%; padding: 0; display: flex; height: 90vh; max-height: 700px; }
         #dashboard-sidebar { width: 250px; background-color: var(--light-bg); padding: 20px; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; flex-shrink: 0; }
         .dashboard-profile-summary { text-align: center; margin-bottom: 30px; } .dashboard-profile-summary .avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-green); }
@@ -190,6 +202,35 @@
         .dashboard-widgets { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .widget-card { background-color: var(--white-color); padding: 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); border-left: 4px solid var(--primary-green); }
         .widget-card i { font-size: 2rem; color: var(--primary-green); margin-bottom: 10px; } .widget-card h4 { font-size: 1.5rem; margin: 0; } .widget-card p { color: var(--light-text); margin: 0; }
+        
+        /* NEW: Dashboard Announcement Banner Style */
+        .dashboard-announcement-banner {
+            background-color: #eaf5ff;
+            color: #005a9e;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+        [data-theme="dark"] .dashboard-announcement-banner {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-left-color: #3498db;
+        }
+        .dashboard-announcement-banner a {
+            color: #005a9e;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        [data-theme="dark"] .dashboard-announcement-banner a {
+            color: #5dade2;
+        }
+
+        .dashboard-community-banner { background: linear-gradient(135deg, var(--primary-green), #004d00); color: white; padding: 25px; border-radius: var(--border-radius); margin-bottom: 30px; text-align: center; }
+        .dashboard-community-banner h4 { margin: 0 0 10px 0; font-size: 1.4rem; }
+        .dashboard-community-banner p { margin: 0 0 15px 0; opacity: 0.9; }
+        .dashboard-community-banner .btn-base { background-color: #ffffff; color: var(--primary-green) !important; box-shadow: none; }
         .course-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .enrolled-course-card { background-color: var(--white-color); border-radius: var(--border-radius); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
         .enrolled-course-card img { width: 100%; height: 150px; object-fit: cover; }
@@ -272,14 +313,13 @@
         .share-btn.whatsapp { background-color: #25d366; }
         .auto-next-container { display: flex; align-items: center; gap: 10px; }
         
-        /* MODIFIED: হামবার্গার মেনুকে পপআপ স্টাইল দেওয়া হয়েছে */
         @media (max-width: 991px) {
             .navbar-nav {
                 position: absolute;
-                top: calc(100% + 10px); /* Add some space from the navbar */
-                right: 15px; /* Align to the right */
+                top: calc(100% + 10px);
+                right: 15px;
                 left: auto;
-                width: 250px; /* Fixed width for popup style */
+                width: 250px;
                 background: var(--white-color);
                 flex-direction: column;
                 align-items: flex-start;
@@ -291,19 +331,12 @@
                 opacity: 0;
                 visibility: hidden;
             }
-            .navbar-nav.active {
-                max-height: 500px;
-                opacity: 1;
-                visibility: visible;
-            }
-            .sticky .navbar-nav {
-                top: calc(100% + 10px);
-            }
+            .navbar-nav.active { max-height: 500px; opacity: 1; visibility: visible; }
+            .sticky .navbar-nav { top: calc(100% + 10px); }
             .navbar-nav li { width: 100%; }
             .navbar-nav li a { color: var(--dark-blue); padding: 12px 20px; border-bottom: 1px solid var(--border-color); width: 100%; border-radius: 0;}
             .navbar-nav li:first-child a { border-top-left-radius: var(--border-radius); border-top-right-radius: var(--border-radius); }
             .navbar-nav li:last-child a { border-bottom: none; border-bottom-left-radius: var(--border-radius); border-bottom-right-radius: var(--border-radius); }
-
             .navbar-nav .dark-mode-toggle { padding: 12px 20px; border-top: 1px solid var(--border-color); width: 100%; justify-content: flex-start; }
             .navbar-nav .dark-mode-toggle span, .navbar-nav .dark-mode-toggle i { color: var(--dark-blue); }
             .sticky .navbar-nav li a { color: var(--dark-blue); } 
@@ -358,7 +391,16 @@
     </header>
 
     <div class="banner-area" id="banner-area-bg" style="background-image: url('https://placehold.co/1920x1080?text=Banner+Image');">
-        <div class="container"><div class="banner-inner"><div id="banner-text-container" class="skeleton" style="min-height: 70px; max-width: 800px; margin: 0 auto;"></div></div></div>
+        <div class="container">
+            <div class="banner-inner">
+                <div id="banner-text-container" class="skeleton" style="min-height: 70px; max-width: 800px; margin: 0 auto;"></div>
+                <div style="margin-top: 30px;">
+                    <a id="banner-whatsapp-link" href="javascript:void(0);" target="_blank" class="btn-base" style="background-color: #25D366; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);">
+                        <i class="fab fa-whatsapp"></i> WhatsApp কমিউনিটিতে যোগ দিন
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div class="section intro-area">
@@ -387,7 +429,10 @@
         <div id="courses" class="course-area section">
             <div class="container">
                 <div class="section-title fade-in"><h6 class="sub-title" id="courses-subtitle">OUR COURSES</h6><h2 class="main-title" id="courses-main-title">Top Featured Courses</h2></div>
-                <div id="course-filter-buttons" class="fade-in"></div>
+                <div class="course-controls fade-in">
+                    <input type="text" id="course-search-input" placeholder="কোর্স খুঁজুন...">
+                    <div id="course-filter-buttons"></div>
+                </div>
                 <div id="course-list-container" class="courses-grid"><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div></div>
             </div>
         </div>
@@ -434,8 +479,7 @@
                         <div id="contact-form-response"></div>
                     </form>
                 </div>
-            </div>
-        </main>
+            </main>
     
     <footer id="contact" class="footer-area">
         <div class="container">
@@ -486,13 +530,17 @@
     <div id="subadminModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="subadminLoginForm" autocomplete="off"><h2 data-lang="subadminLoginTitle">SubAdmin Login</h2><div class="input-group"><label for="account_type" data-lang="accountTypeLabel">Account Type</label><select class="form-control" name="account_type" id="account_type" required><option value="">Loading Roles...</option></select></div><div class="input-group"><label for="subadmin-email" data-lang="subadminEmailLabel">SubAdmin Email or Phone</label><input type="text" id="subadmin-email" name="email" placeholder="SubAdmin Email or Phone" value="" required></div><div class="input-group"><label for="subadmin-password" data-lang="passwordLabel">Password</label><input type="password" id="subadmin-password" name="password" placeholder="Password" required></div><div class="action-btn-wrap"><button type="submit"><span data-lang="logInButton">Log In</span></button></div><div class="extra-links"><a href="#"><span data-lang="forgotPasswordLink">Forgot Password?</span></a></div></form></div></div>
     <div id="signInModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="signInForm" autocomplete="off">
         <h2 data-lang="signInTitle">Sign In</h2>
+        <div class="social-login-buttons">
+            <button type="button" class="social-login-btn" id="google-login-btn"><i class="fab fa-google"></i> Google</button>
+            <button type="button" class="social-login-btn" id="facebook-login-btn"><i class="fab fa-facebook-f"></i> Facebook</button>
+        </div>
+        <div class="social-login-divider">Or</div>
         <div class="input-group"><label for="signin-email" data-lang="usernameOrEmailLabel">ইউজারনেম বা ইমেইল</label><input type="email" id="signin-email" name="email" placeholder="Your Email" required></div><div class="input-group"><label for="signin-password" data-lang="passwordLabel">পাসওয়ার্ড</label><input type="password" id="signin-password" name="password" placeholder="Password" required></div>
         <p class="error-message" id="signInError"></p>
         <div class="action-btn-wrap"><button type="submit" data-lang="loginButton">লগইন করুন</button></div><div class="extra-links"><p><span data-lang="forgotPasswordPrompt">পাসওয়ার্ড ভুলে গেছেন?</span>
         <a href="#" id="forgotPasswordLink"><span data-lang="recoverLink">পুনরুদ্ধার করুন</span></a>
     </p><p><span data-lang="noAccountPrompt">আপনার কি একাউন্ট নেই?</span> <a href="#" id="switchToSignUp"><span data-lang="signUpLink">সাইন আপ করুন</span></a></p></div></form></div></div>
     
-    <!-- MODIFIED: Sign Up মডালে কান্ট্রি কোড এবং হোয়াটসঅ্যাপ নাম্বার যুক্ত করা হয়েছে -->
     <div id="signUpModal" class="modal-overlay">
         <div class="modal-content">
             <span class="modal-close-btn">&times;</span>
@@ -504,7 +552,6 @@
                 </div>
                 <div class="input-group"><label for="signup-email" data-lang="emailAddressLabel">Email Address</label><input type="email" id="signup-email" name="email" placeholder="Enter your email" required></div>
                 
-                <!-- NEW: কান্ট্রি কোড এবং হোয়াটসঅ্যাপ নাম্বার ফিল্ড যুক্ত করা হয়েছে -->
                 <div class="input-group">
                     <label for="signup-whatsapp">WhatsApp Number</label>
                     <div class="whatsapp-input-group">
@@ -526,7 +573,7 @@
         <img id="course-details-image" src="https://placehold.co/600x250" alt="Course Image">
         <h2 id="course-details-title">Course Title</h2>
         <div id="course-details-price" class="price">BDT 0</div>
-        <p id="course-details-description" class="description">Loading course details...</p>
+        <div id="course-details-description" class="description">Loading course details...</div>
         <div id="course-reviews-container"></div>
         <div class="coupon-wrapper">
             <input type="text" id="coupon-code-input" placeholder="Enter Coupon Code">
@@ -550,8 +597,10 @@
                 <nav>
                     <button class="tab-link active" onclick="openDashboardTab(event, 'Overview')" data-lang="tabOverview"><i class="fas fa-home"></i>Overview</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'MyCourses')" data-lang="tabMyCourses"><i class="fas fa-book-open"></i>My Courses</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'MyWishlist')"><i class="fas fa-heart"></i>My Wishlist</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'LiveClassesDashboard')"><i class="fas fa-video"></i>লাইভ ক্লাস</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'CommunityDashboard')"><i class="fas fa-users"></i>কমিউনিটি ফোরাম</button>
+                    <button class="tab-link" id="dashboard-whatsapp-link" onclick="window.open(this.getAttribute('data-link'), '_blank')"><i class="fab fa-whatsapp"></i>WhatsApp কমিউনিটি</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Homework')"><i class="fas fa-tasks"></i>My Homework</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Referrals')"><i class="fas fa-users"></i>Refer & Earn</button>
                     <button class="tab-link" onclick="openDashboardTab(event, 'Withdraw')"><i class="fas fa-wallet"></i>Withdraw</button>
@@ -571,6 +620,16 @@
             <main id="dashboard-main-content">
                  <div id="Overview" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Overview</h3></div>
+                    
+                    <!-- USER DASHBOARD ANNOUNCEMENT START -->
+                    <div id="dashboard-announcement-container" style="display: none;"></div>
+                    <!-- USER DASHBOARD ANNOUNCEMENT END -->
+
+                    <div id="dashboard-community-banner" class="dashboard-community-banner">
+                        <h4>আমাদের এক্সক্লুসিভ WhatsApp কমিউনিটিতে যোগ দিন!</h4>
+                        <p>মেন্টরদের সরাসরি সাপোর্ট, অন্য শিক্ষার্থীদের সাথে নেটওয়ার্কিং এবং লেটেস্ট আপডেট পেতে এখনই যোগ দিন।</p>
+                        <a id="dashboard-banner-whatsapp-link" href="javascript:void(0);" target="_blank" class="btn-base">এখনই যোগ দিন</a>
+                    </div>
                     <div class="dashboard-widgets">
                         <div class="widget-card" style="border-color: #1abc9c;"><i class="fas fa-dollar-sign"></i><h4 id="overview-balance">0 BDT</h4><p data-lang="widgetCurrentBalance">Current Balance</p></div>
                         <div class="widget-card" style="border-color: #f39c12;"><i class="fas fa-layer-group"></i><h4 id="overview-inprogress">0</h4><p data-lang="widgetCoursesInProgress">Courses in Progress</p></div>
@@ -579,6 +638,7 @@
                     </div>
                  </div>
                 <div id="MyCourses" class="dashboard-tab-content"><div class="dashboard-header"><h3>My Courses</h3></div><div id="enrolled-courses-grid" class="course-card-grid"></div></div>
+                <div id="MyWishlist" class="dashboard-tab-content"><div class="dashboard-header"><h3>My Wishlist</h3></div><div id="wishlist-courses-grid" class="course-card-grid"><p>Your wishlist is empty.</p></div></div>
                 <div id="LiveClassesDashboard" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>আসন্ন ও বিগত লাইভ ক্লাসসমূহ</h3></div>
                     <div id="dashboard-live-class-container"><p>লাইভ ক্লাস লোড হচ্ছে...</p></div>
@@ -671,7 +731,6 @@
                 <div id="Profile" class="dashboard-tab-content">
                     <div class="dashboard-header"><h3>Update Your Profile</h3></div>
                     <form id="profileUpdateForm">
-                        <!-- MODIFIED: প্রোফাইল ছবির জন্য ফাইল ইনপুটের বদলে URL ইনপুট যুক্ত করা হয়েছে -->
                         <div class="input-group">
                             <label for="profilePictureUrl">প্রোফাইল ছবির URL</label>
                             <input type="url" id="profilePictureUrl" placeholder="https://example.com/image.jpg">
@@ -807,7 +866,7 @@
         let allCoursesData = {}, siteContentData = {}, gamificationSettings = {};
         let appliedCoupon = null, currentCourseIdForReview = null;
         
-        const countryCodes = [
+        let countryCodes = [
             { name: "Bangladesh", code: "+880" },
             { name: "India", code: "+91" },
             { name: "Pakistan", code: "+92" },
@@ -819,18 +878,20 @@
         
         document.addEventListener('DOMContentLoaded', () => {
             setupEventListeners();
-            populateCountryCodes();
             loadTheme(); 
             loadNavigationMenu(); 
             loadSubAdminRoles(); 
-            loadSiteContent();
+            loadSiteContent(); 
             showAnnouncementPopup();
             loadCourses(); 
             loadProjects(); 
             loadWorkshop();
             loadBlogPosts();
             loadNotifications();
-            auth.onAuthStateChanged(user => { updateLoginUI(user); });
+            auth.onAuthStateChanged(user => { 
+                updateLoginUI(user); 
+                updateCourseCardsUI(user);
+            });
         });
         
         function populateCountryCodes() {
@@ -846,7 +907,6 @@
                 }
                 selectElement.appendChild(option);
             });
-            document.getElementById('signup-whatsapp').value = selectElement.value;
         }
 
         function setupEventListeners() {
@@ -865,6 +925,8 @@
             document.getElementById('desktop-signout-btn').addEventListener('click', (e) => { e.preventDefault(); auth.signOut().then(() => { location.reload(); }); });
             document.getElementById('signUpForm').addEventListener('submit', handleSignUp);
             document.getElementById('signInForm').addEventListener('submit', handleSignIn);
+            document.getElementById('google-login-btn').addEventListener('click', handleGoogleLogin);
+            document.getElementById('facebook-login-btn').addEventListener('click', handleFacebookLogin);
             document.getElementById('contactForm').addEventListener('submit', handleContactFormSubmit);
             document.getElementById('show-contact-btn').addEventListener('click', (e) => { e.preventDefault(); const contactSection = document.getElementById('contact-form-section'); contactSection.style.display = 'block'; contactSection.scrollIntoView({ behavior: 'smooth' }); });
             document.getElementById('profileUpdateForm').addEventListener('submit', handleProfileUpdate);
@@ -878,6 +940,7 @@
             document.getElementById('supportTicketForm').addEventListener('submit', handleSupportTicketSubmit);
             document.getElementById('withdrawalForm').addEventListener('submit', handleWithdrawalRequest);
             document.getElementById('dashboard-new-forum-post-form').addEventListener('submit', handleNewForumPost);
+            document.getElementById('course-search-input').addEventListener('keyup', handleCourseSearch);
             
             const countryCodeSelect = document.getElementById('signup-country-code');
             const whatsappInput = document.getElementById('signup-whatsapp');
@@ -998,6 +1061,63 @@
                 });
         }
 
+        function processSocialLogin(result) {
+            const user = result.user;
+            const userRef = database.ref('users/' + user.uid);
+        
+            userRef.once('value', snapshot => {
+                if (!snapshot.exists()) {
+                    // This is a new user
+                    const referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                    const userData = {
+                        name: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                        regDate: new Date().toISOString(),
+                        status: 'pending',
+                        balance: 0,
+                        referralCode: referralCode,
+                        gamification: { points: 0, badges: {} }
+                    };
+                    userRef.set(userData)
+                        .then(() => {
+                            alert('Account created successfully via social login! It is now waiting for admin approval.');
+                            auth.signOut(); // Log them out until approved
+                        });
+                } else {
+                    // Existing user, check their status
+                    const userData = snapshot.val();
+                    if (userData.status === 'pending') {
+                        alert("Your account is pending approval from the admin.");
+                        auth.signOut();
+                    } else if (userData.status === 'blocked') {
+                        alert("Your account has been blocked.");
+                        auth.signOut();
+                    } else {
+                        closeModal('signInModal');
+                    }
+                }
+            });
+        }
+
+        function handleGoogleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(processSocialLogin)
+                .catch(error => {
+                    alert('Google Login Error: ' + error.message);
+                });
+        }
+        
+        function handleFacebookLogin() {
+            const provider = new firebase.auth.FacebookAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(processSocialLogin)
+                .catch(error => {
+                    alert('Facebook Login Error: ' + error.message);
+                });
+        }
+        
         function handleForgotPassword(e) { e.preventDefault(); const email = prompt("Please enter your email address to reset your password:"); if (email) { auth.sendPasswordResetEmail(email) .then(() => alert('Password reset email sent! Please check your inbox.')) .catch(error => alert('Error: ' + error.message)); } }
         function handleContactFormSubmit(event) { event.preventDefault(); const name = document.getElementById('contact-name').value; const email = document.getElementById('contact-email').value; const message = document.getElementById('contact-message').value; const responseDiv = document.getElementById('contact-form-response'); database.ref('contacts').push({ name, email, message, timestamp: new Date().toISOString() }).then(() => { responseDiv.textContent = 'Your message has been sent successfully!'; responseDiv.style.color = 'green'; document.getElementById('contactForm').reset(); }).catch(error => { responseDiv.textContent = 'Error: ' + error.message; responseDiv.style.color = 'red'; }); }
         
@@ -1029,17 +1149,165 @@
         function loadTheme() { database.ref('siteContent/theme').on('value', (s) => { const t = s.val(); }); }
         function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').on('value', (s) => { const menuItems = []; s.forEach(cs => { menuItems.push(cs.val()); }); const lastChild = c.querySelector('li:last-child').outerHTML; c.innerHTML = menuItems.map(m => `<li><a href="${m.url}">${m.name}</a></li>`).join('') + lastChild; }); }
         function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').on('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
-        function loadSiteContent() { database.ref("siteContent").on("value", (snapshot => { const content = snapshot.val() || {}; siteContentData = content; gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; 
         
-        if(content.settings?.aboutImageUrl){ 
-            document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; 
-            document.getElementById("about-thumb-wrap").classList.remove("skeleton"); 
-        } 
-        
-        if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { document.getElementById('banner-text-container').innerHTML = `<strong>${content.banner.text}</strong>`; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; document.getElementById('workshop-subtitle').innerText = content.sectionTitles.workshopSubtitle || 'আমাদের কার্যক্রম'; document.getElementById('workshop-main-title').innerText = content.sectionTitles.workshopMainTitle || 'আসন্ন ওয়ার্কশপ'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) }
-        function loadCourses() { const container = document.getElementById('course-list-container'); const footerMenu = document.getElementById('footer-course-menu'); const filterContainer = document.getElementById('course-filter-buttons'); database.ref('courses').on('value', (snapshot) => { const coursesData = snapshot.val(); container.innerHTML = ''; footerMenu.innerHTML = ''; filterContainer.innerHTML = ''; if (coursesData) { allCoursesData = coursesData; const categories = new Set(); for (const courseId in coursesData) { const course = coursesData[courseId]; if (course.status === 'published' && course.category) { categories.add(course.category); } } filterContainer.innerHTML = '<button class="active" data-category="all">All</button>'; categories.forEach(cat => { filterContainer.innerHTML += `<button data-category="${cat}">${cat}</button>`; }); document.querySelectorAll('#course-filter-buttons button').forEach(button => { button.addEventListener('click', () => { const category = button.getAttribute('data-category'); document.querySelector('#course-filter-buttons button.active').classList.remove('active'); button.classList.add('active'); document.querySelectorAll('.col-course').forEach(courseCard => { if (category === 'all' || courseCard.dataset.courseCategory === category) { courseCard.style.display = 'block'; } else { courseCard.style.display = 'none'; } }); }); }); let courseCount = 0; for (const courseId in coursesData) { const course = coursesData[courseId]; if (course.status === 'published') { const courseHTML = ` <div class="col-course fade-in" data-course-category="${course.category || 'uncategorized'}"> <div class="single-course-inner"> <div class="thumb"> <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"> </div> <div class="details"> <h3>${course.name}</h3> <a class="arrow-right" onclick="showCourseDetails('${courseId}')"> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> </a> </div> </div> </div>`; container.innerHTML += courseHTML; if (courseCount < 5) { footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${courseId}');">${course.name}</a></li>`; courseCount++; } } } } else { container.innerHTML = '<p>No courses available at the moment.</p>'; footerMenu.innerHTML = '<li>No courses found.</li>'; } observeFadeInElements(); }); }
+        function loadSiteContent() { 
+            database.ref("siteContent").on("value", (snapshot => { 
+                const content = snapshot.val() || {}; 
+                siteContentData = content; 
+                gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; 
+
+                // NEW: Dashboard Announcement Logic
+                const ann = content.dashboardAnnouncement;
+                const annContainer = document.getElementById('dashboard-announcement-container');
+                if (ann && ann.status === 'active' && ann.text) {
+                    let formattedText = ann.text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+                    annContainer.innerHTML = `<div class="dashboard-announcement-banner">${formattedText}</div>`;
+                    annContainer.style.display = 'block';
+                } else {
+                    annContainer.style.display = 'none';
+                }
+
+                if (content.settings && content.settings.countryCodes) {
+                    countryCodes = content.settings.countryCodes;
+                }
+                populateCountryCodes();
+
+                const mainWhatsappLink = content.settings?.mainWhatsappLink || '#';
+                document.getElementById('banner-whatsapp-link').href = mainWhatsappLink;
+                document.getElementById('dashboard-whatsapp-link').setAttribute('data-link', mainWhatsappLink);
+                document.getElementById('dashboard-banner-whatsapp-link').href = mainWhatsappLink;
+
+                const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { let bannerHTML = `<strong>${content.banner.text}</strong>`; if (!content.banner.text.includes("WhatsApp")) { bannerHTML += `<p style="font-size: 1.2rem; margin-top: 15px;">এখনই যোগ দিন আমাদের হাজারো শিক্ষার্থীর অ্যাক্টিভ কমিউনিটিতে এবং আপনার যাত্রা শুরু করুন।</p>`; } document.getElementById('banner-text-container').innerHTML = bannerHTML; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; document.getElementById('workshop-subtitle').innerText = content.sectionTitles.workshopSubtitle || 'আমাদের কার্যক্রম'; document.getElementById('workshop-main-title').innerText = content.sectionTitles.workshopMainTitle || 'আসন্ন ওয়ার্কশপ'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) 
+        }
+
+        function loadCourses() {
+            const container = document.getElementById('course-list-container');
+            const footerMenu = document.getElementById('footer-course-menu');
+            const filterContainer = document.getElementById('course-filter-buttons');
+
+            database.ref('courses').on('value', (snapshot) => {
+                const coursesData = snapshot.val();
+                container.innerHTML = '';
+                footerMenu.innerHTML = '';
+                filterContainer.innerHTML = '';
+
+                if (coursesData) {
+                    allCoursesData = coursesData;
+
+                    // NEW: Convert to array, filter published courses, and then sort by order
+                    const coursesArray = Object.entries(coursesData)
+                        .map(([id, data]) => ({ id, ...data }))
+                        .filter(course => course.status === 'published');
+
+                    coursesArray.sort((a, b) => (a.order || 999) - (b.order || 999));
+
+                    const categories = new Set();
+                    coursesArray.forEach(course => {
+                        if (course.category) {
+                            categories.add(course.category);
+                        }
+                    });
+
+                    filterContainer.innerHTML = '<button class="active" data-category="all">All</button>';
+                    categories.forEach(cat => {
+                        filterContainer.innerHTML += `<button data-category="${cat}">${cat}</button>`;
+                    });
+
+                    document.querySelectorAll('#course-filter-buttons button').forEach(button => {
+                        button.addEventListener('click', () => {
+                            document.querySelector('#course-filter-buttons button.active').classList.remove('active');
+                            button.classList.add('active');
+                            document.getElementById('course-search-input').value = '';
+                            filterCourses();
+                        });
+                    });
+
+                    // Render sorted courses
+                    if (coursesArray.length > 0) {
+                        coursesArray.forEach(course => {
+                            const courseId = course.id;
+                            const courseHTML = ` 
+                                <div class="col-course fade-in" data-course-id="${courseId}" data-course-name="${course.name.toLowerCase()}" data-course-category="${course.category || 'uncategorized'}"> 
+                                    <div class="single-course-inner"> 
+                                        <button class="wishlist-btn" onclick="toggleWishlist('${courseId}', event)"><i class="far fa-heart"></i></button>
+                                        <div class="thumb"> <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"> </div> 
+                                        <div class="details"> 
+                                            <h3>${course.name}</h3> 
+                                            <a class="arrow-right" onclick="showCourseDetails('${courseId}')"> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> </a> 
+                                        </div> 
+                                    </div> 
+                                </div>`;
+                            container.innerHTML += courseHTML;
+                        });
+
+                        // Populate footer menu with top sorted courses
+                        coursesArray.slice(0, 5).forEach(course => {
+                            footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${course.id}');">${course.name}</a></li>`;
+                        });
+                        
+                    } else {
+                         container.innerHTML = '<p>No courses available at the moment.</p>';
+                         footerMenu.innerHTML = '<li>No courses found.</li>';
+                    }
+
+                    updateCourseCardsUI(auth.currentUser);
+                } else {
+                    container.innerHTML = '<p>No courses available at the moment.</p>';
+                    footerMenu.innerHTML = '<li>No courses found.</li>';
+                }
+                observeFadeInElements();
+            });
+        }
+
+
+        function handleCourseSearch() {
+            filterCourses();
+        }
+
+        function filterCourses() {
+            const searchTerm = document.getElementById('course-search-input').value.toLowerCase();
+            const activeCategory = document.querySelector('#course-filter-buttons button.active').getAttribute('data-category');
+
+            document.querySelectorAll('.col-course').forEach(courseCard => {
+                const courseName = courseCard.dataset.courseName;
+                const courseCategory = courseCard.dataset.courseCategory;
+
+                const nameMatch = courseName.includes(searchTerm);
+                const categoryMatch = (activeCategory === 'all' || courseCategory === activeCategory);
+
+                if (nameMatch && categoryMatch) {
+                    courseCard.style.display = 'block';
+                } else {
+                    courseCard.style.display = 'none';
+                }
+            });
+        }
+
         function loadCourseReviews(courseId) { const reviewsContainer = document.getElementById('course-reviews-container'); reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>Loading reviews...</p>'; const reviewsRef = database.ref('courseReviews').orderByChild('courseId').equalTo(courseId); reviewsRef.once('value', snapshot => { const reviews = snapshot.val(); if (!reviews) { reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No reviews for this course yet.</p>'; return; } const approvedReviews = Object.values(reviews).filter(r => r.status === 'Approved'); if (approvedReviews.length === 0) { reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No approved reviews for this course yet.</p>'; return; } const userIds = [...new Set(approvedReviews.map(r => r.userId))]; const userPromises = userIds.map(id => database.ref(`users/${id}/name`).once('value')); Promise.all(userPromises).then(userSnapshots => { const userIdToNameMap = {}; userSnapshots.forEach((snap, index) => { userIdToNameMap[userIds[index]] = snap.val() || 'Unknown User'; }); let reviewsHtml = ''; approvedReviews.forEach(review => { const userName = userIdToNameMap[review.userId]; reviewsHtml += ` <div class="review-item"> <div class="review-header"> <span class="review-author">${userName}</span> <span class="review-rating">${'⭐'.repeat(review.rating)}</span> </div> <p>${review.review}</p> </div>`; }); reviewsContainer.innerHTML = '<h4>Student Reviews</h4>' + reviewsHtml; }); }); }
-        function showCourseDetails(courseId) { const course = allCoursesData[courseId]; if (!course) return; appliedCoupon = null; currentCourseIdForReview = courseId; document.getElementById('course-details-image').src = course.imageURL || 'https://placehold.co/600x250'; document.getElementById('course-details-title').textContent = course.name; document.getElementById('course-details-price').textContent = `Price: ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('course-details-description').textContent = course.description || 'No detailed description available.'; document.getElementById('enroll-now-btn').innerHTML = `<span data-lang="enrollNowButton">Enroll Now</span> for ${course.price.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, course.price); document.getElementById('apply-coupon-btn').onclick = () => applyCoupon(courseId); document.getElementById('coupon-code-input').value = ''; document.getElementById('coupon-message').textContent = ''; loadCourseReviews(courseId); document.getElementById('courseDetailsModal').style.display = 'flex'; }
+        
+        function showCourseDetails(courseId) { 
+            const course = allCoursesData[courseId]; 
+            if (!course) return; 
+            appliedCoupon = null; 
+            currentCourseIdForReview = courseId; 
+            document.getElementById('course-details-image').src = course.imageURL || 'https://placehold.co/600x250'; 
+            document.getElementById('course-details-title').textContent = course.name; 
+            document.getElementById('course-details-price').textContent = `Price: ${course.price.toLocaleString('bn-BD')} BDT`; 
+            
+            const descriptionContainer = document.getElementById('course-details-description');
+            let descriptionHTML = `<p>${course.description || 'No detailed description available.'}</p>`;
+            descriptionHTML += `<div class="community-note"><p><b><i class="fab fa-whatsapp"></i> বিশেষ সুবিধা:</b> এই কোর্সের সকল শিক্ষার্থীর জন্য রয়েছে একটি ডেডিকেটেড WhatsApp সাপোর্ট গ্রুপ, যেখানে আপনি সরাসরি মেন্টরের সাহায্য পাবেন।</p></div>`;
+            descriptionContainer.innerHTML = descriptionHTML;
+
+            document.getElementById('enroll-now-btn').innerHTML = `<span data-lang="enrollNowButton">Enroll Now</span> for ${course.price.toLocaleString('bn-BD')} BDT`; 
+            document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, course.price); 
+            document.getElementById('apply-coupon-btn').onclick = () => applyCoupon(courseId); 
+            document.getElementById('coupon-code-input').value = ''; 
+            document.getElementById('coupon-message').textContent = ''; 
+            loadCourseReviews(courseId); 
+            document.getElementById('courseDetailsModal').style.display = 'flex'; 
+        }
+
         function applyCoupon(courseId) { const code = document.getElementById('coupon-code-input').value.trim().toUpperCase(); const messageEl = document.getElementById('coupon-message'); if(!code) { messageEl.textContent = 'Please enter a coupon code.'; messageEl.style.color = 'red'; return; } database.ref('coupons').orderByChild('code').equalTo(code).once('value', snapshot => { if(snapshot.exists()){ const couponData = Object.values(snapshot.val())[0]; const originalPrice = allCoursesData[courseId].price; let discountedPrice = originalPrice; if(couponData.type === 'percentage') { discountedPrice = originalPrice - (originalPrice * couponData.value / 100); } else if (couponData.type === 'fixed') { discountedPrice = originalPrice - couponData.value; } if (discountedPrice < 0) discountedPrice = 0; appliedCoupon = couponData; messageEl.textContent = `Coupon applied! New price: ${discountedPrice.toLocaleString('bn-BD')} BDT`; messageEl.style.color = 'green'; document.getElementById('enroll-now-btn').innerHTML = `Enroll Now for ${discountedPrice.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, discountedPrice); } else { messageEl.textContent = 'Invalid or expired coupon code.'; messageEl.style.color = 'red'; } }); }
         function enrollInCourse(courseId, finalPrice) { const user = auth.currentUser; if (!user) { alert('কোর্সে এনরোল করার জন্য অনুগ্রহ করে সাইন ইন করুন।'); closeModal('courseDetailsModal'); document.getElementById('signInModal').style.display = 'flex'; return; } const course = allCoursesData[courseId]; if (course.enrollmentPassword && course.enrollmentPassword !== "") { const enteredPassword = prompt(`"${course.name}" কোর্সে এনরোল করার জন্য অনুগ্রহ করে পাসওয়ার্ড দিন:`); if (enteredPassword === null) return; if (enteredPassword !== course.enrollmentPassword) { alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।"); return; } } alert(`পেমেন্ট গেটওয়ে ইন্টিগ্রেশন প্রয়োজন।\nআপাতত "${course.name}" কোর্সের জন্য ${finalPrice} BDT মূল্যে ম্যানুয়াল এনরোলমেন্ট প্রক্রিয়া সম্পন্ন করা হচ্ছে।`); const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), purchasePrice: finalPrice }; database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData) .then(() => { database.ref('payments').push({ userId: user.uid, courseId, amount: finalPrice, transactionId: 'MANUAL_SIMULATION_' + new Date().getTime(), date: new Date().toISOString() }); alert('আপনি সফলভাবে কোর্সে এনরোল করেছেন!'); closeModal('courseDetailsModal'); }).catch(err => alert('এনরোলমেন্ট ব্যর্থ হয়েছে: ' + err.message)); }
         function openDashboardTab(evt, tabName) { document.querySelectorAll(".dashboard-tab-content").forEach(c => c.style.display = "none"); document.querySelectorAll("#dashboard-sidebar .tab-link").forEach(l => l.classList.remove("active")); document.getElementById(tabName).style.display = "block"; evt.currentTarget.classList.add("active"); if (tabName === 'Notifications') { document.getElementById('notification-badge').style.display = 'none'; } }
@@ -1061,6 +1329,7 @@
                 loadLiveClassesForDashboard(user.uid);
                 loadForumForDashboard();
                 loadEnrolledCourses(user, userData.enrolledCourses);
+                loadWishlist(user.uid);
                 loadDashboardOverview(userData.enrolledCourses, userData.gamification);
                 loadAchievements(userData.gamification?.badges);
                 loadLeaderboard();
@@ -1072,7 +1341,7 @@
             loadPaymentHistory(user);
         }
 
-        function loadLiveClassesForDashboard(userId) { const container = document.getElementById('dashboard-live-class-container'); database.ref('liveClasses').orderByChild('dateTime').on('value', snapshot => { container.innerHTML = ''; const classes = snapshot.val(); if (classes && Object.keys(classes).length > 0) { const sorted = Object.values(classes).sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); const now = new Date(); sorted.forEach(cls => { const classTime = new Date(cls.dateTime); let actionButton = ''; if (classTime < now) { actionButton = cls.recordingUrl ? `<a href="${cls.recordingUrl}" target="_blank" class="btn-base">রেকর্ডিং দেখুন</a>` : `<button class="btn-base" disabled>শেষ হয়েছে</button>`; } else { actionButton = `<a href="${cls.url}" target="_blank" class="btn-base">ক্লাসে যোগ দিন</a>`; } container.innerHTML += `<div class="live-class-card-neon"><div class="info"><h4>${cls.title}</h4><p><strong>সময়:</strong> ${classTime.toLocaleString('bn-BD')}</p><p class="teacher-name"><strong>টিচার:</strong> ${cls.teacher || 'N/A'}</p></div><div class="action-btn-container">${actionButton}</div></div>`; }); } else { container.innerHTML = '<p>বর্তমানে কোনো লাইভ ক্লাস উপলব্ধ নেই।</p>'; } }); }
+        function loadLiveClassesForDashboard(userId) { const container = document.getElementById('dashboard-live-class-container'); database.ref('liveClasses').orderByChild('dateTime').on('value', snapshot => { container.innerHTML = ''; const classes = snapshot.val(); if (classes && Object.keys(classes).length > 0) { const sorted = Object.values(classes).sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); const now = new Date(); sorted.forEach(cls => { const classTime = new Date(cls.dateTime); let actionButton = ''; if (classTime < now) { actionButton = cls.recordingUrl ? `<a href="${cls.recordingUrl}" target="_blank" class="btn-base">রেকর্ডিং দেখুন</a>` : `<button class="btn-base" disabled>শেষ হয়েছে</button>`; } else { actionButton = `<a href="${cls.url}" target="_blank" class="btn-base">ক্লাসে যোগ দিন</a>`; } container.innerHTML += ` <div class="live-class-card-neon"> <div class="info"> <h4>${cls.title}</h4> <p><strong>সময়:</strong> ${classTime.toLocaleString('bn-BD')}</p> <p class="teacher-name"><strong>টিচার:</strong> ${cls.teacher || 'N/A'}</p> <p style="font-size: 0.9rem; color: #00f2ea; margin-top: 8px;">ক্লাসের সকল আপডেট পেতে প্রধান WhatsApp গ্রুপে যুক্ত থাকুন।</p> </div> <div class="action-btn-container">${actionButton}</div> </div>`; }); } else { container.innerHTML = '<p>বর্তমানে কোনো লাইভ ক্লাস উপলব্ধ নেই।</p>'; } }); }
         function loadEnrolledCourses(user, enrolledCourses) { const gridContainer = document.getElementById('enrolled-courses-grid'); if(!enrolledCourses) { gridContainer.innerHTML = '<p>You have not enrolled in any courses yet.</p>'; return; } gridContainer.innerHTML = ''; for(const enrollId in enrolledCourses) { const enrollment = enrolledCourses[enrollId]; const course = allCoursesData[enrollment.courseId]; if(course) { gridContainer.innerHTML += ` <div class="enrolled-course-card"> <img src="${course.imageURL}" alt="${course.name}"> <div class="enrolled-course-card-content"> <h5>${course.name}</h5> <button class="btn-base" onclick="openCoursePlayer('${enrollment.courseId}', '${enrollId}')">Start Learning</button> </div> </div> `; } } }
         function openReviewModal(courseId) { currentCourseIdForReview = courseId; document.getElementById('courseReviewModal').style.display = 'flex'; }
         function handleReviewSubmit(event) { event.preventDefault(); const user = auth.currentUser; if (!user) { alert('Please log in to submit a review.'); return; } const rating = document.getElementById('review-rating').value; const reviewText = document.getElementById('review-text').value; if (rating === '0') { alert('Please select a rating.'); return; } const reviewData = { courseId: currentCourseIdForReview, userId: user.uid, rating: parseInt(rating), review: reviewText, status: 'Pending', timestamp: new Date().toISOString() }; database.ref('courseReviews').push(reviewData) .then(() => { alert('Thank you! Your review has been submitted for approval.'); closeModal('courseReviewModal'); document.getElementById('courseReviewForm').reset(); }) .catch(err => alert('Error submitting review: ' + err.message)); }
@@ -1120,80 +1389,76 @@
 
         document.querySelector('#coursePlayerModal .modal-close-btn').addEventListener('click', () => { closeModal('coursePlayerModal'); document.getElementById('lesson-content-area').innerHTML = ''; if(auth.currentUser) loadDashboardData(auth.currentUser); });
         function loadProjects() { const p = document.getElementById('upcoming-projects-list'); database.ref('projects').on('value', (s) => { p.innerHTML = ''; const d = s.val(); if(d){ for(const i in d) p.innerHTML += `<div class="single-blog-list-inner"><h5><a href="${d[i].link || '#'}" target="_blank">${d[i].title}</a></h5></div>`; } else p.innerHTML = '<p style="color:white;">No upcoming projects.</p>'; }); }
-        function loadWorkshop() { const container = document.getElementById('workshop-container'); const workshopRef = database.ref('workshops/main_workshop'); workshopRef.on('value', (snapshot) => { const workshop = snapshot.val(); if (workshop && workshop.status === 'active') { container.innerHTML = ` <h3 style="font-size: 1.8rem; color: var(--dark-blue); margin-bottom: 15px;">${workshop.title}</h3> <p style="font-size: 1.1rem; font-weight: 500; color: var(--primary-green); margin-bottom: 25px;"> <i class="far fa-calendar-alt"></i> ${workshop.date} </p> <p style="color: var(--light-text); margin-bottom: 30px;">${workshop.description}</p> <a href="${workshop.regLink}" target="_blank" class="btn-base">রেজিস্ট্রেশন করুন</a> `; } else { document.getElementById('workshop').style.display = 'none'; } }); }
+        
+        function loadWorkshop() { 
+            const container = document.getElementById('workshop-container'); 
+            const workshopRef = database.ref('workshops/main_workshop'); 
+            workshopRef.on('value', (snapshot) => { 
+                const workshop = snapshot.val(); 
+                if (workshop && workshop.status === 'active') { 
+                    const mainWhatsappLink = siteContentData.settings?.mainWhatsappLink || '#';
+                    container.innerHTML = ` 
+                        <h3 style="font-size: 1.8rem; color: var(--dark-blue); margin-bottom: 15px;">${workshop.title}</h3> 
+                        <p style="font-size: 1.1rem; font-weight: 500; color: var(--primary-green); margin-bottom: 25px;"> 
+                            <i class="far fa-calendar-alt"></i> ${workshop.date} 
+                        </p> 
+                        <p style="color: var(--light-text); margin-bottom: 30px;">${workshop.description}</p> 
+                        <a href="${workshop.regLink}" target="_blank" class="btn-base">রেজিস্ট্রেশন করুন</a> 
+                        <p style="margin-top: 20px; font-size: 0.9rem;">
+                            ওয়ার্কশপের সকল আপডেট পেতে আমাদের <a href="${mainWhatsappLink}" target="_blank" style="color: var(--primary-green); font-weight: 600;">WhatsApp গ্রুপে</a> যুক্ত থাকুন।
+                        </p>
+                    `; 
+                } else { 
+                    document.getElementById('workshop').style.display = 'none'; 
+                } 
+            }); 
+        }
+
         function showAnnouncementPopup() { database.ref('siteContent/announcement').once('value', snapshot => { const ann = snapshot.val(); if (ann && ann.status === 'active' && !sessionStorage.getItem('announcementShown')) { document.getElementById('announcement-title').innerText = ann.title; document.getElementById('announcement-message').innerText = ann.message; const modal = document.getElementById('announcement-modal'); modal.style.display = 'flex'; modal.querySelector('.modal-close-btn').onclick = () => modal.style.display = 'none'; sessionStorage.setItem('announcementShown', 'true'); } }); }
-        function loadBlogPosts() { const c = document.getElementById('blog-posts-container'); database.ref('blogPosts').on('value', (s) => { c.innerHTML = ''; const d = s.val(); if(d){ let postFound = false; const sortedPosts = Object.entries(d).sort((a, b) => new Date(b[1].date) - new Date(a[1].date)); for(const [key, o] of sortedPosts){ if(o.status === 'published') { postFound = true; c.innerHTML += ` <div class="single-course-inner fade-in"> <div class="thumb"> <img src="${o.imageUrl || 'https://placehold.co/380x220?text=Blog+Post'}" alt="${o.title}"> </div> <div class="details" style="flex-direction: column; align-items: flex-start;"> <h3>${o.title}</h3> <p class="post-meta">Posted on: ${new Date(o.date).toLocaleDateString('bn-BD')}</p> <p>${(o.content || "").substring(0, 120)}...</p> </div> </div>`; } } if (!postFound) { c.innerHTML = '<p>No latest news or articles available right now.</p>'; } } else { c.innerHTML = '<p>No blog posts available.</p>'; } observeFadeInElements(); }); }
+        
+        function loadBlogPosts() { 
+            const c = document.getElementById('blog-posts-container'); 
+            database.ref('blogPosts').on('value', (s) => { 
+                c.innerHTML = ''; 
+                const d = s.val(); 
+                if(d){ 
+                    const mainWhatsappLink = siteContentData.settings?.mainWhatsappLink || '#';
+                    let postFound = false; 
+                    const sortedPosts = Object.entries(d).sort((a, b) => new Date(b[1].date) - new Date(a[1].date)); 
+                    for(const [key, o] of sortedPosts){ 
+                        if(o.status === 'published') { 
+                            postFound = true; 
+                            c.innerHTML += ` 
+                                <div class="single-course-inner fade-in"> 
+                                    <div class="thumb"> 
+                                        <img src="${o.imageUrl || 'https://placehold.co/380x220?text=Blog+Post'}" alt="${o.title}"> 
+                                    </div> 
+                                    <div class="details" style="flex-direction: column; align-items: flex-start;"> 
+                                        <h3>${o.title}</h3> 
+                                        <p class="post-meta">Posted on: ${new Date(o.date).toLocaleDateString('bn-BD')}</p> 
+                                        <p>${(o.content || "").substring(0, 120)}...</p> 
+                                        <div class="community-cta">
+                                            <p>এই বিষয়ে আরও জানতে চান? <a href="${mainWhatsappLink}" target="_blank">আমাদের কমিউনিটিতে যোগ দিন!</a></p>
+                                        </div>
+                                    </div> 
+                                </div>`; 
+                        } 
+                    } 
+                    if (!postFound) { 
+                        c.innerHTML = '<p>No latest news or articles available right now.</p>'; 
+                    } 
+                } else { 
+                    c.innerHTML = '<p>No blog posts available.</p>'; 
+                } 
+                observeFadeInElements(); 
+            }); 
+        }
+
         function loadHomeworkForLesson(courseId, lessonId) { const user = auth.currentUser; const container = document.getElementById('homework-submission-area'); if (!user) { container.innerHTML = '<p>Please log in to submit homework.</p>'; return; } const course = allCoursesData[courseId]; if (!course.homeworkLimit || !course.homeworkReward) { container.innerHTML = '<p>No homework is enabled for this course.</p>'; return; } database.ref('homeworkSubmissions').orderByChild('userId').equalTo(user.uid).once('value', snapshot => { const allSubmissions = snapshot.val() || {}; const courseSubmissions = Object.values(allSubmissions).filter(s => s.courseId === courseId); const approvedOrPendingCount = courseSubmissions.filter(s => s.status === 'approved' || s.status === 'submitted').length; const thisLessonSubmission = courseSubmissions.find(s => s.lessonId === lessonId); if (thisLessonSubmission) { let statusHtml = `<p><strong>Status:</strong> <span class="homework-status ${thisLessonSubmission.status}">${thisLessonSubmission.status.replace('_', ' ')}</span></p>`; if (thisLessonSubmission.status === 'correction_needed') { container.innerHTML = `${statusHtml}<p><strong>Admin Feedback:</strong> ${thisLessonSubmission.adminNotes}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', '${thisLessonSubmission.id}')"><div class="input-group"><label>Resubmit Your Homework Link</label><input type="url" value="${thisLessonSubmission.homeworkLink}" required></div><button type="submit" class="btn-base">Resubmit</button></form>`; } else { container.innerHTML = statusHtml + `<p>You have already submitted homework for this lesson.</p>`; } } else if (approvedOrPendingCount >= course.homeworkLimit) { container.innerHTML = `<p>You have reached the homework submission limit (${course.homeworkLimit}) for this course.</p>`; } else { container.innerHTML = `<p>You can earn ${course.homeworkReward} BDT for this homework.</p><p>Submissions remaining for this course: ${course.homeworkLimit - approvedOrPendingCount}/${course.homeworkLimit}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', null)"><div class="input-group"><label>Enter Your Homework Link</label><input type="url" placeholder="https://..." required></div><button type="submit" class="btn-base">Submit</button></form>`; } }); }
         function handleHomeworkSubmit(event, courseId, lessonId, submissionId) { event.preventDefault(); const user = auth.currentUser; const homeworkLink = event.target.querySelector('input').value; if (!user || !homeworkLink) return; const course = allCoursesData[courseId]; const submissionData = { userId: user.uid, courseName: course.name, homeworkLink: homeworkLink, status: 'submitted', submittedAt: new Date().toISOString(), rewardAmount: course.homeworkReward || 0 }; const ref = submissionId ? database.ref('homeworkSubmissions/' + submissionId) : database.ref('homeworkSubmissions').push(); ref.update(submissionData).then(() => { alert('Homework submitted successfully!'); loadHomeworkForLesson(courseId, lessonId); }).catch(err => alert('Error: ' + err.message)); }
         function loadHomeworkSubmissions(userId) { const container = document.getElementById('homework-submissions-container'); database.ref('homeworkSubmissions').orderByChild('userId').equalTo(userId).on('value', snapshot => { const submissions = snapshot.val(); if (submissions) { let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;"><thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`; const sorted = Object.values(submissions).sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt)); sorted.forEach(sub => { tableHtml += `<tr><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td></tr>`; }); tableHtml += '</tbody></table>'; container.innerHTML = tableHtml; } else { container.innerHTML = '<p>You have not submitted any homework yet.</p>'; } }); }
         
-        // =========================================================================
-        //  সংশোধিত ফাংশন: রেফারেল ডেটা দেখানোর সমস্যার সমাধান
-        // =========================================================================
-        function loadReferralData(userId, userData) {
-            // userId একটি সঠিক string কিনা তা নিশ্চিত করা
-            if (!userId || typeof userId !== 'string') {
-                console.error("loadReferralData: Invalid userId provided.");
-                return;
-            }
-
-            const linkInput = document.getElementById('referral-link-input');
-            let referralCode = userData.referralCode;
-
-            // যদি পুরনো ব্যবহারকারীর রেফারেল কোড না থাকে, তাহলে একটি তৈরি করা
-            if (!referralCode) {
-                referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase();
-                database.ref('users/' + userId).update({ referralCode: referralCode });
-            }
-            linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
-
-            const leadsContainer = document.getElementById('leads-container');
-            const convertsContainer = document.getElementById('converts-container');
-            
-            const query = database.ref('users').orderByChild('referredBy').equalTo(userId);
-            
-            query.on('value', snapshot => {
-                // ডিফল্ট বার্তা সেট করা
-                let leadsHtml = '<p>No one has signed up using your link yet.</p>';
-                let convertsHtml = '<p>No active referrals yet.</p>';
-
-                if (snapshot.exists()) {
-                    const referredUsers = snapshot.val();
-                    const allReferred = Object.values(referredUsers);
-                    
-                    // null বা undefined অবজেক্ট বাদ দিয়ে ফিল্টার করা
-                    const leads = allReferred.filter(u => u && u.status === 'pending');
-                    const converts = allReferred.filter(u => u && u.status === 'active');
-
-                    if (leads.length > 0) {
-                        leadsHtml = leads.map(u => {
-                            const whatsappLink = u.whatsapp ? `https://wa.me/${u.whatsapp.replace(/\D/g, '')}` : '#';
-                            const whatsappButton = u.whatsapp ? `<a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 5px 10px; font-size: 0.8rem; margin-left: 15px;"><i class="fab fa-whatsapp"></i> Message</a>` : '';
-                            return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color);">
-                                        <span>${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - <b>WhatsApp:</b> ${u.whatsapp || 'N/A'}</span>
-                                        ${whatsappButton}
-                                    </div>`;
-                        }).join('');
-                    }
-
-                    if (converts.length > 0) {
-                        convertsHtml = converts.map(u => `<div style="padding: 8px 0;">${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - Activated!</div>`).join('');
-                    }
-                }
-
-                leadsContainer.innerHTML = leadsHtml;
-                convertsContainer.innerHTML = convertsHtml;
-
-            }, (error) => {
-                // যদি কুয়েরি করতে কোনো error হয় (যেমন: Rules সমস্যা), তাহলে এখানে দেখানো হবে
-                console.error("Firebase referral query failed:", error);
-                leadsContainer.innerHTML = '<p style="color: red;">Error loading referral data. Please contact support.</p>';
-                convertsContainer.innerHTML = '<p style="color: red;">Error loading referral data.</p>';
-            });
-        }
-        // =========================================================================
-        //  ফাংশন সংশোধন সমাপ্ত
-        // =========================================================================
+        function loadReferralData(userId, userData) { if (!userId || typeof userId !== 'string') { console.error("loadReferralData: Invalid userId provided."); return; } const linkInput = document.getElementById('referral-link-input'); let referralCode = userData.referralCode; if (!referralCode) { referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase(); database.ref('users/' + userId).update({ referralCode: referralCode }); } linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`; const leadsContainer = document.getElementById('leads-container'); const convertsContainer = document.getElementById('converts-container'); const query = database.ref('users').orderByChild('referredBy').equalTo(userId); query.on('value', snapshot => { let leadsHtml = '<p>No one has signed up using your link yet.</p>'; let convertsHtml = '<p>No active referrals yet.</p>'; if (snapshot.exists()) { const referredUsers = snapshot.val(); const allReferred = Object.values(referredUsers); const leads = allReferred.filter(u => u && u.status === 'pending'); const converts = allReferred.filter(u => u && u.status === 'active'); if (leads.length > 0) { leadsHtml = leads.map(u => { const whatsappLink = u.whatsapp ? `https://wa.me/${u.whatsapp.replace(/\D/g, '')}` : '#'; const whatsappButton = u.whatsapp ? `<a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 5px 10px; font-size: 0.8rem; margin-left: 15px;"><i class="fab fa-whatsapp"></i> Message</a>` : ''; return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color);"><span>${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - <b>WhatsApp:</b> ${u.whatsapp || 'N/A'}</span>${whatsappButton}</div>`; }).join(''); } if (converts.length > 0) { convertsHtml = converts.map(u => `<div style="padding: 8px 0;">${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - Activated!</div>`).join(''); } } leadsContainer.innerHTML = leadsHtml; convertsContainer.innerHTML = convertsHtml; }, (error) => { console.error("Firebase referral query failed:", error); leadsContainer.innerHTML = '<p style="color: red;">Error loading referral data. Please contact support.</p>'; convertsContainer.innerHTML = '<p style="color: red;">Error loading referral data.</p>'; }); }
 
         function copyReferralLink() { const linkInput = document.getElementById('referral-link-input'); if (navigator.clipboard) { navigator.clipboard.writeText(linkInput.value).then(() => { alert('Referral link copied to clipboard!'); }).catch(err => { alert('Failed to copy link.'); }); } else { linkInput.select(); document.execCommand('copy'); alert('Referral link copied to clipboard!'); } }
         function handleWithdrawalRequest(event) { event.preventDefault(); const user = auth.currentUser; if (!user) return; const amount = parseFloat(document.getElementById('withdraw-amount').value); const method = document.getElementById('withdraw-method').value; const details = document.getElementById('withdraw-details').value; const errorEl = document.getElementById('withdrawalError'); errorEl.style.display = 'none'; if (amount < 500) { errorEl.textContent = 'Minimum withdrawal amount is 500 BDT.'; errorEl.style.display = 'block'; return; } database.ref('users/' + user.uid).once('value', snapshot => { const userData = snapshot.val(); if (amount > (userData.balance || 0)) { errorEl.textContent = 'Insufficient balance.'; errorEl.style.display = 'block'; return; } const requestData = { userId: user.uid, userName: userData.name, amount: amount, method: method, accountDetails: details, status: 'pending', requestedAt: new Date().toISOString() }; database.ref('withdrawalRequests').push(requestData).then(() => { alert('Your withdrawal request has been submitted successfully!'); document.getElementById('withdrawalForm').reset(); }); }); }
@@ -1249,6 +1514,82 @@
         function printCertificate() { const printContent = document.getElementById('certificate-content').innerHTML; const originalContent = document.body.innerHTML; document.body.innerHTML = printContent; window.print(); document.body.innerHTML = originalContent; location.reload(); }
         function checkAndAwardBadges(userId) { database.ref(`users/${userId}`).once('value', userSnapshot => { const userData = userSnapshot.val(); database.ref('siteContent/gamificationSettings/badges').once('value', badgeSnapshot => { const allBadges = badgeSnapshot.val(); if (!allBadges) return; for (const badgeId in allBadges) { const badge = allBadges[badgeId]; let criteriaMet = false; if (badge.type === 'complete_courses') { const completedCount = userData.completedCourses ? Object.keys(userData.completedCourses).length : 0; if (completedCount >= badge.value) { criteriaMet = true; } } if (criteriaMet) { database.ref(`users/${userId}/gamification/badges/${badgeId}`).set({ name: badge.name, icon: badge.icon, awardedAt: new Date().toISOString() }); } } }); }); }
         function loadUserBadges(badges) { const container = document.getElementById('my-badges-container'); if (badges && Object.keys(badges).length > 0) { container.innerHTML = ''; for(const badgeId in badges) { const badge = badges[badgeId]; container.innerHTML += `<div class="badge-item"><div class="badge-icon"><i class="${badge.icon}"></i></div><p class="badge-title">${badge.name}</p></div>`; } } else { container.innerHTML = '<p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>'; } }
+
+        function toggleWishlist(courseId, event) {
+            event.stopPropagation();
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Please sign in to add courses to your wishlist.');
+                document.getElementById('signInModal').style.display = 'flex';
+                return;
+            }
+            const wishlistRef = database.ref(`users/${user.uid}/wishlist/${courseId}`);
+            wishlistRef.once('value', snapshot => {
+                if (snapshot.exists()) {
+                    wishlistRef.remove();
+                } else {
+                    wishlistRef.set(true);
+                }
+            });
+        }
+        
+        function updateCourseCardsUI(user) {
+            if (user) {
+                database.ref(`users/${user.uid}/wishlist`).on('value', snapshot => {
+                    const wishlist = snapshot.val() || {};
+                    document.querySelectorAll('.col-course').forEach(card => {
+                        const courseId = card.dataset.courseId;
+                        const btn = card.querySelector('.wishlist-btn');
+                        const icon = btn.querySelector('i');
+                        if (wishlist[courseId]) {
+                            btn.classList.add('active');
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                        } else {
+                            btn.classList.remove('active');
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                        }
+                    });
+                });
+            } else { 
+                document.querySelectorAll('.wishlist-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.querySelector('i').classList.remove('fas');
+                    btn.querySelector('i').classList.add('far');
+                });
+            }
+        }
+        
+        function loadWishlist(userId) {
+            const gridContainer = document.getElementById('wishlist-courses-grid');
+            const wishlistRef = database.ref(`users/${userId}/wishlist`);
+
+            wishlistRef.on('value', snapshot => {
+                const wishlist = snapshot.val();
+                if (!wishlist) {
+                    gridContainer.innerHTML = '<p>Your wishlist is empty. Add courses you are interested in!</p>';
+                    return;
+                }
+
+                gridContainer.innerHTML = '';
+                const courseIds = Object.keys(wishlist);
+                courseIds.forEach(courseId => {
+                    const course = allCoursesData[courseId];
+                    if (course) {
+                         gridContainer.innerHTML += `
+                            <div class="enrolled-course-card">
+                                <img src="${course.imageURL}" alt="${course.name}">
+                                <div class="enrolled-course-card-content">
+                                    <h5>${course.name}</h5>
+                                    <button class="btn-base" onclick="showCourseDetails('${courseId}')">View Details</button>
+                                </div>
+                            </div>
+                         `;
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
