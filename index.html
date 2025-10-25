@@ -189,44 +189,70 @@
         .social-login-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: none; cursor: pointer; font-weight: 500; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background-color 0.3s; }
         .social-login-btn:hover { background-color: var(--light-bg); }
         .social-login-btn i { font-size: 1.2rem; } .fa-google { color: #DB4437; } .fa-facebook-f { color: #4267B2; }
-        #studentDashboardModal .modal-content { max-width: 1100px; width: 95%; padding: 0; display: flex; height: 90vh; max-height: 700px; }
-        #dashboard-sidebar { width: 250px; background-color: var(--light-bg); padding: 20px; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; flex-shrink: 0; }
+        
+        /* --- START: New Dashboard Styles --- */
+        #dashboard-page-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--light-bg);
+            z-index: 1001;
+            flex-direction: column;
+        }
+        #dashboard-header-mobile {
+            display: none;
+            flex-shrink: 0;
+            background-color: var(--white-color);
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            justify-content: space-between;
+        }
+        #dashboard-menu-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-blue);
+        }
+        .dashboard-layout {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #dashboard-sidebar {
+            width: 250px;
+            background-color: var(--white-color); /* Changed from light-bg */
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: margin-left 0.3s ease;
+        }
         .dashboard-profile-summary { text-align: center; margin-bottom: 30px; } .dashboard-profile-summary .avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-green); }
+        #dashboard-sidebar nav {
+            overflow-y: auto;
+        }
         #dashboard-sidebar .tab-link { background: none; border: none; padding: 15px; cursor: pointer; font-size: 1.05rem; font-weight: 500; color: var(--light-text); display: block; width: 100%; text-align: left; border-radius: 8px; margin-bottom: 5px; position: relative; }
         #dashboard-sidebar .tab-link i { margin-right: 10px; width: 20px; }
         #dashboard-sidebar .tab-link.active { background-color: var(--primary-green); color: #ffffff; font-weight: 600; }
         .notification-badge { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background-color: #e74c3c; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.75rem; font-weight: bold; }
         #dashboard-main-content { flex-grow: 1; padding: 30px; overflow-y: auto; }
         .dashboard-tab-content { display: none; animation: fadeIn 0.5s; }
+        .dashboard-tab-content.active { display: block; }
         .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; } .dashboard-header h3 { color: var(--dark-blue); font-size: 1.8rem; margin: 0; }
         .dashboard-widgets { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .widget-card { background-color: var(--white-color); padding: 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); border-left: 4px solid var(--primary-green); }
         .widget-card i { font-size: 2rem; color: var(--primary-green); margin-bottom: 10px; } .widget-card h4 { font-size: 1.5rem; margin: 0; } .widget-card p { color: var(--light-text); margin: 0; }
-        
-        /* NEW: Dashboard Announcement Banner Style */
-        .dashboard-announcement-banner {
-            background-color: #eaf5ff;
-            color: #005a9e;
-            border-left: 5px solid #3498db;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-bottom: 30px;
-            font-size: 1rem;
-        }
-        [data-theme="dark"] .dashboard-announcement-banner {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            border-left-color: #3498db;
-        }
-        .dashboard-announcement-banner a {
-            color: #005a9e;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-        [data-theme="dark"] .dashboard-announcement-banner a {
-            color: #5dade2;
-        }
-
+        .dashboard-announcement-banner { background-color: #eaf5ff; color: #005a9e; border-left: 5px solid #3498db; padding: 20px; border-radius: var(--border-radius); margin-bottom: 30px; font-size: 1rem; }
+        [data-theme="dark"] .dashboard-announcement-banner { background-color: #2c3e50; color: #ecf0f1; border-left-color: #3498db; }
+        .dashboard-announcement-banner a { color: #005a9e; font-weight: bold; text-decoration: underline; }
+        [data-theme="dark"] .dashboard-announcement-banner a { color: #5dade2; }
         .dashboard-community-banner { background: linear-gradient(135deg, var(--primary-green), #004d00); color: white; padding: 25px; border-radius: var(--border-radius); margin-bottom: 30px; text-align: center; }
         .dashboard-community-banner h4 { margin: 0 0 10px 0; font-size: 1.4rem; }
         .dashboard-community-banner p { margin: 0 0 15px 0; opacity: 0.9; }
@@ -241,6 +267,19 @@
         #paymentHistoryTable th, #paymentHistoryTable td, #leaderboard-table th, #leaderboard-table td { padding: 12px; border-bottom: 1px solid var(--border-color); }
         #leaderboard-table th { background-color: var(--light-bg); }
         .notification-item { padding: 15px; border-bottom: 1px solid var(--border-color); } .notification-item:last-child { border-bottom: none; } .notification-date { font-size: 0.85rem; color: var(--light-text); margin-top: 5px; }
+        /* --- END: New Dashboard Styles --- */
+        
+        /* --- START: Nav Button Styles --- */
+        .btn-nav-action {
+            padding: 8px 18px; /* Smaller padding */
+            font-size: 0.9rem; /* Smaller font */
+            margin: 0 !important; /* Remove default margins */
+        }
+        #user-info-desktop {
+            gap: 10px;
+        }
+        /* --- END: Nav Button Styles --- */
+        
         .dark-mode-toggle { display: flex; align-items: center; cursor: pointer; padding: 10px 15px; }
         .dark-mode-toggle span { margin-left: 8px; font-weight: 500; color: #ffffff; }
         .dark-mode-toggle i { color: #ffffff; }
@@ -349,156 +388,395 @@
             .widget_contact li { justify-content: center; } 
             .widget_about { text-align: center; } 
             .social-media { justify-content: center; }
-            #studentDashboardModal .modal-content { flex-direction: column; height: 95vh; max-height: none; }
-            #dashboard-sidebar { border-right: none; border-bottom: 1px solid var(--border-color); width: 100%; height: auto; flex-shrink: 0; }
-            #dashboard-main-content { flex-grow: 1; overflow-y: auto; min-height: 0; }
+            
+            /* --- START: Mobile Dashboard Styles --- */
+            #dashboard-page-container {
+                flex-direction: column;
+            }
+            #dashboard-header-mobile {
+                display: flex;
+            }
+            .dashboard-layout {
+                height: calc(100% - 60px); /* Adjust based on header height */
+            }
+            #dashboard-sidebar {
+                position: fixed;
+                left: 0;
+                top: 60px; /* Below the mobile header */
+                height: calc(100% - 60px);
+                z-index: 1002;
+                margin-left: -260px; /* Hidden by default */
+                box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            }
+            #dashboard-sidebar.show {
+                margin-left: 0;
+            }
+            #dashboard-main-content {
+                padding: 20px;
+            }
+            /* --- END: Mobile Dashboard Styles --- */
+
             #coursePlayerModal .modal-content { flex-direction: column; } 
             #course-sidebar { width: 100%; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border-color); }
         }
+
+        /* --- START: Added for Task System --- */
+        .task-card {
+            background: var(--white-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        .task-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .task-icon { width: 38px; height: 38px; border-radius: 50%; background: rgba(0, 128, 0, 0.1); display: flex; align-items: center; justify-content: center; margin-right: 15px; color: var(--primary-green); font-size: 1rem; }
+        .task-title { font-weight: 600; flex: 1; color: var(--dark-blue); }
+        .reward-badge { background: rgba(245, 166, 35, 0.1); color: #F5A623; padding: 4px 10px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; }
+        .task-description { color: var(--light-text); margin-bottom: 18px; line-height: 1.5; font-size: 0.9rem; }
+        .progress-text { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.75rem; color: var(--light-text); }
+        .ad-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .ad-modal-overlay.show { display: flex; }
+        .spinner { width: 45px; height: 45px; border: 3px solid var(--border-color); border-top-color: var(--primary-green); border-radius: 50%; margin: 15px auto; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 10px 20px; border-radius: 30px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 1000; opacity: 0; transition: all 0.3s ease; font-size: 0.85rem; }
+        .toast.show { opacity: 1; bottom: 90px; }
+        /* --- END: Added for Task System --- */
     </style>
 </head>
 <body id="home">
-    <header class="navbar-area">
-        <div class="navbar-top"><div class="container"><div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;"><div><p><i class="fas fa-envelope"></i> <span id="header-email">Loading...</span></p></div><div class="social-area" id="social-links-header"><a href="#" target="_blank" id="header-facebook"><i class="fab fa-facebook-f"></i></a><a href="#" target="_blank" id="header-telegram"><i class="fab fa-telegram-plane"></i></a><a href="#" target="_blank" id="header-twitter"><i class="fab fa-twitter"></i></a><a href="#" target="_blank" id="header-youtube"><i class="fab fa-youtube"></i></a></div></div></div></div>
-        <nav class="navbar" id="navbar">
-            <div class="container nav-container">
-                <div class="logo"><a href="#"><img id="website-logo" src="https://placehold.co/150x50?text=Logo" alt="logo"></a></div>
-                <ul class="navbar-nav" id="edumint_main_menu">
-                    <li class="skeleton" style="height: 20px; width: 80px; margin: 5px;"></li>
-                    <li>
-                         <label class="dark-mode-toggle">
-                             <i class="fas fa-moon"></i>
-                             <span>Dark Mode</span>
-                            <label class="switch" style="margin-left:auto;">
-                                <input type="checkbox" id="darkModeToggle">
-                                <span class="slider"></span>
+
+    <div id="page-content">
+        <header class="navbar-area">
+            <div class="navbar-top"><div class="container"><div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;"><div><p><i class="fas fa-envelope"></i> <span id="header-email" data-lang="loadingText">Loading...</span></p></div><div class="social-area" id="social-links-header"><a href="#" target="_blank" id="header-facebook"><i class="fab fa-facebook-f"></i></a><a href="#" target="_blank" id="header-telegram"><i class="fab fa-telegram-plane"></i></a><a href="#" target="_blank" id="header-twitter"><i class="fab fa-twitter"></i></a><a href="#" target="_blank" id="header-youtube"><i class="fab fa-youtube"></i></a></div></div></div></div>
+            <nav class="navbar" id="navbar">
+                <div class="container nav-container">
+                    <div class="logo"><a href="#"><img id="website-logo" src="https://placehold.co/150x50?text=Logo" alt="logo"></a></div>
+                    <ul class="navbar-nav" id="edumint_main_menu">
+                        <li class="skeleton" style="height: 20px; width: 80px; margin: 5px;"></li>
+                        <li>
+                             <label class="dark-mode-toggle">
+                                 <i class="fas fa-moon"></i>
+                                 <span data-lang="darkModeToggle">Dark Mode</span>
+                                <label class="switch" style="margin-left:auto;">
+                                    <input type="checkbox" id="darkModeToggle">
+                                    <span class="slider"></span>
+                                </label>
                             </label>
-                        </label>
-                    </li>
-                </ul>
-                <div class="nav-right-part nav-right-part-desktop" id="auth-buttons-desktop">
-                    <a class="btn-base" id="desktop-signin-btn" href="#"><span data-lang="signInButton">Sign In</span></a>
-                    <a class="btn-base" id="desktop-signup-btn" href="#"><span data-lang="signUpButton">Sign Up</span></a>
+                        </li>
+                    </ul>
+                    <div class="nav-right-part nav-right-part-desktop" id="auth-buttons-desktop">
+                        <a class="btn-base" id="desktop-signin-btn" href="#"><span data-lang="signInButton">Sign In</span></a>
+                        <a class="btn-base" id="desktop-signup-btn" href="#"><span data-lang="signUpButton">Sign Up</span></a>
+                    </div>
+                    <div class="nav-right-part nav-right-part-desktop" id="user-info-desktop" style="display: none; align-items: center;">
+                        <span id="user-email-desktop" style="display: none;"></span>
+                        <a href="#" id="open-dashboard-btn" class="btn-base btn-nav-action"><span data-lang="dashboardButton">My Dashboard</span></a>
+                        <a class="btn-base btn-secondary btn-nav-action" id="desktop-signout-btn" href="#"><span data-lang="signOutButton">Sign Out</span></a>
+                    </div>
+                    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
                 </div>
-                <div class="nav-right-part nav-right-part-desktop" id="user-info-desktop" style="display: none; align-items: center;">
-                    <a href="#" id="open-dashboard-btn" class="btn-base" style="margin-right: 15px;"><span data-lang="dashboardButton">My Dashboard</span></a>
-                    <span id="user-email-desktop" style="margin-right: 15px; font-weight: 500; color: white;"></span>
-                    <a class="btn-base btn-secondary" id="desktop-signout-btn" href="#"><span data-lang="signOutButton">Sign Out</span></a>
-                </div>
-                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
-            </div>
-        </nav>
-    </header>
-
-    <div class="banner-area" id="banner-area-bg" style="background-image: url('https://placehold.co/1920x1080?text=Banner+Image');">
-        <div class="container">
-            <div class="banner-inner">
-                <div id="banner-text-container" class="skeleton" style="min-height: 70px; max-width: 800px; margin: 0 auto;"></div>
-                <div style="margin-top: 30px;">
-                    <a id="banner-whatsapp-link" href="javascript:void(0);" target="_blank" class="btn-base" style="background-color: #25D366; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);">
-                        <i class="fab fa-whatsapp"></i> WhatsApp কমিউনিটিতে যোগ দিন
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+            </nav>
+        </header>
     
-    <div class="section intro-area">
-        <div class="container">
-            <div class="intro-area-inner">
-                <div class="section-title fade-in"><h6 class="sub-title" id="features-subtitle">FEATURES</h6><h2 class="main-title" id="features-main-title">An Exemplary Learning Community</h2></div>
-                <div id="features-container"><div class="col-feature skeleton" style="height: 250px;"></div><div class="col-feature skeleton" style="height: 250px;"></div><div class="col-feature skeleton" style="height: 250px;"></div></div>
-                <div id="intro-footer-container" class="intro-footer fade-in"><div class="skeleton" style="height: 50px; width: 200px;"></div><div class="skeleton" style="height: 50px; width: 200px;"></div><div class="skeleton" style="height: 50px; width: 200px;"></div></div>
-            </div>
-        </div>
-    </div>
-
-    <main id="main-content-wrapper">
-        <div id="about" class="about-area section">
+        <div class="banner-area" id="banner-area-bg" style="background-image: url('https://placehold.co/1920x1080?text=Banner+Image');">
             <div class="container">
-                <div class="about-area-inner">
-                    <div id="about-thumb-wrap" class="about-thumb-wrap fade-in skeleton"></div>
-                    <div class="about-inner-wrap fade-in">
-                        <div class="section-title" style="text-align: left; margin-bottom: 20px;"><h6 class="sub-title" data-lang="aboutAdminSubtitle">ABOUT Admin</h6></div>
-                        <p id="about-admin-text" class="skeleton" style="min-height: 100px;"></p>
-                        <div><a class="btn-base" href="#" id="openFakeAdminLoginBtn"><span data-lang="adminLoginButton">Admin Login</span></a><a id="openSubadminModalBtn" class="btn-base" href="#"><span data-lang="subadminLoginButton">Subadmin Login</span></a></div>
+                <div class="banner-inner">
+                    <div id="banner-text-container" class="skeleton" style="min-height: 70px; max-width: 800px; margin: 0 auto;"></div>
+                    <div style="margin-top: 30px;">
+                        <a id="banner-whatsapp-link" href="javascript:void(0);" target="_blank" class="btn-base" style="background-color: #25D366; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);">
+                            <i class="fab fa-whatsapp"></i> <span data-lang="whatsappJoinButton">WhatsApp কমিউনিটিতে যোগ দিন</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="courses" class="course-area section">
+        
+        <div class="section intro-area">
             <div class="container">
-                <div class="section-title fade-in"><h6 class="sub-title" id="courses-subtitle">OUR COURSES</h6><h2 class="main-title" id="courses-main-title">Top Featured Courses</h2></div>
-                <div class="course-controls fade-in">
-                    <input type="text" id="course-search-input" placeholder="কোর্স খুঁজুন...">
-                    <div id="course-filter-buttons"></div>
+                <div class="intro-area-inner">
+                    <div class="section-title fade-in"><h6 class="sub-title" id="features-subtitle">FEATURES</h6><h2 class="main-title" id="features-main-title">An Exemplary Learning Community</h2></div>
+                    <div id="features-container"><div class="col-feature skeleton" style="height: 250px;"></div><div class="col-feature skeleton" style="height: 250px;"></div><div class="col-feature skeleton" style="height: 250px;"></div></div>
+                    <div id="intro-footer-container" class="intro-footer fade-in"><div class="skeleton" style="height: 50px; width: 200px;"></div><div class="skeleton" style="height: 50px; width: 200px;"></div><div class="skeleton" style="height: 50px; width: 200px;"></div></div>
                 </div>
-                <div id="course-list-container" class="courses-grid"><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div></div>
             </div>
         </div>
-        <div id="projects" class="events-area section">
-            <div class="container">
-                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
-                    <div style="flex: 2 1 500px;" class="fade-in">
-                        <div class="section-title" style="text-align: left; margin-bottom: 20px;"><h6 class="sub-title" id="projects-subtitle">Projects</h6><h2 class="main-title" id="projects-main-title">Upcoming Projects</h2></div>
-                        <ul class="single-blog-list-wrap" id="upcoming-projects-list"><li class="skeleton" style="height: 60px; margin-bottom: 10px;"></li><li class="skeleton" style="height: 60px; margin-bottom: 10px;"></li><li class="skeleton" style="height: 60px;"></li></ul>
+    
+        <main id="main-content-wrapper">
+            <div id="about" class="about-area section">
+                <div class="container">
+                    <div class="about-area-inner">
+                        <div id="about-thumb-wrap" class="about-thumb-wrap fade-in skeleton"></div>
+                        <div class="about-inner-wrap fade-in">
+                            <div class="section-title" style="text-align: left; margin-bottom: 20px;"><h6 class="sub-title" data-lang="aboutAdminSubtitle">ABOUT Admin</h6></div>
+                            <p id="about-admin-text" class="skeleton" style="min-height: 100px;"></p>
+                            <div><a class="btn-base" href="#" id="openFakeAdminLoginBtn"><span data-lang="adminLoginButton">Admin Login</span></a><a id="openSubadminModalBtn" class="btn-base" href="#"><span data-lang="subadminLoginButton">Subadmin Login</span></a></div>
+                        </div>
                     </div>
-                    <div style="flex: 1 1 300px; text-align: center;" class="fade-in"><div class="event-thumb"><img id="projects-image" src="https://placehold.co/400x300?text=Project+Image" alt="img"></div></div>
                 </div>
             </div>
-        </div>
-        <div id="workshop" class="section" style="background-color: var(--light-bg);">
-            <div class="container">
-                <div class="section-title fade-in">
-                    <h6 class="sub-title" id="workshop-subtitle">আমাদের কার্যক্রম</h6>
-                    <h2 class="main-title" id="workshop-main-title">আসন্ন ওয়ার্কশপ</h2>
-                </div>
-                <div id="workshop-container" class="fade-in" style="max-width: 800px; margin: 0 auto; background: var(--white-color); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center;">
-                    <p>শীঘ্রই আসছে আমাদের নতুন ওয়ার্কশপ...</p>
+            <div id="courses" class="course-area section">
+                <div class="container">
+                    <div class="section-title fade-in"><h6 class="sub-title" id="courses-subtitle">OUR COURSES</h6><h2 class="main-title" id="courses-main-title">Top Featured Courses</h2></div>
+                    <div class="course-controls fade-in">
+                        <input type="text" id="course-search-input" placeholder="কোর্স খুঁজুন...">
+                        <div id="course-filter-buttons"></div>
+                    </div>
+                    <div id="course-list-container" class="courses-grid"><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div><div class="col-course skeleton" style="height: 350px;"></div></div>
                 </div>
             </div>
-        </div>
-        <div id="blog" class="blog-area section">
-            <div class="container">
-                <div class="section-title fade-in"><h6 class="sub-title" data-lang="blogSubtitle">Our Blog</h6><h2 class="main-title" data-lang="blogMainTitle">Latest News & Articles</h2></div>
-                <div id="blog-posts-container"><p>Loading blog posts...</p></div>
-            </div>
-        </div>
-        <div id="contact-form-section" class="contact-form-area section">
-            <div class="container">
-                <div class="section-title fade-in">
-                    <h6 class="sub-title" data-lang="contactFormSubtitle">Get in Touch</h6>
-                    <h2 class="main-title" data-lang="contactFormMainTitle">Contact Us</h2>
+            <div id="projects" class="events-area section">
+                <div class="container">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
+                        <div style="flex: 2 1 500px;" class="fade-in">
+                            <div class="section-title" style="text-align: left; margin-bottom: 20px;"><h6 class="sub-title" id="projects-subtitle">Projects</h6><h2 class="main-title" id="projects-main-title">Upcoming Projects</h2></div>
+                            <ul class="single-blog-list-wrap" id="upcoming-projects-list"><li class="skeleton" style="height: 60px; margin-bottom: 10px;"></li><li class="skeleton" style="height: 60px; margin-bottom: 10px;"></li><li class="skeleton" style="height: 60px;"></li></ul>
+                        </div>
+                        <div style="flex: 1 1 300px; text-align: center;" class="fade-in"><div class="event-thumb"><img id="projects-image" src="https://placehold.co/400x300?text=Project+Image" alt="img"></div></div>
+                    </div>
                 </div>
-                <div class="contact-form-wrap fade-in">
-                    <form id="contactForm" autocomplete="off">
-                        <div class="input-group"><label for="contact-name" data-lang="contactNameLabel">Your Name</label><input type="text" id="contact-name" required></div>
-                        <div class="input-group"><label for="contact-email" data-lang="contactEmailLabel">Your Email</label><input type="email" id="contact-email" required></div>
-                        <div class="input-group"><label for="contact-message" data-lang="contactMessageLabel">Message</label><textarea id="contact-message" rows="5" required></textarea></div>
-                        <button type="submit" class="btn-base"><span data-lang="contactSubmitButton">Send Message</span></button>
-                        <div id="contact-form-response"></div>
-                    </form>
+            </div>
+            <div id="workshop" class="section" style="background-color: var(--light-bg);">
+                <div class="container">
+                    <div class="section-title fade-in">
+                        <h6 class="sub-title" id="workshop-subtitle">আমাদের কার্যক্রম</h6>
+                        <h2 class="main-title" id="workshop-main-title">আসন্ন ওয়ার্কশপ</h2>
+                    </div>
+                    <div id="workshop-container" class="fade-in" style="max-width: 800px; margin: 0 auto; background: var(--white-color); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center;">
+                        <p data-lang="workshopComingSoon">শীঘ্রই আসছে আমাদের নতুন ওয়ার্কশপ...</p>
+                    </div>
+                </div>
+            </div>
+            <div id="blog" class="blog-area section">
+                <div class="container">
+                    <div class="section-title fade-in"><h6 class="sub-title" data-lang="blogSubtitle">Our Blog</h6><h2 class="main-title" data-lang="blogMainTitle">Latest News & Articles</h2></div>
+                    <div id="blog-posts-container"><p data-lang="loadingBlogPosts">Loading blog posts...</p></div>
+                </div>
+            </div>
+            <div id="contact-form-section" class="contact-form-area section">
+                <div class="container">
+                    <div class="section-title fade-in">
+                        <h6 class="sub-title" data-lang="contactFormSubtitle">Get in Touch</h6>
+                        <h2 class="main-title" data-lang="contactFormMainTitle">Contact Us</h2>
+                    </div>
+                    <div class="contact-form-wrap fade-in">
+                        <form id="contactForm" autocomplete="off">
+                            <div class="input-group"><label for="contact-name" data-lang="contactNameLabel">Your Name</label><input type="text" id="contact-name" required></div>
+                            <div class="input-group"><label for="contact-email" data-lang="contactEmailLabel">Your Email</label><input type="email" id="contact-email" required></div>
+                            <div class="input-group"><label for="contact-message" data-lang="contactMessageLabel">Message</label><textarea id="contact-message" rows="5" required></textarea></div>
+                            <button type="submit" class="btn-base"><span data-lang="contactSubmitButton">Send Message</span></button>
+                            <div id="contact-form-response"></div>
+                        </form>
+                    </div>
                 </div>
             </main>
-    
-    <footer id="contact" class="footer-area">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="widget widget_about"><a href="#"><img id="website-logo-footer" src="https://placehold.co/150x50?text=Logo" alt="logo" style="max-height: 60px;"></a><div class="details"><p id="footer-description" class="skeleton" style="min-height: 80px;"></p><ul class="social-media" id="social-links-footer"><li><a href="#" target="_blank" id="footer-facebook"><i class="fab fa-facebook-f"></i></a></li><li><a href="#" target="_blank" id="footer-telegram"><i class="fab fa-telegram-plane"></i></a></li><li><a href="#" target="_blank" id="footer-twitter"><i class="fab fa-twitter"></i></a></li><li><a href="#" target="_blank" id="footer-youtube"><i class="fab fa-youtube"></i></a></li></ul></div></div>
-                <div class="widget widget_contact"><h4 class="widget-title" data-lang="footerContactTitle">Contact Us</h4><ul><li><i class="fas fa-map-marker-alt"></i> <span id="footer-address">Loading...</span></li><li><i class="fas fa-phone-alt"></i> <span id="footer-phone">Loading...</span></li><li><i class="fas fa-envelope"></i> <span id="footer-email">Loading...</span></li><li><i class="fas fa-paper-plane"></i><a href="#" id="show-contact-btn" style="color: #a9b3c9; text-decoration: none; margin-left: -5px;">আমাদের মেসেজ পাঠান</a></li></ul></div>
-                <div class="widget widget_nav_menu"><h4 class="widget-title" data-lang="footerQuickLinksTitle">Courses</h4><ul id="footer-course-menu"><li class="skeleton" style="height: 20px; width: 100px; margin: 5px 0;"></li><li class="skeleton" style="height: 20px; width: 100px; margin: 5px 0;"></li></ul></div>
-            </div>
-        </div>
-        <div class="footer-bottom">
+        
+        <footer id="contact" class="footer-area">
             <div class="container">
-                <div class="footer-bottom-grid">
-                    <div><p id="copyright-text">&copy; Copyright 2024 by Earning Space BD</p></div>
-                    <div><span id="developer-credit-container" style="color: #ffffff;"></span></div>
-                    <div class="footer-bottom-links"><ul><li><a href="#courses" data-lang="footerCoursesLink">Courses</a></li><li><a href="#contact" data-lang="footerContactLink">Contact Us</a></li></ul></div>
+                <div class="footer-grid">
+                    <div class="widget widget_about"><a href="#"><img id="website-logo-footer" src="https://placehold.co/150x50?text=Logo" alt="logo" style="max-height: 60px;"></a><div class="details"><p id="footer-description" class="skeleton" style="min-height: 80px;"></p><ul class="social-media" id="social-links-footer"><li><a href="#" target="_blank" id="footer-facebook"><i class="fab fa-facebook-f"></i></a></li><li><a href="#" target="_blank" id="footer-telegram"><i class="fab fa-telegram-plane"></i></a></li><li><a href="#" target="_blank" id="footer-twitter"><i class="fab fa-twitter"></i></a></li><li><a href="#" target="_blank" id="footer-youtube"><i class="fab fa-youtube"></i></a></li></ul></div></div>
+                    <div class="widget widget_contact"><h4 class="widget-title" data-lang="footerContactTitle">Contact Us</h4><ul><li><i class="fas fa-map-marker-alt"></i> <span id="footer-address" data-lang="loadingText">Loading...</span></li><li><i class="fas fa-phone-alt"></i> <span id="footer-phone" data-lang="loadingText">Loading...</span></li><li><i class="fas fa-envelope"></i> <span id="footer-email" data-lang="loadingText">Loading...</span></li><li><i class="fas fa-paper-plane"></i><a href="#" id="show-contact-btn" style="color: #a9b3c9; text-decoration: none; margin-left: -5px;" data-lang="sendMessageFooter">আমাদের মেসেজ পাঠান</a></li></ul></div>
+                    <div class="widget widget_nav_menu"><h4 class="widget-title" data-lang="footerQuickLinksTitle">Courses</h4><ul id="footer-course-menu"><li class="skeleton" style="height: 20px; width: 100px; margin: 5px 0;"></li><li class="skeleton" style="height: 20px; width: 100px; margin: 5px 0;"></li></ul></div>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="footer-bottom-grid">
+                        <div><p id="copyright-text">&copy; Copyright 2024 by Earning Space BD</p></div>
+                        <div><span id="developer-credit-container" style="color: #ffffff;"></span></div>
+                        <div class="footer-bottom-links"><ul><li><a href="#courses" data-lang="footerCoursesLink">Courses</a></li><li><a href="#contact" data-lang="footerContactLink">Contact Us</a></li></ul></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- START: New Dashboard Page Structure -->
+    <div id="dashboard-page-container">
+        <header id="dashboard-header-mobile">
+            <h3 style="color: var(--dark-blue);">My Dashboard</h3>
+            <button id="dashboard-menu-toggle"><i class="fas fa-bars"></i></button>
+        </header>
+        <div class="dashboard-layout">
+            <aside id="dashboard-sidebar">
+                <div class="dashboard-profile-summary">
+                    <img id="dashboard-avatar" src="https://i.pravatar.cc/150" alt="Avatar" class="avatar">
+                    <h4 id="dashboard-username">User Name</h4>
+                    <p id="dashboard-useremail">user@email.com</p>
+                </div>
+                <nav>
+                    <button class="tab-link active" onclick="openDashboardTab(event, 'MyDashboard')"><i class="fas fa-home"></i>My Dashboard</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'MyCourses')" data-lang="tabMyCourses"><i class="fas fa-book-open"></i>My Courses</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Tasks')"><i class="fas fa-tasks"></i> Tasks</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'MyWishlist')"><i class="fas fa-heart"></i>My Wishlist</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'LiveClassesDashboard')"><i class="fas fa-video"></i>লাইভ ক্লাস</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'CommunityDashboard')"><i class="fas fa-users"></i>কমিউনিটি ফোরাম</button>
+                    <button class="tab-link" id="dashboard-whatsapp-link" onclick="window.open(this.getAttribute('data-link'), '_blank')"><i class="fab fa-whatsapp"></i>WhatsApp কমিউনিটি</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Homework')"><i class="fas fa-tasks"></i>My Homework</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Referrals')"><i class="fas fa-users"></i>Refer & Earn</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Withdraw')"><i class="fas fa-wallet"></i>Withdraw</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Mentors')"><i class="fab fa-whatsapp"></i>Mentors</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Notifications')" data-lang="tabNotifications">
+                        <i class="fas fa-bell"></i>Notifications
+                        <span id="notification-badge" class="notification-badge" style="display: none;"></span>
+                    </button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'MyBadges')"><i class="fas fa-award"></i>My Badges</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Achievements')" data-lang="tabAchievements"><i class="fas fa-trophy"></i>Achievements</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Leaderboard')" data-lang="tabLeaderboard"><i class="fas fa-star"></i>Leaderboard</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Profile')" data-lang="tabProfile"><i class="fas fa-user-edit"></i>My Profile</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Payments')" data-lang="tabPayments"><i class="fas fa-history"></i>Payment History</button>
+                    <button class="tab-link" onclick="openDashboardTab(event, 'Support')"><i class="fas fa-life-ring"></i>Support</button>
+                    <button class="tab-link" id="dashboard-back-to-home" style="color: #e74c3c;"><i class="fas fa-sign-out-alt"></i>Back to Home</button>
+                </nav>
+            </aside>
+            <main id="dashboard-main-content">
+                 <div id="MyDashboard" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>My Dashboard</h3></div>
+                    <div id="dashboard-announcement-container" style="display: none;"></div>
+                    <div class="level-section" id="levelSection" style="background: var(--light-bg); padding: 15px; border-radius: var(--border-radius); margin-bottom: 20px;">
+                        <div class="level-info" style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px;">
+                            <span id="levelBadge" style="background: var(--primary-green); color: white; padding: 3px 10px; border-radius: 5px;">Level 1</span>
+                            <span id="xpText">0/100 XP</span>
+                        </div>
+                        <div class="xp-bar-container" style="height: 8px; background-color: var(--border-color); border-radius: 4px; overflow: hidden;">
+                            <div class="xp-bar" id="xpBar" style="height: 100%; background-color: var(--primary-green); width: 0%; transition: width 0.5s ease;"></div>
+                        </div>
+                    </div>
+                    <div id="dashboard-community-banner" class="dashboard-community-banner">
+                        <h4 data-lang="whatsappBannerTitle">আমাদের এক্সক্লুসিভ WhatsApp কমিউনিটিতে যোগ দিন!</h4>
+                        <p data-lang="whatsappBannerDesc">মেন্টরদের সরাসরি সাপোর্ট, অন্য শিক্ষার্থীদের সাথে নেটওয়ার্কিং এবং লেটেস্ট আপডেট পেতে এখনই যোগ দিন।</p>
+                        <a id="dashboard-banner-whatsapp-link" href="javascript:void(0);" target="_blank" class="btn-base" data-lang="joinNowButton">এখনই যোগ দিন</a>
+                    </div>
+                    <div class="dashboard-widgets">
+                        <div class="widget-card" style="border-color: #1abc9c;"><i class="fas fa-dollar-sign"></i><h4 id="overview-balance">0 BDT</h4><p data-lang="widgetCurrentBalance">Current Balance</p></div>
+                        <div class="widget-card" style="border-color: #f39c12;"><i class="fas fa-layer-group"></i><h4 id="overview-inprogress">0</h4><p data-lang="widgetCoursesInProgress">Courses in Progress</p></div>
+                        <div class="widget-card" style="border-color: #2ecc71;"><i class="fas fa-graduation-cap"></i><h4 id="overview-completed">0</h4><p data-lang="widgetCoursesCompleted">Courses Completed</p></div>
+                        <div class="widget-card" style="border-color: #e74c3c;"><i class="fas fa-star-half-alt"></i><h4 id="overview-points">0</h4><p data-lang="widgetTotalPoints">Total Points</p></div>
+                    </div>
+                 </div>
+                <div id="MyCourses" class="dashboard-tab-content"><div class="dashboard-header"><h3>My Courses</h3></div><div id="enrolled-courses-grid" class="course-card-grid"></div></div>
+                <div id="Tasks" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Tasks & Rewards</h3></div>
+                    <div id="tasks-container"></div>
+                </div>
+                <div id="MyWishlist" class="dashboard-tab-content"><div class="dashboard-header"><h3>My Wishlist</h3></div><div id="wishlist-courses-grid" class="course-card-grid"><p data-lang="wishlistEmpty">Your wishlist is empty.</p></div></div>
+                <div id="LiveClassesDashboard" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>আসন্ন ও বিগত লাইভ ক্লাসসমূহ</h3></div>
+                    <div id="dashboard-live-class-container"><p data-lang="loadingLiveClasses">লাইভ ক্লাস লোড হচ্ছে...</p></div>
+                </div>
+                <div id="CommunityDashboard" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>কমিউনিটি ফোরাম</h3></div>
+                    <div id="dashboard-forum-new-post-container" style="margin-bottom: 40px;">
+                        <h4 data-lang="newPostTitle">নতুন পোস্ট করুন</h4>
+                        <form id="dashboard-new-forum-post-form">
+                            <div class="input-group">
+                                <textarea id="dashboard-forum-post-content" rows="4" placeholder="আপনার প্রশ্ন বা আলোচনার বিষয় লিখুন..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-base" data-lang="postButton">পোস্ট করুন</button>
+                        </form>
+                    </div>
+                    <div id="dashboard-forum-posts-container"><p data-lang="loadingPosts">পোস্ট লোড হচ্ছে...</p></div>
+                </div>
+                <div id="Homework" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>My Homework Submissions</h3></div>
+                    <div id="homework-submissions-container" class="table-responsive"><p data-lang="loadingHomework">Loading homework...</p></div>
+                </div>
+                <div id="Referrals" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Refer & Earn</h3></div>
+                    <h4 data-lang="referralLinkTitle">Your Unique Referral Link</h4>
+                    <div class="referral-link-container">
+                        <input type="text" id="referral-link-input" value="Loading your link..." readonly>
+                        <button class="btn-base btn-secondary" onclick="copyReferralLink()" data-lang="copyButton">Copy</button>
+                    </div>
+                    <hr style="margin: 20px 0;">
+                    <h4 data-lang="referralLeadsTitle">Your Leads (Pending Activation)</h4>
+                    <div id="leads-container" class="table-responsive"><p data-lang="loadingLeads">Loading leads...</p></div>
+                    <h4 style="margin-top: 30px;" data-lang="referralConvertsTitle">Your Converts (Active Referrals)</h4>
+                    <div id="converts-container" class="table-responsive"><p data-lang="loadingConverts">Loading converts...</p></div>
+                </div>
+                <div id="Withdraw" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Withdraw Funds</h3></div>
+                    <div class="widget-card" style="border-color: #1abc9c; margin-bottom: 20px;">
+                        <p data-lang="availableBalance">Available Balance</p>
+                        <h4 id="withdraw-balance-display">0 BDT</h4>
+                    </div>
+                    <form id="withdrawalForm">
+                        <div class="input-group">
+                            <label for="withdraw-amount" data-lang="withdrawAmountLabel">Amount (Minimum 500 BDT)</label>
+                            <input type="number" id="withdraw-amount" min="500" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="withdraw-method" data-lang="paymentMethodLabel">Payment Method</label>
+                            <!-- START: DYNAMIC WITHDRAWAL METHOD SELECT -->
+                            <select id="withdraw-method" required>
+                                <option value="" data-lang="selectMethod">Select a method...</option>
+                                <!-- Options will be loaded dynamically by JavaScript -->
+                            </select>
+                            <!-- END: DYNAMIC WITHDRAWAL METHOD SELECT -->
+                        </div>
+                         <div class="input-group">
+                            <label for="withdraw-details" data-lang="accountDetailsLabel">Account Details (Number / ID / Address)</label>
+                            <input type="text" id="withdraw-details" placeholder="e.g., 01700000000 or yourname@email.com" required>
+                        </div>
+                        <p class="error-message" id="withdrawalError"></p>
+                        <button type="submit" class="btn-base" data-lang="requestWithdrawalButton">Request Withdrawal</button>
+                    </form>
+                </div>
+                 <div id="Mentors" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Contact Your Mentors</h3></div>
+                    <div id="mentors-container"><p data-lang="loadingMentors">Loading mentor information...</p></div>
+                </div>
+                <div id="MyBadges" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>My Badges</h3></div>
+                    <div id="my-badges-container" class="badge-grid">
+                        <p data-lang="noBadgesYet">আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>
+                    </div>
+                </div>
+                <div id="Notifications" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Notifications</h3></div>
+                    <div id="notifications-container"></div>
+                </div>
+                <div id="Achievements" class="dashboard-tab-content"><div class="dashboard-header"><h3>Achievements</h3></div><div id="achievements-container"></div></div>
+                <div id="Leaderboard" class="dashboard-tab-content"><div class="dashboard-header"><h3>Leaderboard</h3></div><div class="table-responsive"><table id="leaderboard-table"></table></div></div>
+                <div id="Profile" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Update Your Profile</h3></div>
+                    <form id="profileUpdateForm">
+                        <div class="input-group">
+                            <label for="profilePictureFile" data-lang="profilePictureFileLabel">নতুন প্রোফাইল ছবি আপলোড করুন</label>
+                            <input type="file" id="profilePictureFile" accept="image/*">
+                        </div>
+                        <div class="input-group">
+                            <label for="profilePictureUrl" data-lang="profilePictureUrlLabel">অথবা প্রোফাইল ছবির URL দিন</label>
+                            <input type="url" id="profilePictureUrl" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="input-group"><label for="profileName" data-lang="fullNameLabel">Full Name</label><input type="text" id="profileName" required></div>
+                        <div class="input-group"><label for="profilePassword" data-lang="newPasswordLabel">New Password (leave blank to keep current)</label><input type="password" id="profilePassword"></div>
+                        <button type="submit" class="btn-base" data-lang="updateProfileButton">Update Profile</button>
+                    </form>
+                </div>
+                <div id="Payments" class="dashboard-tab-content"><div class="dashboard-header"><h3>Your Payment History</h3></div><div class="table-responsive"><table id="paymentHistoryTable"><thead><tr><th>Course</th><th>Amount (BDT)</th><th>Transaction ID</th><th>Date</th></tr></thead><tbody></tbody></table></div></div>
+                <div id="Support" class="dashboard-tab-content">
+                    <div class="dashboard-header"><h3>Support Center</h3></div>
+                    <h4 data-lang="newTicketTitle">Create a New Support Ticket</h4>
+                    <form id="supportTicketForm" style="margin-bottom: 30px;">
+                        <div class="input-group">
+                            <label for="ticketSubject" data-lang="subjectLabel">Subject</label>
+                            <input type="text" id="ticketSubject" placeholder="আপনার সমস্যার একটি শিরোনাম দিন" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="ticketMessage" data-lang="messageLabel">Message</label>
+                            <textarea id="ticketMessage" rows="5" placeholder="আপনার সমস্যাটি বিস্তারিত লিখুন" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-base" data-lang="submitTicketButton">Submit Ticket</button>
+                    </form>
+                    <hr>
+                    <h4 data-lang="pastTicketsTitle">Your Past Tickets</h4>
+                    <div id="past-tickets-container"></div>
+                </div>
+            </main>
         </div>
-    </footer>
+    </div>
+    <!-- END: New Dashboard Page Structure -->
     
     <div class="back-to-top" id="back-to-top"><i class="fas fa-angle-up"></i></div>
     <div id="announcement-modal" class="modal-overlay">
@@ -514,27 +792,27 @@
             <form id="fakeAdminLoginForm" onsubmit="event.preventDefault(); alert('Incorrect credentials or access denied.');">
                 <h2 data-lang="adminLoginTitle">Admin Login</h2>
                 <div class="input-group">
-                    <label for="fake-admin-email">Email</label>
+                    <label for="fake-admin-email" data-lang="emailLabel">Email</label>
                     <input type="email" id="fake-admin-email" placeholder="Admin Email" required>
                 </div>
                 <div class="input-group">
-                    <label for="fake-admin-password">Password</label>
+                    <label for="fake-admin-password" data-lang="passwordLabel">Password</label>
                     <input type="password" id="fake-admin-password" placeholder="Password" required>
                 </div>
                 <div class="action-btn-wrap">
-                    <button type="submit">Log In</button>
+                    <button type="submit" data-lang="logInButton">Log In</button>
                 </div>
             </form>
         </div>
     </div>
-    <div id="subadminModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="subadminLoginForm" autocomplete="off"><h2 data-lang="subadminLoginTitle">SubAdmin Login</h2><div class="input-group"><label for="account_type" data-lang="accountTypeLabel">Account Type</label><select class="form-control" name="account_type" id="account_type" required><option value="">Loading Roles...</option></select></div><div class="input-group"><label for="subadmin-email" data-lang="subadminEmailLabel">SubAdmin Email or Phone</label><input type="text" id="subadmin-email" name="email" placeholder="SubAdmin Email or Phone" value="" required></div><div class="input-group"><label for="subadmin-password" data-lang="passwordLabel">Password</label><input type="password" id="subadmin-password" name="password" placeholder="Password" required></div><div class="action-btn-wrap"><button type="submit"><span data-lang="logInButton">Log In</span></button></div><div class="extra-links"><a href="#"><span data-lang="forgotPasswordLink">Forgot Password?</span></a></div></form></div></div>
+    <div id="subadminModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="subadminLoginForm" autocomplete="off"><h2 data-lang="subadminLoginTitle">SubAdmin Login</h2><div class="input-group"><label for="account_type" data-lang="accountTypeLabel">Account Type</label><select class="form-control" name="account_type" id="account_type" required><option value="" data-lang="loadingRoles">Loading Roles...</option></select></div><div class="input-group"><label for="subadmin-email" data-lang="subadminEmailLabel">SubAdmin Email or Phone</label><input type="text" id="subadmin-email" name="email" placeholder="SubAdmin Email or Phone" value="" required></div><div class="input-group"><label for="subadmin-password" data-lang="passwordLabel">Password</label><input type="password" id="subadmin-password" name="password" placeholder="Password" required></div><div class="action-btn-wrap"><button type="submit"><span data-lang="logInButton">Log In</span></button></div><div class="extra-links"><a href="#"><span data-lang="forgotPasswordLink">Forgot Password?</span></a></div></form></div></div>
     <div id="signInModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="signInForm" autocomplete="off">
         <h2 data-lang="signInTitle">Sign In</h2>
         <div class="social-login-buttons">
             <button type="button" class="social-login-btn" id="google-login-btn"><i class="fab fa-google"></i> Google</button>
             <button type="button" class="social-login-btn" id="facebook-login-btn"><i class="fab fa-facebook-f"></i> Facebook</button>
         </div>
-        <div class="social-login-divider">Or</div>
+        <div class="social-login-divider" data-lang="orDivider">Or</div>
         <div class="input-group"><label for="signin-email" data-lang="usernameOrEmailLabel">ইউজারনেম বা ইমেইল</label><input type="email" id="signin-email" name="email" placeholder="Your Email" required></div><div class="input-group"><label for="signin-password" data-lang="passwordLabel">পাসওয়ার্ড</label><input type="password" id="signin-password" name="password" placeholder="Password" required></div>
         <p class="error-message" id="signInError"></p>
         <div class="action-btn-wrap"><button type="submit" data-lang="loginButton">লগইন করুন</button></div><div class="extra-links"><p><span data-lang="forgotPasswordPrompt">পাসওয়ার্ড ভুলে গেছেন?</span>
@@ -553,7 +831,7 @@
                 <div class="input-group"><label for="signup-email" data-lang="emailAddressLabel">Email Address</label><input type="email" id="signup-email" name="email" placeholder="Enter your email" required></div>
                 
                 <div class="input-group">
-                    <label for="signup-whatsapp">WhatsApp Number</label>
+                    <label for="signup-whatsapp" data-lang="whatsappNumberLabel">WhatsApp Number</label>
                     <div class="whatsapp-input-group">
                         <select id="signup-country-code" required></select>
                         <input type="tel" id="signup-whatsapp" placeholder="WhatsApp Number" required>
@@ -573,195 +851,17 @@
         <img id="course-details-image" src="https://placehold.co/600x250" alt="Course Image">
         <h2 id="course-details-title">Course Title</h2>
         <div id="course-details-price" class="price">BDT 0</div>
-        <div id="course-details-description" class="description">Loading course details...</div>
+        <div id="course-details-description" class="description" data-lang="loadingCourseDetails">Loading course details...</div>
         <div id="course-reviews-container"></div>
         <div class="coupon-wrapper">
             <input type="text" id="coupon-code-input" placeholder="Enter Coupon Code">
-            <button id="apply-coupon-btn" class="btn-base btn-secondary">Apply</button>
+            <button id="apply-coupon-btn" class="btn-base btn-secondary" data-lang="applyCouponButton">Apply</button>
         </div>
         <p id="coupon-message"></p>
         <div class="action-btn-wrap">
             <button id="enroll-now-btn" class="btn-base"><span data-lang="enrollNowButton">Enroll Now</span></button>
         </div>
     </div></div>
-    
-    <div id="studentDashboardModal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <aside id="dashboard-sidebar">
-                <div class="dashboard-profile-summary">
-                    <img id="dashboard-avatar" src="https://i.pravatar.cc/150" alt="Avatar" class="avatar">
-                    <h4 id="dashboard-username">User Name</h4>
-                    <p id="dashboard-useremail">user@email.com</p>
-                </div>
-                <nav>
-                    <button class="tab-link active" onclick="openDashboardTab(event, 'Overview')" data-lang="tabOverview"><i class="fas fa-home"></i>Overview</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'MyCourses')" data-lang="tabMyCourses"><i class="fas fa-book-open"></i>My Courses</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'MyWishlist')"><i class="fas fa-heart"></i>My Wishlist</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'LiveClassesDashboard')"><i class="fas fa-video"></i>লাইভ ক্লাস</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'CommunityDashboard')"><i class="fas fa-users"></i>কমিউনিটি ফোরাম</button>
-                    <button class="tab-link" id="dashboard-whatsapp-link" onclick="window.open(this.getAttribute('data-link'), '_blank')"><i class="fab fa-whatsapp"></i>WhatsApp কমিউনিটি</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Homework')"><i class="fas fa-tasks"></i>My Homework</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Referrals')"><i class="fas fa-users"></i>Refer & Earn</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Withdraw')"><i class="fas fa-wallet"></i>Withdraw</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Mentors')"><i class="fab fa-whatsapp"></i>Mentors</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Notifications')" data-lang="tabNotifications">
-                        <i class="fas fa-bell"></i>Notifications
-                        <span id="notification-badge" class="notification-badge" style="display: none;"></span>
-                    </button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'MyBadges')"><i class="fas fa-award"></i>My Badges</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Achievements')" data-lang="tabAchievements"><i class="fas fa-trophy"></i>Achievements</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Leaderboard')" data-lang="tabLeaderboard"><i class="fas fa-star"></i>Leaderboard</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Profile')" data-lang="tabProfile"><i class="fas fa-user-edit"></i>My Profile</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Payments')" data-lang="tabPayments"><i class="fas fa-history"></i>Payment History</button>
-                    <button class="tab-link" onclick="openDashboardTab(event, 'Support')"><i class="fas fa-life-ring"></i>Support</button>
-                </nav>
-            </aside>
-            <main id="dashboard-main-content">
-                 <div id="Overview" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>Overview</h3></div>
-                    
-                    <!-- USER DASHBOARD ANNOUNCEMENT START -->
-                    <div id="dashboard-announcement-container" style="display: none;"></div>
-                    <!-- USER DASHBOARD ANNOUNCEMENT END -->
-
-                    <div id="dashboard-community-banner" class="dashboard-community-banner">
-                        <h4>আমাদের এক্সক্লুসিভ WhatsApp কমিউনিটিতে যোগ দিন!</h4>
-                        <p>মেন্টরদের সরাসরি সাপোর্ট, অন্য শিক্ষার্থীদের সাথে নেটওয়ার্কিং এবং লেটেস্ট আপডেট পেতে এখনই যোগ দিন।</p>
-                        <a id="dashboard-banner-whatsapp-link" href="javascript:void(0);" target="_blank" class="btn-base">এখনই যোগ দিন</a>
-                    </div>
-                    <div class="dashboard-widgets">
-                        <div class="widget-card" style="border-color: #1abc9c;"><i class="fas fa-dollar-sign"></i><h4 id="overview-balance">0 BDT</h4><p data-lang="widgetCurrentBalance">Current Balance</p></div>
-                        <div class="widget-card" style="border-color: #f39c12;"><i class="fas fa-layer-group"></i><h4 id="overview-inprogress">0</h4><p data-lang="widgetCoursesInProgress">Courses in Progress</p></div>
-                        <div class="widget-card" style="border-color: #2ecc71;"><i class="fas fa-graduation-cap"></i><h4 id="overview-completed">0</h4><p data-lang="widgetCoursesCompleted">Courses Completed</p></div>
-                        <div class="widget-card" style="border-color: #e74c3c;"><i class="fas fa-star-half-alt"></i><h4 id="overview-points">0</h4><p data-lang="widgetTotalPoints">Total Points</p></div>
-                    </div>
-                 </div>
-                <div id="MyCourses" class="dashboard-tab-content"><div class="dashboard-header"><h3>My Courses</h3></div><div id="enrolled-courses-grid" class="course-card-grid"></div></div>
-                <div id="MyWishlist" class="dashboard-tab-content"><div class="dashboard-header"><h3>My Wishlist</h3></div><div id="wishlist-courses-grid" class="course-card-grid"><p>Your wishlist is empty.</p></div></div>
-                <div id="LiveClassesDashboard" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>আসন্ন ও বিগত লাইভ ক্লাসসমূহ</h3></div>
-                    <div id="dashboard-live-class-container"><p>লাইভ ক্লাস লোড হচ্ছে...</p></div>
-                </div>
-                <div id="CommunityDashboard" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>কমিউনিটি ফোরাম</h3></div>
-                    <div id="dashboard-forum-new-post-container" style="margin-bottom: 40px;">
-                        <h4>নতুন পোস্ট করুন</h4>
-                        <form id="dashboard-new-forum-post-form">
-                            <div class="input-group">
-                                <textarea id="dashboard-forum-post-content" rows="4" placeholder="আপনার প্রশ্ন বা আলোচনার বিষয় লিখুন..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn-base">পোস্ট করুন</button>
-                        </form>
-                    </div>
-                    <div id="dashboard-forum-posts-container"><p>পোস্ট লোড হচ্ছে...</p></div>
-                </div>
-                <div id="Homework" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>My Homework Submissions</h3></div>
-                    <div id="homework-submissions-container" class="table-responsive"><p>Loading homework...</p></div>
-                </div>
-                <div id="Referrals" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>Refer & Earn</h3></div>
-                    <h4 data-lang="referralLinkTitle">Your Unique Referral Link</h4>
-                    <div class="referral-link-container">
-                        <input type="text" id="referral-link-input" value="Loading your link..." readonly>
-                        <button class="btn-base btn-secondary" onclick="copyReferralLink()">Copy</button>
-                    </div>
-                    <hr style="margin: 20px 0;">
-                    <h4 data-lang="referralLeadsTitle">Your Leads (Pending Activation)</h4>
-                    <div id="leads-container" class="table-responsive"><p>Loading leads...</p></div>
-                    <h4 style="margin-top: 30px;" data-lang="referralConvertsTitle">Your Converts (Active Referrals)</h4>
-                    <div id="converts-container" class="table-responsive"><p>Loading converts...</p></div>
-                </div>
-                <div id="Withdraw" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>Withdraw Funds</h3></div>
-                    <div class="widget-card" style="border-color: #1abc9c; margin-bottom: 20px;">
-                        <p>Available Balance</p>
-                        <h4 id="withdraw-balance-display">0 BDT</h4>
-                    </div>
-                    <form id="withdrawalForm">
-                        <div class="input-group">
-                            <label for="withdraw-amount">Amount (Minimum 500 BDT)</label>
-                            <input type="number" id="withdraw-amount" min="500" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="withdraw-method">Payment Method</label>
-                            <select id="withdraw-method" required>
-                                <option value="">Select a method...</option>
-                                <optgroup label="Bangladesh">
-                                    <option value="bKash">bKash</option>
-                                    <option value="Nagad">Nagad</option>
-                                    <option value="Rocket">Rocket</option>
-                                    <option value="Upay">Upay</option>
-                                </optgroup>
-                                <optgroup label="India">
-                                    <option value="PhonePe">PhonePe</option>
-                                    <option value="GooglePay">Google Pay</option>
-                                    <option value="PayPal-IN">PayPal</option>
-                                </optgroup>
-                                <optgroup label="International">
-                                    <option value="Binance">Binance</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                         <div class="input-group">
-                            <label for="withdraw-details">Account Details (Number / ID / Address)</label>
-                            <input type="text" id="withdraw-details" placeholder="e.g., 01700000000 or yourname@email.com" required>
-                        </div>
-                        <p class="error-message" id="withdrawalError"></p>
-                        <button type="submit" class="btn-base">Request Withdrawal</button>
-                    </form>
-                </div>
-                 <div id="Mentors" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>Contact Your Mentors</h3></div>
-                    <div id="mentors-container"><p>Loading mentor information...</p></div>
-                </div>
-                <div id="MyBadges" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>My Badges</h3></div>
-                    <div id="my-badges-container" class="badge-grid">
-                        <p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>
-                    </div>
-                </div>
-                <div id="Notifications" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>Notifications</h3></div>
-                    <div id="notifications-container"></div>
-                </div>
-                <div id="Achievements" class="dashboard-tab-content"><div class="dashboard-header"><h3>Achievements</h3></div><div id="achievements-container"></div></div>
-                <div id="Leaderboard" class="dashboard-tab-content"><div class="dashboard-header"><h3>Leaderboard</h3></div><div class="table-responsive"><table id="leaderboard-table"></table></div></div>
-                <div id="Profile" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>Update Your Profile</h3></div>
-                    <form id="profileUpdateForm">
-                        <div class="input-group">
-                            <label for="profilePictureUrl">প্রোফাইল ছবির URL</label>
-                            <input type="url" id="profilePictureUrl" placeholder="https://example.com/image.jpg">
-                        </div>
-                        <div class="input-group"><label for="profileName">Full Name</label><input type="text" id="profileName" required></div>
-                        <div class="input-group"><label for="profilePassword">New Password (leave blank to keep current)</label><input type="password" id="profilePassword"></div>
-                        <button type="submit" class="btn-base">Update Profile</button>
-                    </form>
-                </div>
-                <div id="Payments" class="dashboard-tab-content"><div class="dashboard-header"><h3>Your Payment History</h3></div><div class="table-responsive"><table id="paymentHistoryTable"><thead><tr><th>Course</th><th>Amount (BDT)</th><th>Transaction ID</th><th>Date</th></tr></thead><tbody></tbody></table></div></div>
-                <div id="Support" class="dashboard-tab-content">
-                    <div class="dashboard-header"><h3>Support Center</h3></div>
-                    <h4>Create a New Support Ticket</h4>
-                    <form id="supportTicketForm" style="margin-bottom: 30px;">
-                        <div class="input-group">
-                            <label for="ticketSubject">Subject</label>
-                            <input type="text" id="ticketSubject" placeholder="আপনার সমস্যার একটি শিরোনাম দিন" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="ticketMessage">Message</label>
-                            <textarea id="ticketMessage" rows="5" placeholder="আপনার সমস্যাটি বিস্তারিত লিখুন" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-base">Submit Ticket</button>
-                    </form>
-                    <hr>
-                    <h4>Your Past Tickets</h4>
-                    <div id="past-tickets-container"></div>
-                </div>
-            </main>
-        </div>
-    </div>
     
     <div id="coursePlayerModal" class="modal-overlay">
         <div class="modal-content">
@@ -771,7 +871,7 @@
                 <div id="course-main-header">
                     <h3 id="lesson-title">Lesson Title</h3>
                      <div class="auto-next-container">
-                        <label for="autoNextToggle">Auto-Next</label>
+                        <label for="autoNextToggle" data-lang="autoNextLabel">Auto-Next</label>
                         <label class="switch">
                             <input type="checkbox" id="autoNextToggle" checked>
                             <span class="slider"></span>
@@ -793,27 +893,27 @@
                     <div id="qna-tab" class="course-player-tab-content">
                         <div id="qna-list"></div>
                         <hr>
-                        <h4>Ask a Question</h4>
+                        <h4 data-lang="askQuestionTitle">Ask a Question</h4>
                         <form id="qna-form">
                             <textarea placeholder="Ask a question..." required></textarea>
-                            <button type="submit" class="btn-base">Submit Question</button>
+                            <button type="submit" class="btn-base" data-lang="submitQuestionButton">Submit Question</button>
                         </form>
                     </div>
                     <div id="notes-tab" class="course-player-tab-content">
                         <textarea id="notes-area" placeholder="Write your personal notes here..."></textarea>
-                        <button id="saveNoteBtn" class="btn-base" style="margin-top: 10px;">নোট সেভ করুন</button>
+                        <button id="saveNoteBtn" class="btn-base" style="margin-top: 10px;" data-lang="saveNoteButton">নোট সেভ করুন</button>
                     </div>
                 </div>
                  <div id="course-player-footer" style="padding: 20px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-                    <button id="prevLessonBtn" class="btn-base btn-secondary">Previous</button>
-                    <button id="markCompleteBtn" class="btn-base">Mark as Complete</button>
-                    <button id="nextLessonBtn" class="btn-base">Next Lesson</button>
+                    <button id="prevLessonBtn" class="btn-base btn-secondary" data-lang="prevLessonButton">Previous</button>
+                    <button id="markCompleteBtn" class="btn-base" data-lang="markCompleteButton">Mark as Complete</button>
+                    <button id="nextLessonBtn" class="btn-base" data-lang="nextLessonButton">Next Lesson</button>
                 </div>
             </main>
         </div>
     </div>
 
-    <div id="courseReviewModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="courseReviewForm"><h2>Leave a Review</h2><div class="input-group"><label>Rating</label><div id="star-rating"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div><input type="hidden" id="review-rating" value="0" required></div><div class="input-group"><label>Review</label><textarea id="review-text" rows="4" required></textarea></div><button type="submit" class="btn-base">Submit Review</button></form></div></div>
+    <div id="courseReviewModal" class="modal-overlay"><div class="modal-content"><span class="modal-close-btn">&times;</span><form id="courseReviewForm"><h2 data-lang="leaveReviewTitle">Leave a Review</h2><div class="input-group"><label data-lang="ratingLabel">Rating</label><div id="star-rating"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div><input type="hidden" id="review-rating" value="0" required></div><div class="input-group"><label data-lang="reviewLabel">Review</label><textarea id="review-text" rows="4" required></textarea></div><button type="submit" class="btn-base" data-lang="submitReviewButton">Submit Review</button></form></div></div>
 
     <div id="quizModal" class="modal-overlay">
         <div class="modal-content">
@@ -827,22 +927,34 @@
         <div class="modal-content" style="max-width: 800px;">
             <span class="modal-close-btn">&times;</span>
             <div id="certificate-content" style="border: 10px solid var(--primary-green); padding: 40px; text-align: center;">
-                <h1 style="color: var(--primary-green); font-size: 2.5rem;">সার্টিফিকেট অফ অ্যাচিভমেন্ট</h1>
-                <p style="font-size: 1.2rem; margin: 20px 0;">এই সার্টিফিকেটটি প্রদান করা হচ্ছে</p>
+                <h1 style="color: var(--primary-green); font-size: 2.5rem;" data-lang="certificateMainTitle">সার্টিফিকেট অফ অ্যাচিভমেন্ট</h1>
+                <p style="font-size: 1.2rem; margin: 20px 0;" data-lang="certificateAwardedTo">এই সার্টিফিকেটটি প্রদান করা হচ্ছে</p>
                 <h2 id="certificate-user-name" style="font-size: 2rem; color: var(--dark-blue); margin-bottom: 20px;"></h2>
-                <p style="font-size: 1.2rem;">সফলভাবে কোর্সটি সম্পন্ন করার জন্য</p>
+                <p style="font-size: 1.2rem;" data-lang="certificateForCompleting">সফলভাবে কোর্সটি সম্পন্ন করার জন্য</p>
                 <h3 id="certificate-course-name" style="font-size: 1.8rem; margin: 10px 0 30px 0;"></h3>
-                <p>তারিখ: <span id="certificate-date"></span></p>
+                <p><span data-lang="dateLabel">তারিখ</span>: <span id="certificate-date"></span></p>
             </div>
              <div id="certificate-share-buttons">
                 <a href="#" id="share-facebook" class="share-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i> Share</a>
                 <a href="#" id="share-twitter" class="share-btn twitter" target="_blank"><i class="fab fa-twitter"></i> Tweet</a>
                 <a href="#" id="share-whatsapp" class="share-btn whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> Share</a>
             </div>
-            <button onclick="printCertificate()" class="btn-base" style="width: 100%; margin-top: 20px;">প্রিন্ট/ডাউনলোড করুন</button>
+            <button onclick="printCertificate()" class="btn-base" style="width: 100%; margin-top: 20px;" data-lang="printDownloadButton">প্রিন্ট/ডাউনলোড করুন</button>
         </div>
     </div>
     
+    <!-- START: Added for Task System - Ad Modal and Toast -->
+    <div class="ad-modal-overlay" id="adModal">
+        <div class="ad-modal" style="background: var(--white-color); border-radius: var(--border-radius); width: 90%; max-width: 380px; padding: 25px; text-align: center;">
+            <h3 class="ad-modal-title" id="adModalTitle" style="color: var(--primary-green);">Loading Ad...</h3>
+            <div class="spinner" id="adSpinner"></div>
+            <p class="ad-status" id="adStatusMessage" style="color: var(--light-text);">Please wait...</p>
+            <button class="btn-base" id="adCloseBtn" style="display: none; margin-top: 15px;">Close & Claim</button>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <!-- END: Added for Task System - Ad Modal and Toast -->
+
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
@@ -866,22 +978,22 @@
         let allCoursesData = {}, siteContentData = {}, gamificationSettings = {};
         let appliedCoupon = null, currentCourseIdForReview = null;
         
+        let taskConfig = {};
+        let adWatchedSuccessfully = false, adRewardPending = false, currentAdNetwork = null;
+        let currentUserData = {};
         let countryCodes = [
             { name: "Bangladesh", code: "+880" },
-            { name: "India", code: "+91" },
-            { name: "Pakistan", code: "+92" },
-            { name: "USA", code: "+1" },
-            { name: "UK", code: "+44" },
-            { name: "Saudi Arabia", code: "+966" },
-            { name: "UAE", code: "+971" },
+            { name: "India", code: "+91" }
         ];
         
         document.addEventListener('DOMContentLoaded', () => {
             setupEventListeners();
-            loadTheme(); 
+            loadThemeAndContent(); 
             loadNavigationMenu(); 
-            loadSubAdminRoles(); 
-            loadSiteContent(); 
+            loadSubAdminRoles();
+            // START: New function call to load dynamic withdrawal methods
+            loadWithdrawalMethods();
+            // END: New function call
             showAnnouncementPopup();
             loadCourses(); 
             loadProjects(); 
@@ -908,6 +1020,30 @@
                 selectElement.appendChild(option);
             });
         }
+
+        // START: New function to load withdrawal methods dynamically
+        function loadWithdrawalMethods() {
+            const withdrawSelect = document.getElementById('withdraw-method');
+            if (!withdrawSelect) return;
+
+            database.ref('siteContent/withdrawalMethods').on('value', (snapshot) => {
+                const methods = snapshot.val();
+                // Keep the first default option
+                withdrawSelect.innerHTML = '<option value="" data-lang="selectMethod">Select a method...</option>';
+                if (methods) {
+                    for (const key in methods) {
+                        const method = methods[key];
+                        if (method.status === 'active') {
+                            const option = document.createElement('option');
+                            option.value = method.name;
+                            option.textContent = method.name;
+                            withdrawSelect.appendChild(option);
+                        }
+                    }
+                }
+            });
+        }
+        // END: New function
 
         function setupEventListeners() {
             const navbar = document.getElementById('navbar');
@@ -941,7 +1077,16 @@
             document.getElementById('withdrawalForm').addEventListener('submit', handleWithdrawalRequest);
             document.getElementById('dashboard-new-forum-post-form').addEventListener('submit', handleNewForumPost);
             document.getElementById('course-search-input').addEventListener('keyup', handleCourseSearch);
+            document.getElementById('adCloseBtn').addEventListener('click', () => closeAdModalAndReward(currentAdNetwork));
             
+            // Dashboard Page Listeners
+            document.getElementById('open-dashboard-btn').addEventListener('click', (e) => { e.preventDefault(); openDashboardPage(); });
+            document.getElementById('dashboard-back-to-home').addEventListener('click', (e) => { e.preventDefault(); closeDashboardPage(); });
+            document.getElementById('dashboard-menu-toggle').addEventListener('click', () => {
+                document.getElementById('dashboard-sidebar').classList.toggle('show');
+            });
+
+
             const countryCodeSelect = document.getElementById('signup-country-code');
             const whatsappInput = document.getElementById('signup-whatsapp');
             if (countryCodeSelect && whatsappInput) {
@@ -953,6 +1098,7 @@
             setupDarkMode();
             manageModals();
             setupStarRating();
+            setupCoursePlayerTabs(); // Correctly setup course player tabs
         }
 
         function observeFadeInElements() { const faders = document.querySelectorAll('.fade-in'); const appearOnScroll = new IntersectionObserver(function(entries, observer) { entries.forEach(entry => { if (!entry.isIntersecting) return; entry.target.classList.add('visible'); observer.unobserve(entry.target); }); }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }); faders.forEach(fader => appearOnScroll.observe(fader)); }
@@ -960,12 +1106,31 @@
         
         function handleSignUp(event) {
             event.preventDefault();
-            const email = document.getElementById('signup-email').value;
+            const email = document.getElementById('signup-email').value.trim();
             const password = document.getElementById('signup-password').value;
-            const fullName = document.getElementById('signup-first-name').value + ' ' + document.getElementById('signup-last-name').value;
-            const whatsapp = document.getElementById('signup-whatsapp').value;
+            const firstName = document.getElementById('signup-first-name').value.trim();
+            const lastName = document.getElementById('signup-last-name').value.trim();
+            const fullName = `${firstName} ${lastName}`;
+            const whatsapp = document.getElementById('signup-whatsapp').value.trim();
             const errorEl = document.getElementById('signUpError');
             errorEl.style.display = 'none';
+
+            if (!firstName || !lastName || !email || !password || !whatsapp) {
+                errorEl.textContent = "Please fill out all fields.";
+                errorEl.style.display = 'block';
+                return;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorEl.textContent = "Please enter a valid email address.";
+                errorEl.style.display = 'block';
+                return;
+            }
+            if (password.length < 6) {
+                errorEl.textContent = "Password must be at least 6 characters long.";
+                errorEl.style.display = 'block';
+                return;
+            }
 
             const countryCode = document.getElementById('signup-country-code').value;
             if (whatsapp.length <= countryCode.length) {
@@ -989,7 +1154,9 @@
                         status: 'pending', 
                         balance: 0,
                         referralCode: referralCode,
-                        gamification: { points: 0, badges: {} }
+                        gamification: { points: 0, badges: {}, level: 1, xp: 0 },
+                        adStats: {},
+                        lastAdWatchedTimestamp: null
                     };
 
                     const saveUser = (data) => {
@@ -1067,7 +1234,6 @@
         
             userRef.once('value', snapshot => {
                 if (!snapshot.exists()) {
-                    // This is a new user
                     const referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase();
                     const userData = {
                         name: user.displayName,
@@ -1077,15 +1243,16 @@
                         status: 'pending',
                         balance: 0,
                         referralCode: referralCode,
-                        gamification: { points: 0, badges: {} }
+                        gamification: { points: 0, badges: {}, level: 1, xp: 0 },
+                        adStats: {},
+                        lastAdWatchedTimestamp: null
                     };
                     userRef.set(userData)
                         .then(() => {
                             alert('Account created successfully via social login! It is now waiting for admin approval.');
-                            auth.signOut(); // Log them out until approved
+                            auth.signOut();
                         });
                 } else {
-                    // Existing user, check their status
                     const userData = snapshot.val();
                     if (userData.status === 'pending') {
                         alert("Your account is pending approval from the admin.");
@@ -1119,22 +1286,68 @@
         }
         
         function handleForgotPassword(e) { e.preventDefault(); const email = prompt("Please enter your email address to reset your password:"); if (email) { auth.sendPasswordResetEmail(email) .then(() => alert('Password reset email sent! Please check your inbox.')) .catch(error => alert('Error: ' + error.message)); } }
-        function handleContactFormSubmit(event) { event.preventDefault(); const name = document.getElementById('contact-name').value; const email = document.getElementById('contact-email').value; const message = document.getElementById('contact-message').value; const responseDiv = document.getElementById('contact-form-response'); database.ref('contacts').push({ name, email, message, timestamp: new Date().toISOString() }).then(() => { responseDiv.textContent = 'Your message has been sent successfully!'; responseDiv.style.color = 'green'; document.getElementById('contactForm').reset(); }).catch(error => { responseDiv.textContent = 'Error: ' + error.message; responseDiv.style.color = 'red'; }); }
+        
+        function handleContactFormSubmit(event) { 
+            event.preventDefault(); 
+            const name = document.getElementById('contact-name').value.trim(); 
+            const email = document.getElementById('contact-email').value.trim(); 
+            const message = document.getElementById('contact-message').value.trim(); 
+            const responseDiv = document.getElementById('contact-form-response'); 
+            
+            if (!name || !email || !message) {
+                responseDiv.textContent = 'Please fill out all fields.';
+                responseDiv.style.color = 'red';
+                return;
+            }
+
+            database.ref('contacts').push({ name, email, message, timestamp: new Date().toISOString() })
+                .then(() => { 
+                    responseDiv.textContent = 'Your message has been sent successfully!'; 
+                    responseDiv.style.color = 'green'; 
+                    document.getElementById('contactForm').reset(); 
+                })
+                .catch(error => { 
+                    responseDiv.textContent = 'Error: ' + error.message; 
+                    responseDiv.style.color = 'red'; 
+                }); 
+        }
         
         function handleProfileUpdate(event) {
             event.preventDefault();
-            const user = auth.currentUser; if (!user) return;
+            const user = auth.currentUser;
+            if (!user) return;
+        
             const newName = document.getElementById('profileName').value;
             const newPassword = document.getElementById('profilePassword').value;
             const newProfilePicUrl = document.getElementById('profilePictureUrl').value;
-            
+            const profilePicFile = document.getElementById('profilePictureFile').files[0];
+        
             user.updateProfile({ displayName: newName })
                 .then(() => { database.ref('users/' + user.uid).update({ name: newName }); alert('Name updated successfully!'); })
                 .catch(err => alert('Error updating name: ' + err.message));
             
-            if (newPassword) { user.updatePassword(newPassword).then(() => { alert('Password updated successfully!'); document.getElementById('profilePassword').value = ''; }).catch(err => alert('Error updating password: ' + err.message)); }
+            if (newPassword) {
+                user.updatePassword(newPassword)
+                    .then(() => { alert('Password updated successfully!'); document.getElementById('profilePassword').value = ''; })
+                    .catch(err => alert('Error updating password: ' + err.message));
+            }
 
-            if (newProfilePicUrl && newProfilePicUrl.startsWith('http')) {
+            if (profilePicFile) {
+                const uploadTask = storage.ref(`profilePictures/${user.uid}`).put(profilePicFile);
+                uploadTask.on('state_changed', 
+                    (snapshot) => {}, 
+                    (error) => { alert('File upload error: ' + error.message); }, 
+                    () => {
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            user.updateProfile({ photoURL: downloadURL });
+                            database.ref(`users/${user.uid}`).update({ profilePictureUrl: downloadURL });
+                            document.getElementById('dashboard-avatar').src = downloadURL;
+                            alert('Profile picture uploaded and updated!');
+                        });
+                    }
+                );
+            } 
+            else if (newProfilePicUrl && newProfilePicUrl.startsWith('http')) {
                 user.updateProfile({ photoURL: newProfilePicUrl });
                 database.ref(`users/${user.uid}`).update({ profilePictureUrl: newProfilePicUrl });
                 document.getElementById('dashboard-avatar').src = newProfilePicUrl;
@@ -1142,21 +1355,56 @@
             }
         }
 
-        function updateLoginUI(user) { const authButtons = document.getElementById('auth-buttons-desktop'); const userInfo = document.getElementById('user-info-desktop'); if (user) { authButtons.style.display = 'none'; userInfo.style.display = 'flex'; document.getElementById('user-email-desktop').textContent = user.email; } else { authButtons.style.display = 'flex'; userInfo.style.display = 'none'; } }
+        function updateLoginUI(user) { const authButtons = document.getElementById('auth-buttons-desktop'); const userInfo = document.getElementById('user-info-desktop'); if (user) { authButtons.style.display = 'none'; userInfo.style.display = 'flex'; } else { authButtons.style.display = 'flex'; userInfo.style.display = 'none'; } }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function manageModals() { const manageModal = (modalId, openBtnIds = [], closeOnClickingOutside = true) => { const modal = document.getElementById(modalId); if (!modal) return; const openBtns = openBtnIds.map(id => document.getElementById(id)).filter(Boolean); const closeBtn = modal.querySelector('.modal-close-btn'); const open = (e) => { if(e) e.preventDefault(); modal.style.display = 'flex'; }; const close = () => closeModal(modalId); openBtns.forEach(btn => btn.addEventListener('click', open)); if (closeBtn) closeBtn.addEventListener('click', close); if(closeOnClickingOutside) modal.addEventListener('click', (e) => { if (e.target === modal) close(); }); }; manageModal('subadminModal', ['openSubadminModalBtn']); manageModal('signInModal', ['desktop-signin-btn']); manageModal('signUpModal', ['desktop-signup-btn']); manageModal('courseDetailsModal'); manageModal('studentDashboardModal', ['open-dashboard-btn']); manageModal('coursePlayerModal'); manageModal('courseReviewModal'); manageModal('announcement-modal'); manageModal('fakeAdminLoginModal', ['openFakeAdminLoginBtn']); manageModal('quizModal'); manageModal('certificateModal'); const signInModal = document.getElementById('signInModal'), signUpModal = document.getElementById('signUpModal'); const switchToSignUp = document.getElementById('switchToSignUp'), switchToSignIn = document.getElementById('switchToSignIn'); if(switchToSignUp) switchToSignUp.addEventListener('click', (e) => { e.preventDefault(); closeModal('signInModal'); signUpModal.style.display = 'flex'; }); if(switchToSignIn) switchToSignIn.addEventListener('click', (e) => { e.preventDefault(); closeModal('signUpModal'); signInModal.style.display = 'flex'; }); }
         
-        function loadTheme() { database.ref('siteContent/theme').on('value', (s) => { const t = s.val(); }); }
-        function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').on('value', (s) => { const menuItems = []; s.forEach(cs => { menuItems.push(cs.val()); }); const lastChild = c.querySelector('li:last-child').outerHTML; c.innerHTML = menuItems.map(m => `<li><a href="${m.url}">${m.name}</a></li>`).join('') + lastChild; }); }
-        function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').on('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
+        function manageModals() {
+            const manageModal = (modalId, openBtnIds = [], closeOnClickingOutside = true) => {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+                const openBtns = openBtnIds.map(id => document.getElementById(id)).filter(Boolean);
+                const closeBtn = modal.querySelector('.modal-close-btn');
+                const open = (e) => {
+                    if (e) e.preventDefault();
+                    modal.style.display = 'flex';
+                };
+                const close = () => closeModal(modalId);
+                openBtns.forEach(btn => btn.addEventListener('click', open));
+                if (closeBtn) closeBtn.addEventListener('click', close);
+                if (closeOnClickingOutside) modal.addEventListener('click', (e) => {
+                    if (e.target === modal) close();
+                });
+            };
+            manageModal('subadminModal', ['openSubadminModalBtn']);
+            manageModal('signInModal', ['desktop-signin-btn']);
+            manageModal('signUpModal', ['desktop-signup-btn']);
+            manageModal('courseDetailsModal');
+            manageModal('coursePlayerModal');
+            manageModal('courseReviewModal');
+            manageModal('announcement-modal');
+            manageModal('fakeAdminLoginModal', ['openFakeAdminLoginBtn']);
+            manageModal('quizModal');
+            manageModal('certificateModal');
+            
+            const switchToSignUp = document.getElementById('switchToSignUp');
+            const switchToSignIn = document.getElementById('switchToSignIn');
+            if(switchToSignUp) switchToSignUp.addEventListener('click', (e) => { e.preventDefault(); closeModal('signInModal'); document.getElementById('signUpModal').style.display = 'flex'; });
+            if(switchToSignIn) switchToSignIn.addEventListener('click', (e) => { e.preventDefault(); closeModal('signUpModal'); document.getElementById('signInModal').style.display = 'flex'; });
+        }
         
-        function loadSiteContent() { 
-            database.ref("siteContent").on("value", (snapshot => { 
+        function loadThemeAndContent() { 
+            database.ref("siteContent").once("value", (snapshot => { 
                 const content = snapshot.val() || {}; 
                 siteContentData = content; 
                 gamificationSettings = content.gamificationSettings || { pointsPerLesson: 0, pointsPerQuiz: 0 }; 
-
-                // NEW: Dashboard Announcement Logic
+                taskConfig = content.taskConfig || {};
+                
+                if (content.theme && content.theme.darkMode) {
+                    const style = document.createElement('style');
+                    style.innerHTML = `[data-theme="dark"] { --light-bg: ${content.theme.darkMode.background || '#121212'}; --white-color: ${content.theme.darkMode.surface || '#1E1E1E'}; --text-color: ${content.theme.darkMode.text || '#E0E0E0'}; }`;
+                    document.head.appendChild(style);
+                }
+                
                 const ann = content.dashboardAnnouncement;
                 const annContainer = document.getElementById('dashboard-announcement-container');
                 if (ann && ann.status === 'active' && ann.text) {
@@ -1167,9 +1415,7 @@
                     annContainer.style.display = 'none';
                 }
 
-                if (content.settings && content.settings.countryCodes) {
-                    countryCodes = content.settings.countryCodes;
-                }
+                if (content.settings && content.settings.countryCodes) { countryCodes = content.settings.countryCodes; }
                 populateCountryCodes();
 
                 const mainWhatsappLink = content.settings?.mainWhatsappLink || '#';
@@ -1177,9 +1423,12 @@
                 document.getElementById('dashboard-whatsapp-link').setAttribute('data-link', mainWhatsappLink);
                 document.getElementById('dashboard-banner-whatsapp-link').href = mainWhatsappLink;
 
-                const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { let bannerHTML = `<strong>${content.banner.text}</strong>`; if (!content.banner.text.includes("WhatsApp")) { bannerHTML += `<p style="font-size: 1.2rem; margin-top: 15px;">এখনই যোগ দিন আমাদের হাজারো শিক্ষার্থীর অ্যাক্টিভ কমিউনিটিতে এবং আপনার যাত্রা শুরু করুন।</p>`; } document.getElementById('banner-text-container').innerHTML = bannerHTML; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; document.getElementById('workshop-subtitle').innerText = content.sectionTitles.workshopSubtitle || 'আমাদের কার্যক্রম'; document.getElementById('workshop-main-title').innerText = content.sectionTitles.workshopMainTitle || 'আসন্ন ওয়ার্কশপ'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p>No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) 
+                const lang = content.language || {}; document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (lang[key]) { const icon = el.querySelector('i'); if (icon) { el.innerHTML = ` ${lang[key]}`; el.prepend(icon); } else { el.textContent = lang[key]; } } }); const dashboardLabels = content.dashboardLabels || {}; document.querySelectorAll('[data-lang^="widget"]').forEach(el => { const key = el.getAttribute('data-lang'); if (dashboardLabels[key]) el.textContent = dashboardLabels[key]; }); const tabMappings = { tabOverview: 'Overview', tabMyCourses: 'MyCourses', tabAchievements: 'Achievements', tabLeaderboard: 'Leaderboard', tabProfile: 'Profile', tabPayments: 'Payments', tabNotifications: 'Notifications' }; for (const key in tabMappings) { const tabButton = document.querySelector(`button[data-lang='${key}']`); if (tabButton && dashboardLabels[key.replace('tab','').toLowerCase()]) { const icon = tabButton.querySelector('i'); const badge = tabButton.querySelector('.notification-badge'); tabButton.innerHTML = ` ${dashboardLabels[key.replace('tab','').toLowerCase()]}`; if(icon) tabButton.prepend(icon); if(badge) tabButton.append(badge); } } const seo = content.seo || {}; document.title = seo.metaTitle || content.settings?.title || "Earning Space BD"; let metaDesc = document.querySelector('meta[name="description"]'); if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.setAttribute('name', 'description'); document.head.appendChild(metaDesc); } metaDesc.setAttribute('content', seo.metaDescription || ''); if (content.settings?.allowRegistration === false) { document.getElementById('desktop-signup-btn').style.display = 'none'; document.getElementById('switchToSignUp').parentElement.style.display = 'none'; } else { document.getElementById('desktop-signup-btn').style.display = 'inline-block'; document.getElementById('switchToSignUp').parentElement.style.display = 'block'; } if(content.settings?.logoUrl){ document.getElementById("website-logo").src=content.settings.logoUrl; document.getElementById("website-logo-footer").src=content.settings.logoUrl; } if(content.settings?.bannerImageUrl){ document.getElementById("banner-area-bg").style.backgroundImage = `url('${content.settings.bannerImageUrl}')`; } document.getElementById("copyright-text").innerText = content.settings?.copyrightText || "© Copyright 2024 by Earning Space BD"; if(content.settings?.aboutImageUrl){ document.getElementById("about-thumb-wrap").style.backgroundImage = `url('${content.settings.aboutImageUrl}')`; document.getElementById("about-thumb-wrap").classList.remove("skeleton"); } if(content.settings?.projectsImageUrl) document.getElementById("projects-image").src=content.settings.projectsImageUrl; document.getElementById("header-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-email").innerText=content.contactInfo?.email||""; document.getElementById("footer-phone").innerText=content.contactInfo?.phone||""; document.getElementById("footer-address").innerText=content.contactInfo?.address||""; if(content.contactInfo?.footerDescription){ document.getElementById("footer-description").innerText=content.contactInfo.footerDescription; document.getElementById("footer-description").classList.remove("skeleton");} if(content.developerCredit){ document.getElementById("developer-credit-container").innerHTML = `<a href="${content.developerCredit.url||'#'}" target="_blank">Development By: ${content.developerCredit.name||'Developer JR Zone'}</a>`; } if(content.socialLinks){ document.getElementById("header-facebook").href=content.socialLinks.facebook||'#'; document.getElementById("header-telegram").href=content.socialLinks.telegram||'#'; document.getElementById("header-twitter").href=content.socialLinks.twitter||'#'; document.getElementById("header-youtube").href=content.socialLinks.youtube||'#'; document.querySelector("#footer-facebook").href=content.socialLinks.facebook||'#'; document.querySelector("#footer-telegram").href=content.socialLinks.telegram||'#'; document.querySelector("#footer-twitter").href=content.socialLinks.twitter||'#'; document.querySelector("#footer-youtube").href=content.socialLinks.youtube||'#';} if (content.banner?.text) { let bannerHTML = `<strong>${content.banner.text}</strong>`; if (!content.banner.text.includes("WhatsApp")) { bannerHTML += `<p style="font-size: 1.2rem; margin-top: 15px;" data-lang="bannerSubtext">এখনই যোগ দিন আমাদের হাজারো শিক্ষার্থীর অ্যাক্টিভ কমিউনিটিতে এবং আপনার যাত্রা শুরু করুন।</p>`; } document.getElementById('banner-text-container').innerHTML = bannerHTML; document.getElementById('banner-text-container').classList.remove('skeleton'); } if (content.aboutAdmin?.text) { document.getElementById('about-admin-text').innerText = content.aboutAdmin.text; document.getElementById('about-admin-text').classList.remove('skeleton'); } if (content.sectionTitles) { document.getElementById('features-subtitle').innerText=content.sectionTitles.featuresSubtitle||'FEATURES'; document.getElementById('features-main-title').innerText=content.sectionTitles.featuresMainTitle||'An Exemplary Learning Community'; document.getElementById('courses-subtitle').innerText=content.sectionTitles.coursesSubtitle||'OUR COURSES'; document.getElementById('courses-main-title').innerText=content.sectionTitles.coursesMainTitle||'Top Featured Courses'; document.getElementById('projects-subtitle').innerText=content.sectionTitles.projectsSubtitle||'Projects'; document.getElementById('projects-main-title').innerText=content.sectionTitles.projectsMainTitle||'Upcoming Projects'; document.getElementById('workshop-subtitle').innerText = content.sectionTitles.workshopSubtitle || 'আমাদের কার্যক্রম'; document.getElementById('workshop-main-title').innerText = content.sectionTitles.workshopMainTitle || 'আসন্ন ওয়ার্কশপ'; } const featuresContainer = document.getElementById("features-container"); if (content.features && Object.keys(content.features).length > 0) { featuresContainer.innerHTML = ''; for (const key in content.features) { const feature = content.features[key]; featuresContainer.innerHTML += `<div class="col-feature fade-in"><div class="single-intro-inner"><div class="thumb"><img src="${feature.image||'https://placehold.co/150'}" alt="img"></div><div class="details"><h4>${feature.title||''}</h4><p>${feature.desc||''}</p></div></div></div>`; } } else { featuresContainer.innerHTML = '<p data-lang="noFeatures">No features to display.</p>'; } const introFooterContainer = document.getElementById('intro-footer-container'); if (content.introFooter && content.introFooter.length) { introFooterContainer.innerHTML = ''; content.introFooter.forEach(item => { introFooterContainer.innerHTML += `<div class="single-list-inner"><div class="icon"><img src="${item.image||'https://placehold.co/40'}" alt="icon"></div><h5>${item.title||''}</h5></div>`; }); } })) 
         }
 
+        function loadNavigationMenu() { const c = document.getElementById('edumint_main_menu'); database.ref('navigationMenu').orderByChild('order').once('value', (s) => { const menuItems = []; s.forEach(cs => { menuItems.push(cs.val()); }); const lastChild = c.querySelector('li:last-child').outerHTML; c.innerHTML = menuItems.map(m => `<li><a href="${m.url}">${m.name}</a></li>`).join('') + lastChild; }); }
+        function loadSubAdminRoles() { const r = document.getElementById('account_type'); database.ref('subAdminRoles').orderByChild('name').once('value', (s) => { r.innerHTML = '<option value="">Select Account Type</option>'; s.forEach(cs => { const d = cs.val(); r.innerHTML += `<option value="${d.value}">${d.name}</option>`; }); }); }
+        
         function loadCourses() {
             const container = document.getElementById('course-list-container');
             const footerMenu = document.getElementById('footer-course-menu');
@@ -1187,31 +1436,14 @@
 
             database.ref('courses').on('value', (snapshot) => {
                 const coursesData = snapshot.val();
-                container.innerHTML = '';
-                footerMenu.innerHTML = '';
-                filterContainer.innerHTML = '';
-
+                container.innerHTML = ''; footerMenu.innerHTML = ''; filterContainer.innerHTML = '';
                 if (coursesData) {
                     allCoursesData = coursesData;
-
-                    // NEW: Convert to array, filter published courses, and then sort by order
-                    const coursesArray = Object.entries(coursesData)
-                        .map(([id, data]) => ({ id, ...data }))
-                        .filter(course => course.status === 'published');
-
-                    coursesArray.sort((a, b) => (a.order || 999) - (b.order || 999));
-
-                    const categories = new Set();
-                    coursesArray.forEach(course => {
-                        if (course.category) {
-                            categories.add(course.category);
-                        }
-                    });
+                    const coursesArray = Object.entries(coursesData).map(([id, data]) => ({ id, ...data })).filter(course => course.status === 'published').sort((a, b) => (a.order || 999) - (b.order || 999));
+                    const categories = [...new Set(coursesArray.map(c => c.category).filter(Boolean))];
 
                     filterContainer.innerHTML = '<button class="active" data-category="all">All</button>';
-                    categories.forEach(cat => {
-                        filterContainer.innerHTML += `<button data-category="${cat}">${cat}</button>`;
-                    });
+                    categories.forEach(cat => { filterContainer.innerHTML += `<button data-category="${cat}">${cat}</button>`; });
 
                     document.querySelectorAll('#course-filter-buttons button').forEach(button => {
                         button.addEventListener('click', () => {
@@ -1222,69 +1454,39 @@
                         });
                     });
 
-                    // Render sorted courses
                     if (coursesArray.length > 0) {
                         coursesArray.forEach(course => {
                             const courseId = course.id;
-                            const courseHTML = ` 
-                                <div class="col-course fade-in" data-course-id="${courseId}" data-course-name="${course.name.toLowerCase()}" data-course-category="${course.category || 'uncategorized'}"> 
-                                    <div class="single-course-inner"> 
-                                        <button class="wishlist-btn" onclick="toggleWishlist('${courseId}', event)"><i class="far fa-heart"></i></button>
-                                        <div class="thumb"> <img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"> </div> 
-                                        <div class="details"> 
-                                            <h3>${course.name}</h3> 
-                                            <a class="arrow-right" onclick="showCourseDetails('${courseId}')"> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> </a> 
-                                        </div> 
-                                    </div> 
-                                </div>`;
-                            container.innerHTML += courseHTML;
+                            container.innerHTML += `<div class="col-course fade-in" data-course-id="${courseId}" data-course-name="${course.name.toLowerCase()}" data-course-category="${course.category || 'uncategorized'}"><div class="single-course-inner"><button class="wishlist-btn" onclick="toggleWishlist('${courseId}', event)"><i class="far fa-heart"></i></button><div class="thumb"><img src="${course.imageURL || 'https://placehold.co/380x220?text=Course+Image'}" alt="${course.name}"></div><div class="details"><h3>${course.name}</h3><a class="arrow-right" onclick="showCourseDetails('${courseId}')"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div></div></div>`;
                         });
-
-                        // Populate footer menu with top sorted courses
-                        coursesArray.slice(0, 5).forEach(course => {
-                            footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${course.id}');">${course.name}</a></li>`;
-                        });
-                        
+                        coursesArray.slice(0, 5).forEach(course => { footerMenu.innerHTML += `<li><a href="#courses" onclick="event.preventDefault(); showCourseDetails('${course.id}');">${course.name}</a></li>`; });
                     } else {
-                         container.innerHTML = '<p>No courses available at the moment.</p>';
-                         footerMenu.innerHTML = '<li>No courses found.</li>';
+                         container.innerHTML = '<p data-lang="noCoursesAvailable">No courses available at the moment.</p>';
+                         footerMenu.innerHTML = '<li data-lang="noCoursesFound">No courses found.</li>';
                     }
-
                     updateCourseCardsUI(auth.currentUser);
                 } else {
-                    container.innerHTML = '<p>No courses available at the moment.</p>';
-                    footerMenu.innerHTML = '<li>No courses found.</li>';
+                    container.innerHTML = '<p data-lang="noCoursesAvailable">No courses available at the moment.</p>';
+                    footerMenu.innerHTML = '<li data-lang="noCoursesFound">No courses found.</li>';
                 }
                 observeFadeInElements();
             });
         }
 
-
-        function handleCourseSearch() {
-            filterCourses();
-        }
-
+        function handleCourseSearch() { filterCourses(); }
         function filterCourses() {
             const searchTerm = document.getElementById('course-search-input').value.toLowerCase();
             const activeCategory = document.querySelector('#course-filter-buttons button.active').getAttribute('data-category');
-
             document.querySelectorAll('.col-course').forEach(courseCard => {
                 const courseName = courseCard.dataset.courseName;
                 const courseCategory = courseCard.dataset.courseCategory;
-
                 const nameMatch = courseName.includes(searchTerm);
                 const categoryMatch = (activeCategory === 'all' || courseCategory === activeCategory);
-
-                if (nameMatch && categoryMatch) {
-                    courseCard.style.display = 'block';
-                } else {
-                    courseCard.style.display = 'none';
-                }
+                courseCard.style.display = (nameMatch && categoryMatch) ? 'block' : 'none';
             });
         }
 
         function loadCourseReviews(courseId) { const reviewsContainer = document.getElementById('course-reviews-container'); reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>Loading reviews...</p>'; const reviewsRef = database.ref('courseReviews').orderByChild('courseId').equalTo(courseId); reviewsRef.once('value', snapshot => { const reviews = snapshot.val(); if (!reviews) { reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No reviews for this course yet.</p>'; return; } const approvedReviews = Object.values(reviews).filter(r => r.status === 'Approved'); if (approvedReviews.length === 0) { reviewsContainer.innerHTML = '<h4>Student Reviews</h4><p>No approved reviews for this course yet.</p>'; return; } const userIds = [...new Set(approvedReviews.map(r => r.userId))]; const userPromises = userIds.map(id => database.ref(`users/${id}/name`).once('value')); Promise.all(userPromises).then(userSnapshots => { const userIdToNameMap = {}; userSnapshots.forEach((snap, index) => { userIdToNameMap[userIds[index]] = snap.val() || 'Unknown User'; }); let reviewsHtml = ''; approvedReviews.forEach(review => { const userName = userIdToNameMap[review.userId]; reviewsHtml += ` <div class="review-item"> <div class="review-header"> <span class="review-author">${userName}</span> <span class="review-rating">${'⭐'.repeat(review.rating)}</span> </div> <p>${review.review}</p> </div>`; }); reviewsContainer.innerHTML = '<h4>Student Reviews</h4>' + reviewsHtml; }); }); }
-        
         function showCourseDetails(courseId) { 
             const course = allCoursesData[courseId]; 
             if (!course) return; 
@@ -1296,7 +1498,7 @@
             
             const descriptionContainer = document.getElementById('course-details-description');
             let descriptionHTML = `<p>${course.description || 'No detailed description available.'}</p>`;
-            descriptionHTML += `<div class="community-note"><p><b><i class="fab fa-whatsapp"></i> বিশেষ সুবিধা:</b> এই কোর্সের সকল শিক্ষার্থীর জন্য রয়েছে একটি ডেডিকেটেড WhatsApp সাপোর্ট গ্রুপ, যেখানে আপনি সরাসরি মেন্টরের সাহায্য পাবেন।</p></div>`;
+            descriptionHTML += `<div class="community-note"><p><b><i class="fab fa-whatsapp"></i> <span data-lang="whatsappSupportNote">বিশেষ সুবিধা:</span></b> <span data-lang="whatsappSupportDesc">এই কোর্সের সকল শিক্ষার্থীর জন্য রয়েছে একটি ডেডিকেটেড WhatsApp সাপোর্ট গ্রুপ, যেখানে আপনি সরাসরি মেন্টরের সাহায্য পাবেন।</span></p></div>`;
             descriptionContainer.innerHTML = descriptionHTML;
 
             document.getElementById('enroll-now-btn').innerHTML = `<span data-lang="enrollNowButton">Enroll Now</span> for ${course.price.toLocaleString('bn-BD')} BDT`; 
@@ -1309,18 +1511,77 @@
         }
 
         function applyCoupon(courseId) { const code = document.getElementById('coupon-code-input').value.trim().toUpperCase(); const messageEl = document.getElementById('coupon-message'); if(!code) { messageEl.textContent = 'Please enter a coupon code.'; messageEl.style.color = 'red'; return; } database.ref('coupons').orderByChild('code').equalTo(code).once('value', snapshot => { if(snapshot.exists()){ const couponData = Object.values(snapshot.val())[0]; const originalPrice = allCoursesData[courseId].price; let discountedPrice = originalPrice; if(couponData.type === 'percentage') { discountedPrice = originalPrice - (originalPrice * couponData.value / 100); } else if (couponData.type === 'fixed') { discountedPrice = originalPrice - couponData.value; } if (discountedPrice < 0) discountedPrice = 0; appliedCoupon = couponData; messageEl.textContent = `Coupon applied! New price: ${discountedPrice.toLocaleString('bn-BD')} BDT`; messageEl.style.color = 'green'; document.getElementById('enroll-now-btn').innerHTML = `Enroll Now for ${discountedPrice.toLocaleString('bn-BD')} BDT`; document.getElementById('enroll-now-btn').onclick = () => enrollInCourse(courseId, discountedPrice); } else { messageEl.textContent = 'Invalid or expired coupon code.'; messageEl.style.color = 'red'; } }); }
-        function enrollInCourse(courseId, finalPrice) { const user = auth.currentUser; if (!user) { alert('কোর্সে এনরোল করার জন্য অনুগ্রহ করে সাইন ইন করুন।'); closeModal('courseDetailsModal'); document.getElementById('signInModal').style.display = 'flex'; return; } const course = allCoursesData[courseId]; if (course.enrollmentPassword && course.enrollmentPassword !== "") { const enteredPassword = prompt(`"${course.name}" কোর্সে এনরোল করার জন্য অনুগ্রহ করে পাসওয়ার্ড দিন:`); if (enteredPassword === null) return; if (enteredPassword !== course.enrollmentPassword) { alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।"); return; } } alert(`পেমেন্ট গেটওয়ে ইন্টিগ্রেশন প্রয়োজন।\nআপাতত "${course.name}" কোর্সের জন্য ${finalPrice} BDT মূল্যে ম্যানুয়াল এনরোলমেন্ট প্রক্রিয়া সম্পন্ন করা হচ্ছে।`); const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), purchasePrice: finalPrice }; database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData) .then(() => { database.ref('payments').push({ userId: user.uid, courseId, amount: finalPrice, transactionId: 'MANUAL_SIMULATION_' + new Date().getTime(), date: new Date().toISOString() }); alert('আপনি সফলভাবে কোর্সে এনরোল করেছেন!'); closeModal('courseDetailsModal'); }).catch(err => alert('এনরোলমেন্ট ব্যর্থ হয়েছে: ' + err.message)); }
-        function openDashboardTab(evt, tabName) { document.querySelectorAll(".dashboard-tab-content").forEach(c => c.style.display = "none"); document.querySelectorAll("#dashboard-sidebar .tab-link").forEach(l => l.classList.remove("active")); document.getElementById(tabName).style.display = "block"; evt.currentTarget.classList.add("active"); if (tabName === 'Notifications') { document.getElementById('notification-badge').style.display = 'none'; } }
-        document.getElementById('open-dashboard-btn').addEventListener('click', (e) => { e.preventDefault(); const user = auth.currentUser; if (!user) { alert('Please sign in to view your dashboard.'); return; } loadDashboardData(user); document.getElementById('studentDashboardModal').style.display = 'flex'; document.querySelector('#dashboard-sidebar .tab-link').click(); });
+        function enrollInCourse(courseId, finalPrice) {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('কোর্সে এনরোল করার জন্য অনুগ্রহ করে সাইন ইন করুন।');
+                closeModal('courseDetailsModal');
+                document.getElementById('signInModal').style.display = 'flex';
+                return;
+            }
+            const course = allCoursesData[courseId];
+            if (course.enrollmentPassword && course.enrollmentPassword !== "") {
+                const enteredPassword = prompt(`"${course.name}" কোর্সে এনরোল করার জন্য অনুগ্রহ করে পাসওয়ার্ড দিন:`);
+                if (enteredPassword === null) return;
+                if (enteredPassword !== course.enrollmentPassword) {
+                    alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।");
+                    return;
+                }
+            }
+            alert(`পেমেন্ট গেটওয়ে ইন্টিগ্রেশন প্রয়োজন।\nআপাতত "${course.name}" কোর্সের জন্য ${finalPrice} BDT মূল্যে ম্যানুয়াল এনরোলমেন্ট প্রক্রিয়া সম্পন্ন করা হচ্ছে।`);
+            const enrollmentData = { courseId: courseId, enrollmentDate: new Date().toISOString(), purchasePrice: finalPrice };
+            database.ref(`users/${user.uid}/enrolledCourses`).push(enrollmentData)
+                .then(() => {
+                    database.ref('payments').push({ userId: user.uid, courseId, amount: finalPrice, transactionId: 'MANUAL_SIMULATION_' + new Date().getTime(), date: new Date().toISOString() });
+                    alert('আপনি সফলভাবে কোর্সে এনরোল করেছেন!');
+                    closeModal('courseDetailsModal');
+                }).catch(err => alert('এনরোলমেন্ট ব্যর্থ হয়েছে: ' + err.message));
+        }
+        
+        // --- START: New Dashboard Page Logic ---
+        function openDashboardPage() {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Please sign in to view your dashboard.');
+                return;
+            }
+            document.getElementById('page-content').style.display = 'none';
+            document.getElementById('dashboard-page-container').style.display = 'flex';
+            loadDashboardData(user);
+            document.querySelector('#dashboard-sidebar .tab-link[onclick*="MyDashboard"]').click();
+        }
+
+        function closeDashboardPage() {
+            document.getElementById('dashboard-page-container').style.display = 'none';
+            document.getElementById('page-content').style.display = 'block';
+        }
+
+        function openDashboardTab(evt, tabName) { 
+            document.querySelectorAll(".dashboard-tab-content").forEach(c => c.classList.remove("active")); 
+            document.querySelectorAll("#dashboard-sidebar .tab-link").forEach(l => l.classList.remove("active")); 
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active"); 
+            if (tabName === 'Notifications') { 
+                document.getElementById('notification-badge').style.display = 'none'; 
+            }
+            if (tabName === 'Tasks') {
+                renderTasksPage();
+            }
+            // Close sidebar on mobile after clicking a link
+            if (window.innerWidth <= 991) {
+                document.getElementById('dashboard-sidebar').classList.remove('show');
+            }
+        }
+        // --- END: New Dashboard Page Logic ---
         
         function loadDashboardData(user) {
             database.ref(`users/${user.uid}`).on('value', snapshot => {
                 const userData = snapshot.val();
                 if (!userData) return;
+                currentUserData = userData;
                 document.getElementById('dashboard-username').textContent = userData.name || 'User';
                 document.getElementById('dashboard-useremail').textContent = userData.email;
                 document.getElementById('dashboard-avatar').src = userData.profilePictureUrl || user.photoURL || 'https://i.pravatar.cc/150';
-                
                 document.getElementById('overview-balance').textContent = `${(userData.balance || 0).toLocaleString('bn-BD')} BDT`;
                 document.getElementById('withdraw-balance-display').textContent = `${(userData.balance || 0).toLocaleString('bn-BD')} BDT`;
                 loadHomeworkSubmissions(user.uid);
@@ -1337,6 +1598,26 @@
                 document.getElementById('profileName').value = userData.name || user.displayName || '';
                 document.getElementById('profilePictureUrl').value = userData.profilePictureUrl || '';
                 loadUserBadges(userData.gamification?.badges);
+                
+                const gamification = userData.gamification || { level: 1, xp: 0 };
+                const currentLevel = gamification.level || 1;
+                const currentXP = gamification.xp || 0;
+                const levels = taskConfig.levelingConfig ? taskConfig.levelingConfig.levels || [] : [];
+                
+                let currentLevelInfo = levels.find((l, i) => i === currentLevel - 1) || levels[0] || {name: 'N/A', xpThreshold: 0};
+                let nextLevelInfo = levels.find((l, i) => i === currentLevel);
+
+                document.getElementById('levelBadge').innerText = `Level ${currentLevel} (${currentLevelInfo.name})`;
+                if (nextLevelInfo) {
+                    const xpForNextLevel = nextLevelInfo.xpThreshold - (currentLevelInfo.xpThreshold || 0);
+                    const xpProgress = currentXP - (currentLevelInfo.xpThreshold || 0);
+                    const progressPercent = (xpProgress / xpForNextLevel) * 100;
+                    document.getElementById('xpText').innerText = `${xpProgress}/${xpForNextLevel} XP`;
+                    document.getElementById('xpBar').style.width = `${Math.min(100, progressPercent)}%`;
+                } else {
+                    document.getElementById('xpText').innerText = `Max Level!`;
+                    document.getElementById('xpBar').style.width = `100%`;
+                }
             });
             loadPaymentHistory(user);
         }
@@ -1354,6 +1635,24 @@
         let currentCourseInfo = {};
         function openCoursePlayer(courseId, enrollId) { const course = allCoursesData[courseId]; if (!course) return; currentCourseInfo = { courseId: courseId, enrollId: enrollId, modules: course.modules ? Object.entries(course.modules) : [], flatLessonList: [] }; const sidebar = document.getElementById('course-sidebar'); sidebar.innerHTML = `<h3>${course.name}</h3>`; if (currentCourseInfo.modules.length > 0) { let lessonCounter = 0; currentCourseInfo.modules.forEach(([moduleId, module], modIndex) => { sidebar.innerHTML += `<h4>${module.title}</h4>`; const lessonList = document.createElement('ul'); if (module.lessons) { Object.entries(module.lessons).forEach(([lessonId, lesson]) => { lessonList.innerHTML += `<li onclick="loadLesson('${lessonId}')" data-lesson-id="${lessonId}">${lesson.title}</li>`; currentCourseInfo.flatLessonList.push(lessonId); }); } sidebar.appendChild(lessonList); }); const firstLessonId = currentCourseInfo.flatLessonList[0]; if(firstLessonId) loadLesson(firstLessonId); } else { sidebar.innerHTML += '<p>No content has been added to this course yet.</p>'; } document.getElementById('coursePlayerModal').style.display = 'flex'; }
         function loadLesson(lessonId) { const { courseId } = currentCourseInfo; let found = false; for(const [moduleId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[lessonId]) { const lesson = module.lessons[lessonId]; currentCourseInfo.currentLessonId = lessonId; currentCourseInfo.currentModuleId = moduleId; document.getElementById('lesson-title').textContent = lesson.title; const contentArea = document.getElementById('lesson-content-area'); if (lesson.type === 'video') { const videoId = lesson.content.includes('youtu.be') ? lesson.content.split('/').pop() : new URL(lesson.content).searchParams.get('v'); contentArea.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`; } else if (lesson.type === 'text') { contentArea.innerHTML = `<div style="padding: 20px; line-height: 1.8;">${lesson.content}</div>`; } document.querySelectorAll('#course-sidebar li').forEach(li => { li.classList.toggle('active', li.dataset.lessonId === lessonId); }); updateNavigationButtons(); loadQnA(); loadNote(); loadHomeworkForLesson(courseId, lessonId); found = true; break; } } }
+        
+        function setupCoursePlayerTabs() {
+            const tabButtons = document.querySelectorAll('.course-player-tab-btn');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.course-player-tab-btn').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.course-player-tab-content').forEach(content => content.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    const tabId = button.dataset.tab;
+                    const contentEl = document.getElementById(tabId + '-tab');
+                    if (contentEl) {
+                        contentEl.classList.add('active');
+                    }
+                });
+            });
+        }
+        
         function handleQnaSubmit(e) { e.preventDefault(); const user = auth.currentUser; const questionText = e.target.querySelector('textarea').value; if(!user || !questionText.trim()) return; const { courseId, currentLessonId } = currentCourseInfo; if (!courseId || !currentLessonId) return; let moduleId; for(const [modId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[currentLessonId]) { moduleId = modId; break; } } if(moduleId) { const qnaRef = database.ref(`courses/${courseId}/modules/${moduleId}/lessons/${currentLessonId}/qna`); qnaRef.push({ userId: user.uid, userName: user.displayName, question: questionText, timestamp: new Date().toISOString() }).then(() => { e.target.reset(); loadQnA(); }); } }
         function loadQnA() { const { courseId, currentLessonId } = currentCourseInfo; const qnaList = document.getElementById('qna-list'); qnaList.innerHTML = ''; let moduleId; for(const [modId, module] of currentCourseInfo.modules) { if(module.lessons && module.lessons[currentLessonId]) { moduleId = modId; break; } } if(moduleId) { const qnaRef = database.ref(`courses/${courseId}/modules/${moduleId}/lessons/${currentLessonId}/qna`); qnaRef.on('value', snapshot => { const qnas = snapshot.val(); qnaList.innerHTML = ''; if(qnas){ for(const qnaId in qnas){ const qna = qnas[qnaId]; let replyHtml = ''; if(qna.reply) { replyHtml = ` <div class="qna-reply"> <p class="qna-reply-author">Admin Reply:</p> <p>${qna.reply.text}</p> </div>`; } qnaList.innerHTML += ` <div class="qna-item"> <p class="qna-author">${qna.userName}</p> <p>${qna.question}</p> <p class="qna-date">${new Date(qna.timestamp).toLocaleString()}</p> ${replyHtml} </div> `; } } else { qnaList.innerHTML = '<p>No questions asked for this lesson yet. Be the first!</p>'; } }); } }
         function loadNote() { const user = auth.currentUser; const { courseId, currentLessonId } = currentCourseInfo; if (!user || !courseId || !currentLessonId) return; const noteRef = database.ref(`users/${user.uid}/notes/${courseId}/${currentLessonId}`); noteRef.once('value', snapshot => { const note = snapshot.val(); document.getElementById('notes-area').value = note || ''; }); }
@@ -1367,7 +1666,6 @@
         function setupDarkMode(){
             const toggle = document.getElementById('darkModeToggle');
             const currentTheme = localStorage.getItem('theme');
-            
             if (currentTheme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 toggle.checked = true;
@@ -1375,7 +1673,6 @@
                 document.documentElement.removeAttribute('data-theme');
                 toggle.checked = false;
             }
-
             toggle.addEventListener('change', () => {
                 if (toggle.checked) {
                     document.documentElement.setAttribute('data-theme', 'dark');
@@ -1392,22 +1689,11 @@
         
         function loadWorkshop() { 
             const container = document.getElementById('workshop-container'); 
-            const workshopRef = database.ref('workshops/main_workshop'); 
-            workshopRef.on('value', (snapshot) => { 
+            database.ref('workshops/main_workshop').on('value', (snapshot) => { 
                 const workshop = snapshot.val(); 
                 if (workshop && workshop.status === 'active') { 
                     const mainWhatsappLink = siteContentData.settings?.mainWhatsappLink || '#';
-                    container.innerHTML = ` 
-                        <h3 style="font-size: 1.8rem; color: var(--dark-blue); margin-bottom: 15px;">${workshop.title}</h3> 
-                        <p style="font-size: 1.1rem; font-weight: 500; color: var(--primary-green); margin-bottom: 25px;"> 
-                            <i class="far fa-calendar-alt"></i> ${workshop.date} 
-                        </p> 
-                        <p style="color: var(--light-text); margin-bottom: 30px;">${workshop.description}</p> 
-                        <a href="${workshop.regLink}" target="_blank" class="btn-base">রেজিস্ট্রেশন করুন</a> 
-                        <p style="margin-top: 20px; font-size: 0.9rem;">
-                            ওয়ার্কশপের সকল আপডেট পেতে আমাদের <a href="${mainWhatsappLink}" target="_blank" style="color: var(--primary-green); font-weight: 600;">WhatsApp গ্রুপে</a> যুক্ত থাকুন।
-                        </p>
-                    `; 
+                    container.innerHTML = `<h3 style="font-size: 1.8rem; color: var(--dark-blue); margin-bottom: 15px;">${workshop.title}</h3><p style="font-size: 1.1rem; font-weight: 500; color: var(--primary-green); margin-bottom: 25px;"><i class="far fa-calendar-alt"></i> ${workshop.date}</p><p style="color: var(--light-text); margin-bottom: 30px;">${workshop.description}</p><a href="${workshop.regLink}" target="_blank" class="btn-base">রেজিস্ট্রেশন করুন</a><p style="margin-top: 20px; font-size: 0.9rem;">ওয়ার্কশপের সকল আপডেট পেতে আমাদের <a href="${mainWhatsappLink}" target="_blank" style="color: var(--primary-green); font-weight: 600;">WhatsApp গ্রুপে</a> যুক্ত থাকুন।</p>`; 
                 } else { 
                     document.getElementById('workshop').style.display = 'none'; 
                 } 
@@ -1428,34 +1714,17 @@
                     for(const [key, o] of sortedPosts){ 
                         if(o.status === 'published') { 
                             postFound = true; 
-                            c.innerHTML += ` 
-                                <div class="single-course-inner fade-in"> 
-                                    <div class="thumb"> 
-                                        <img src="${o.imageUrl || 'https://placehold.co/380x220?text=Blog+Post'}" alt="${o.title}"> 
-                                    </div> 
-                                    <div class="details" style="flex-direction: column; align-items: flex-start;"> 
-                                        <h3>${o.title}</h3> 
-                                        <p class="post-meta">Posted on: ${new Date(o.date).toLocaleDateString('bn-BD')}</p> 
-                                        <p>${(o.content || "").substring(0, 120)}...</p> 
-                                        <div class="community-cta">
-                                            <p>এই বিষয়ে আরও জানতে চান? <a href="${mainWhatsappLink}" target="_blank">আমাদের কমিউনিটিতে যোগ দিন!</a></p>
-                                        </div>
-                                    </div> 
-                                </div>`; 
+                            c.innerHTML += `<div class="single-course-inner fade-in"><div class="thumb"><img src="${o.imageUrl || 'https://placehold.co/380x220?text=Blog+Post'}" alt="${o.title}"></div><div class="details" style="flex-direction: column; align-items: flex-start;"><h3>${o.title}</h3><p class="post-meta">Posted on: ${new Date(o.date).toLocaleDateString('bn-BD')}</p><p>${(o.content || "").substring(0, 120)}...</p><div class="community-cta"><p>এই বিষয়ে আরও জানতে চান? <a href="${mainWhatsappLink}" target="_blank">আমাদের কমিউনিটিতে যোগ দিন!</a></p></div></div></div>`; 
                         } 
                     } 
-                    if (!postFound) { 
-                        c.innerHTML = '<p>No latest news or articles available right now.</p>'; 
-                    } 
-                } else { 
-                    c.innerHTML = '<p>No blog posts available.</p>'; 
-                } 
+                    if (!postFound) { c.innerHTML = '<p>No latest news or articles available right now.</p>'; } 
+                } else { c.innerHTML = '<p>No blog posts available.</p>'; } 
                 observeFadeInElements(); 
             }); 
         }
 
         function loadHomeworkForLesson(courseId, lessonId) { const user = auth.currentUser; const container = document.getElementById('homework-submission-area'); if (!user) { container.innerHTML = '<p>Please log in to submit homework.</p>'; return; } const course = allCoursesData[courseId]; if (!course.homeworkLimit || !course.homeworkReward) { container.innerHTML = '<p>No homework is enabled for this course.</p>'; return; } database.ref('homeworkSubmissions').orderByChild('userId').equalTo(user.uid).once('value', snapshot => { const allSubmissions = snapshot.val() || {}; const courseSubmissions = Object.values(allSubmissions).filter(s => s.courseId === courseId); const approvedOrPendingCount = courseSubmissions.filter(s => s.status === 'approved' || s.status === 'submitted').length; const thisLessonSubmission = courseSubmissions.find(s => s.lessonId === lessonId); if (thisLessonSubmission) { let statusHtml = `<p><strong>Status:</strong> <span class="homework-status ${thisLessonSubmission.status}">${thisLessonSubmission.status.replace('_', ' ')}</span></p>`; if (thisLessonSubmission.status === 'correction_needed') { container.innerHTML = `${statusHtml}<p><strong>Admin Feedback:</strong> ${thisLessonSubmission.adminNotes}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', '${thisLessonSubmission.id}')"><div class="input-group"><label>Resubmit Your Homework Link</label><input type="url" value="${thisLessonSubmission.homeworkLink}" required></div><button type="submit" class="btn-base">Resubmit</button></form>`; } else { container.innerHTML = statusHtml + `<p>You have already submitted homework for this lesson.</p>`; } } else if (approvedOrPendingCount >= course.homeworkLimit) { container.innerHTML = `<p>You have reached the homework submission limit (${course.homeworkLimit}) for this course.</p>`; } else { container.innerHTML = `<p>You can earn ${course.homeworkReward} BDT for this homework.</p><p>Submissions remaining for this course: ${course.homeworkLimit - approvedOrPendingCount}/${course.homeworkLimit}</p><form onsubmit="handleHomeworkSubmit(event, '${courseId}', '${lessonId}', null)"><div class="input-group"><label>Enter Your Homework Link</label><input type="url" placeholder="https://..." required></div><button type="submit" class="btn-base">Submit</button></form>`; } }); }
-        function handleHomeworkSubmit(event, courseId, lessonId, submissionId) { event.preventDefault(); const user = auth.currentUser; const homeworkLink = event.target.querySelector('input').value; if (!user || !homeworkLink) return; const course = allCoursesData[courseId]; const submissionData = { userId: user.uid, courseName: course.name, homeworkLink: homeworkLink, status: 'submitted', submittedAt: new Date().toISOString(), rewardAmount: course.homeworkReward || 0 }; const ref = submissionId ? database.ref('homeworkSubmissions/' + submissionId) : database.ref('homeworkSubmissions').push(); ref.update(submissionData).then(() => { alert('Homework submitted successfully!'); loadHomeworkForLesson(courseId, lessonId); }).catch(err => alert('Error: ' + err.message)); }
+        function handleHomeworkSubmit(event, courseId, lessonId, submissionId) { event.preventDefault(); const user = auth.currentUser; const homeworkLink = event.target.querySelector('input').value; if (!user || !homeworkLink) return; const course = allCoursesData[courseId]; const submissionData = { userId: user.uid, courseName: course.name, homeworkLink: homeworkLink, status: 'submitted', submittedAt: new Date().toISOString(), rewardAmount: course.homeworkReward || 0, lessonId: lessonId }; const ref = submissionId ? database.ref('homeworkSubmissions/' + submissionId) : database.ref('homeworkSubmissions').push(); ref.update(submissionData).then(() => { alert('Homework submitted successfully!'); loadHomeworkForLesson(courseId, lessonId); }).catch(err => alert('Error: ' + err.message)); }
         function loadHomeworkSubmissions(userId) { const container = document.getElementById('homework-submissions-container'); database.ref('homeworkSubmissions').orderByChild('userId').equalTo(userId).on('value', snapshot => { const submissions = snapshot.val(); if (submissions) { let tableHtml = `<table style="width:100%; text-align:left; border-collapse: collapse;"><thead><tr><th>Course</th><th>Status</th><th>Submitted On</th><th>Notes</th></tr></thead><tbody>`; const sorted = Object.values(submissions).sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt)); sorted.forEach(sub => { tableHtml += `<tr><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.courseName}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);"><span class="homework-status ${sub.status}">${sub.status.replace('_', ' ')}</span></td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${new Date(sub.submittedAt).toLocaleDateString()}</td><td style="padding: 8px; border-bottom: 1px solid var(--border-color);">${sub.adminNotes || 'N/A'}</td></tr>`; }); tableHtml += '</tbody></table>'; container.innerHTML = tableHtml; } else { container.innerHTML = '<p>You have not submitted any homework yet.</p>'; } }); }
         
         function loadReferralData(userId, userData) { if (!userId || typeof userId !== 'string') { console.error("loadReferralData: Invalid userId provided."); return; } const linkInput = document.getElementById('referral-link-input'); let referralCode = userData.referralCode; if (!referralCode) { referralCode = 'REF' + Math.random().toString(36).substring(2, 10).toUpperCase(); database.ref('users/' + userId).update({ referralCode: referralCode }); } linkInput.value = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`; const leadsContainer = document.getElementById('leads-container'); const convertsContainer = document.getElementById('converts-container'); const query = database.ref('users').orderByChild('referredBy').equalTo(userId); query.on('value', snapshot => { let leadsHtml = '<p>No one has signed up using your link yet.</p>'; let convertsHtml = '<p>No active referrals yet.</p>'; if (snapshot.exists()) { const referredUsers = snapshot.val(); const allReferred = Object.values(referredUsers); const leads = allReferred.filter(u => u && u.status === 'pending'); const converts = allReferred.filter(u => u && u.status === 'active'); if (leads.length > 0) { leadsHtml = leads.map(u => { const whatsappLink = u.whatsapp ? `https://wa.me/${u.whatsapp.replace(/\D/g, '')}` : '#'; const whatsappButton = u.whatsapp ? `<a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 5px 10px; font-size: 0.8rem; margin-left: 15px;"><i class="fab fa-whatsapp"></i> Message</a>` : ''; return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color);"><span>${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - <b>WhatsApp:</b> ${u.whatsapp || 'N/A'}</span>${whatsappButton}</div>`; }).join(''); } if (converts.length > 0) { convertsHtml = converts.map(u => `<div style="padding: 8px 0;">${u.name || 'Unnamed User'} (${u.email || 'No Email'}) - Activated!</div>`).join(''); } } leadsContainer.innerHTML = leadsHtml; convertsContainer.innerHTML = convertsHtml; }, (error) => { console.error("Firebase referral query failed:", error); leadsContainer.innerHTML = '<p style="color: red;">Error loading referral data. Please contact support.</p>'; convertsContainer.innerHTML = '<p style="color: red;">Error loading referral data.</p>'; }); }
@@ -1468,14 +1737,8 @@
             container.innerHTML = '<p>Loading mentor information...</p>';
             
             const mentorRolesToQuery = ["Team Leader", "Trainer"];
-            let mentorsFound = false;
-            let mentorsHtml = '';
-            let promises = [];
-
-            mentorRolesToQuery.forEach(role => {
-                const promise = database.ref('users').orderByChild('role').equalTo(role).once('value');
-                promises.push(promise);
-            });
+            let mentorsFound = false; let mentorsHtml = ''; let promises = [];
+            mentorRolesToQuery.forEach(role => { promises.push(database.ref('users').orderByChild('role').equalTo(role).once('value')); });
 
             Promise.all(promises).then(snapshots => {
                 snapshots.forEach(snapshot => {
@@ -1484,23 +1747,11 @@
                         if (user.whatsapp) {
                             mentorsFound = true;
                             const whatsappLink = `https://wa.me/${user.whatsapp.replace(/\D/g, '')}`;
-                            mentorsHtml += `
-                            <div class="widget-card" style="margin-bottom:15px; border-color: #3498db; display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <h4>${user.name} (${user.role})</h4>
-                                    <p>WhatsApp: ${user.whatsapp}</p>
-                                </div>
-                                <a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 8px 15px;"><i class="fab fa-whatsapp"></i> Message</a>
-                            </div>`;
+                            mentorsHtml += `<div class="widget-card" style="margin-bottom:15px; border-color: #3498db; display: flex; justify-content: space-between; align-items: center;"><div><h4>${user.name} (${user.role})</h4><p>WhatsApp: ${user.whatsapp}</p></div><a href="${whatsappLink}" target="_blank" class="btn-base" style="padding: 8px 15px;"><i class="fab fa-whatsapp"></i> Message</a></div>`;
                         }
                     });
                 });
-
-                if (!mentorsFound) {
-                    container.innerHTML = '<p>No mentors are available at the moment.</p>';
-                } else {
-                    container.innerHTML = mentorsHtml;
-                }
+                container.innerHTML = !mentorsFound ? '<p>No mentors are available at the moment.</p>' : mentorsHtml;
             });
         }
         
@@ -1514,81 +1765,134 @@
         function printCertificate() { const printContent = document.getElementById('certificate-content').innerHTML; const originalContent = document.body.innerHTML; document.body.innerHTML = printContent; window.print(); document.body.innerHTML = originalContent; location.reload(); }
         function checkAndAwardBadges(userId) { database.ref(`users/${userId}`).once('value', userSnapshot => { const userData = userSnapshot.val(); database.ref('siteContent/gamificationSettings/badges').once('value', badgeSnapshot => { const allBadges = badgeSnapshot.val(); if (!allBadges) return; for (const badgeId in allBadges) { const badge = allBadges[badgeId]; let criteriaMet = false; if (badge.type === 'complete_courses') { const completedCount = userData.completedCourses ? Object.keys(userData.completedCourses).length : 0; if (completedCount >= badge.value) { criteriaMet = true; } } if (criteriaMet) { database.ref(`users/${userId}/gamification/badges/${badgeId}`).set({ name: badge.name, icon: badge.icon, awardedAt: new Date().toISOString() }); } } }); }); }
         function loadUserBadges(badges) { const container = document.getElementById('my-badges-container'); if (badges && Object.keys(badges).length > 0) { container.innerHTML = ''; for(const badgeId in badges) { const badge = badges[badgeId]; container.innerHTML += `<div class="badge-item"><div class="badge-icon"><i class="${badge.icon}"></i></div><p class="badge-title">${badge.name}</p></div>`; } } else { container.innerHTML = '<p>আপনার কোনো ব্যাজ এখনো অর্জিত হয়নি। কোর্স সম্পন্ন করে ব্যাজ অর্জন করুন!</p>'; } }
-
-        function toggleWishlist(courseId, event) {
-            event.stopPropagation();
-            const user = auth.currentUser;
-            if (!user) {
-                alert('Please sign in to add courses to your wishlist.');
-                document.getElementById('signInModal').style.display = 'flex';
-                return;
-            }
-            const wishlistRef = database.ref(`users/${user.uid}/wishlist/${courseId}`);
-            wishlistRef.once('value', snapshot => {
-                if (snapshot.exists()) {
-                    wishlistRef.remove();
-                } else {
-                    wishlistRef.set(true);
-                }
-            });
-        }
-        
-        function updateCourseCardsUI(user) {
-            if (user) {
-                database.ref(`users/${user.uid}/wishlist`).on('value', snapshot => {
-                    const wishlist = snapshot.val() || {};
-                    document.querySelectorAll('.col-course').forEach(card => {
-                        const courseId = card.dataset.courseId;
-                        const btn = card.querySelector('.wishlist-btn');
-                        const icon = btn.querySelector('i');
-                        if (wishlist[courseId]) {
-                            btn.classList.add('active');
-                            icon.classList.remove('far');
-                            icon.classList.add('fas');
-                        } else {
-                            btn.classList.remove('active');
-                            icon.classList.remove('fas');
-                            icon.classList.add('far');
-                        }
-                    });
-                });
-            } else { 
-                document.querySelectorAll('.wishlist-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    btn.querySelector('i').classList.remove('fas');
-                    btn.querySelector('i').classList.add('far');
-                });
-            }
-        }
-        
+        function toggleWishlist(courseId, event) { event.stopPropagation(); const user = auth.currentUser; if (!user) { alert('Please sign in to add courses to your wishlist.'); document.getElementById('signInModal').style.display = 'flex'; return; } const wishlistRef = database.ref(`users/${user.uid}/wishlist/${courseId}`); wishlistRef.once('value', snapshot => { if (snapshot.exists()) { wishlistRef.remove(); } else { wishlistRef.set(true); } }); }
+        function updateCourseCardsUI(user) { if (user) { database.ref(`users/${user.uid}/wishlist`).on('value', snapshot => { const wishlist = snapshot.val() || {}; document.querySelectorAll('.col-course').forEach(card => { const courseId = card.dataset.courseId; const btn = card.querySelector('.wishlist-btn'); const icon = btn.querySelector('i'); if (wishlist[courseId]) { btn.classList.add('active'); icon.classList.replace('far', 'fas'); } else { btn.classList.remove('active'); icon.classList.replace('fas', 'far'); } }); }); } else { document.querySelectorAll('.wishlist-btn').forEach(btn => { btn.classList.remove('active'); btn.querySelector('i').classList.replace('fas', 'far'); }); } }
         function loadWishlist(userId) {
             const gridContainer = document.getElementById('wishlist-courses-grid');
-            const wishlistRef = database.ref(`users/${userId}/wishlist`);
-
-            wishlistRef.on('value', snapshot => {
+            database.ref(`users/${userId}/wishlist`).on('value', snapshot => {
                 const wishlist = snapshot.val();
-                if (!wishlist) {
-                    gridContainer.innerHTML = '<p>Your wishlist is empty. Add courses you are interested in!</p>';
-                    return;
-                }
-
+                if (!wishlist) { gridContainer.innerHTML = '<p>Your wishlist is empty. Add courses you are interested in!</p>'; return; }
                 gridContainer.innerHTML = '';
-                const courseIds = Object.keys(wishlist);
-                courseIds.forEach(courseId => {
+                Object.keys(wishlist).forEach(courseId => {
                     const course = allCoursesData[courseId];
-                    if (course) {
-                         gridContainer.innerHTML += `
-                            <div class="enrolled-course-card">
-                                <img src="${course.imageURL}" alt="${course.name}">
-                                <div class="enrolled-course-card-content">
-                                    <h5>${course.name}</h5>
-                                    <button class="btn-base" onclick="showCourseDetails('${courseId}')">View Details</button>
-                                </div>
-                            </div>
-                         `;
-                    }
+                    if (course) { gridContainer.innerHTML += `<div class="enrolled-course-card"><img src="${course.imageURL}" alt="${course.name}"><div class="enrolled-course-card-content"><h5>${course.name}</h5><button class="btn-base" onclick="showCourseDetails('${courseId}')">View Details</button></div></div>`; }
                 });
             });
+        }
+
+        function showToast(message, duration = 3000) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, duration); }
+        const loadAdScript = (networkName, networkId) => { return new Promise((resolve, reject) => { const existingScript = document.querySelector(`script[data-network-id="${networkName}"]`); if (existingScript) return resolve(); const script = document.createElement('script'); script.setAttribute('data-network-id', networkName); switch(networkName) { case 'monetag': script.src = '//libtl.com/sdk.js'; script.setAttribute('data-zone', networkId); script.setAttribute('data-sdk', `show_${networkId}`); break; case 'gigapub': script.src = `https://ad.gigapub.tech/script?id=${networkId}`; break; default: return reject(new Error("Unknown ad network.")); } script.onload = () => resolve(); script.onerror = (e) => reject(new Error(`${networkName} ad script failed to load.`)); document.body.appendChild(script); }); };
+        const waitForFunction = (funcName, timeout = 5000) => { return new Promise((resolve, reject) => { let interval; const startTime = Date.now(); interval = setInterval(() => { if (typeof window[funcName] === 'function') { clearInterval(interval); resolve(); }  else if (Date.now() - startTime > timeout) { clearInterval(interval); reject(new Error(`window.${funcName} is not a function and timed out.`)); } }, 100); }); };
+        
+        async function handleWatchDailyAd(event) {
+            const button = event.currentTarget;
+            const now = Date.now();
+            const cooldownSeconds = taskConfig.adCooldown || 0;
+            const cooldownMilliseconds = cooldownSeconds * 1000;
+            const lastAdTime = currentUserData.lastAdWatchedTimestamp || 0;
+            if (now - lastAdTime < cooldownMilliseconds) {
+                const timeLeft = Math.ceil((cooldownMilliseconds - (now - lastAdTime)) / 1000);
+                showToast(`Please wait ${timeLeft} more seconds.`);
+                return;
+            }
+            const networkName = button.dataset.network;
+            currentAdNetwork = networkName;
+            
+            const adModal = document.getElementById('adModal');
+            adModal.classList.add('show');
+            document.getElementById('adModalTitle').textContent = `Loading Ad from ${taskConfig.adNetworks[networkName].name}`;
+            document.getElementById('adSpinner').style.display = 'block';
+            document.getElementById('adStatusMessage').textContent = "Please wait, preparing your task...";
+            document.getElementById('adCloseBtn').style.display = 'none';
+            adRewardPending = true; adWatchedSuccessfully = false;
+
+            try {
+                const networkConfig = taskConfig.adNetworks[networkName];
+                if (!networkConfig || !networkConfig.adId) throw new Error("This Ad network is not configured.");
+                document.getElementById('adStatusMessage').textContent = `Loading ad script...`;
+                await loadAdScript(networkName, networkConfig.adId);
+                let adPromise; let sdkFunctionName;
+                switch(networkName) {
+                    case 'monetag': sdkFunctionName = `show_${networkConfig.adId}`; await waitForFunction(sdkFunctionName); window[sdkFunctionName](); setTimeout(() => { adWatchedSuccessfully = true; document.getElementById('adSpinner').style.display = 'none'; document.getElementById('adStatusMessage').textContent = "Success! You can now claim your reward."; document.getElementById('adCloseBtn').style.display = 'block'; }, 15000); return;
+                    case 'gigapub': sdkFunctionName = 'showGiga'; await waitForFunction(sdkFunctionName); adPromise = window[sdkFunctionName]("main"); break;
+                }
+                await adPromise;
+                adWatchedSuccessfully = true;
+                document.getElementById('adSpinner').style.display = 'none';
+                document.getElementById('adStatusMessage').textContent = "Success! You can now claim your reward.";
+                document.getElementById('adCloseBtn').style.display = 'block';
+            } catch (error) { console.error("Ad error:", error); document.getElementById('adStatusMessage').textContent = error.message || "Could not load ad. Please try again later."; document.getElementById('adSpinner').style.display = 'none'; adRewardPending = false; setTimeout(() => adModal.classList.remove('show'), 3000); }
+        }
+
+        async function closeAdModalAndReward(networkName) {
+            const user = auth.currentUser;
+            const adModal = document.getElementById('adModal');
+            if (!user || !adRewardPending || !adWatchedSuccessfully || !networkName) { adModal.classList.remove('show'); return; }
+            adRewardPending = false; adWatchedSuccessfully = false; adModal.classList.remove('show');
+            
+            const today = new Date().toLocaleDateString();
+            const currentHour = new Date().getHours();
+            const networkConfig = taskConfig.adNetworks[networkName];
+            const stats = currentUserData.adStats[networkName];
+            stats.daily = (stats.lastAdDate === today) ? stats.daily + 1 : 1;
+            stats.hourly = (stats.lastAdHour === currentHour) ? stats.hourly + 1 : 1;
+            stats.lastAdDate = today; stats.lastAdHour = currentHour;
+
+            const basePoints = networkConfig.pointsPerAd || 0;
+            const pointsToAdd = Math.round(basePoints * (taskConfig.pointMultiplier || 1));
+            const xpToAdd = taskConfig.levelingConfig.xpPerAd || 10;
+            
+            const updates = {};
+            updates[`gamification/points`] = firebase.database.ServerValue.increment(pointsToAdd);
+            updates[`gamification/xp`] = firebase.database.ServerValue.increment(xpToAdd);
+            updates[`adStats/${networkName}`] = stats;
+            updates[`lastAdWatchedTimestamp`] = Date.now();
+            
+            await database.ref('users/' + user.uid).update(updates);
+            showToast(`+${pointsToAdd} points added!`);
+            await checkLevelUp(user.uid);
+            currentAdNetwork = null;
+        }
+        
+        async function checkLevelUp(userId) {
+            const userRef = database.ref('users/' + userId);
+            const snapshot = await userRef.once('value');
+            const userData = snapshot.val();
+            const oldLevel = userData.gamification.level || 1;
+            const currentXp = userData.gamification.xp || 0;
+            const levels = taskConfig.levelingConfig.levels || [];
+            const nextLevelInfo = levels[oldLevel];
+            if (nextLevelInfo && currentXp >= nextLevelInfo.xpThreshold) {
+                const newLevel = oldLevel + 1;
+                await userRef.child('gamification/level').set(newLevel);
+                showToast(`Congratulations! You've reached Level ${newLevel}!`);
+            }
+        }
+
+        function renderTasksPage() {
+            const container = document.getElementById('tasks-container');
+            if (!container) return;
+            let tasksHtml = '';
+            const networks = taskConfig.adNetworks || {};
+            const today = new Date().toLocaleDateString();
+            const currentHour = new Date().getHours();
+
+            for (const networkKey in networks) {
+                const network = networks[networkKey];
+                if (!network) continue;
+                if (!currentUserData.adStats) currentUserData.adStats = {};
+                if (!currentUserData.adStats[networkKey]) { currentUserData.adStats[networkKey] = { daily: 0, hourly: 0, lastAdDate: null, lastAdHour: -1 }; }
+                const stats = currentUserData.adStats[networkKey];
+                if (stats.lastAdDate !== today) stats.daily = 0;
+                if (stats.lastAdHour !== currentHour) stats.hourly = 0;
+
+                const canWatch = network.isActive && (stats.daily < network.dailyLimit) && (stats.hourly < network.hourlyLimit);
+                const reward = network.pointsPerAd || 0;
+                
+                tasksHtml += `<div class="task-card"><div class="task-header"><div class="task-icon"><i class="${network.icon || 'fas fa-play-circle'}"></i></div><div class="task-title">Watch Ads (${network.name})</div><div class="reward-badge">+${reward} Points</div></div><p class="task-description">Watch ads from ${network.name} network to earn points.</p><div class="progress-text"><span>Daily Limit: ${stats.daily}/${network.dailyLimit}</span><span>Hourly Limit: ${stats.hourly}/${network.hourlyLimit}</span></div><button class="btn-base watch-ad-btn" data-network="${networkKey}" ${!canWatch ? 'disabled' : ''}><i class="fas fa-play"></i> ${canWatch ? 'Watch Ad' : 'Limit Reached'}</button></div>`;
+            }
+            container.innerHTML = tasksHtml || '<p>No tasks available right now.</p>';
+            document.querySelectorAll('.watch-ad-btn').forEach(button => button.addEventListener('click', handleWatchDailyAd));
         }
     </script>
 </body>
